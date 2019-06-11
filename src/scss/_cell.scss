@@ -1,0 +1,26 @@
+@mixin cell($color) {
+    .ag-table-cell {
+        display: table-cell;
+        width: auto;
+        height: auto;
+        padding: 10px 0;
+        padding-left: 16px;
+        padding-right: 10px;
+        vertical-align: middle;
+        
+        font-size: 14px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.5px;
+        color: #646569;
+    
+        &:first-child {
+            padding-left: 27px;
+        }
+    
+        &:last-child {
+            padding-right: 20px;
+        }
+    }    
+}

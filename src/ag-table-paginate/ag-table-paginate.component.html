@@ -1,0 +1,27 @@
+<span *ngIf="objCaption && !loading" class="caption animated fadeIn" [ngClass]="{ 'p-b-7': (length <= 1 || pages.length === 0) }">
+	<span *ngIf="objCaption.total">
+		{{objCaption.start}} - {{objCaption.end}} (Total: {{objCaption.total}})
+	</span>
+	<span *ngIf="!objCaption.total">
+		{{objCaption.start}} - {{objCaption.end}}
+	</span>
+</span>
+
+<ul *ngIf="length > 1 && pages.length > 0">
+	<li [ngClass]="{'disabled': current <= 1}">
+		<button (click)="pageClick(current - 1)">
+			<i class="arrow-prev"></i>
+		</button>
+	</li>
+	<li *ngFor="let page of pages"
+		[ngClass]="{'actived': page === current, 'disabled': disabled, 'interval': page === '...'}">
+		<button (click)="pageClick(page)">
+			<span>{{page}}</span>
+		</button>
+	</li>
+	<li [ngClass]="{'disabled': current >= length}">
+		<button (click)="pageClick(current + 1)">
+			<i class="arrow-next"></i>
+		</button>
+	</li>
+</ul>

@@ -1,0 +1,29 @@
+<ag-table #dt height="450px" infinity="25" [items]="testes" [data-are-over]="dataAreOver"
+    server-side [loading]="loading" (onGetData)="getData($event)">
+    <ag-table-header>
+        <ag-table-col filter="text" field="id" placeholder="ID" width="100px">
+            ID
+        </ag-table-col>
+        <ag-table-col filter="text" field="name" placeholder="Informe o nome">
+            Nome
+        </ag-table-col>
+        <ag-table-col filter="date" field="dateRef" width="200px">
+            Data
+        </ag-table-col>
+        <ag-table-col filter="select" field="type" [options]="types" placeholder="Informe o Tipo" width="150px">
+            Tipo
+        </ag-table-col>
+    </ag-table-header>
+    <ag-table-body>
+        <ag-table-row *ngFor="let teste of dt.items">
+            <ag-table-cell>{{teste.id}}</ag-table-cell>
+            <ag-table-cell>
+                <div [style.height.px]="teste.height">
+                    {{teste.name}}
+                </div>
+            </ag-table-cell>
+            <ag-table-cell>{{teste.dateRef | date:'dd/MM/yyyy'}}</ag-table-cell>
+            <ag-table-cell>{{teste.type}}</ag-table-cell>
+        </ag-table-row>
+    </ag-table-body>
+</ag-table>

@@ -1,0 +1,21 @@
+@import 'variables';
+
+@import '~/../../../../../src/scss/style.scss';
+@include ag-table-core($colorPrimary);
+
+html, body {
+    margin: 0;
+    padding: 0;
+    color: #555;
+    background: #FFF;
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    color: $colorSecondary;
+}
+
+* {
+    box-sizing: border-box;
+}

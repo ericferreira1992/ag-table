@@ -1,0 +1,62 @@
+@mixin table($color) {
+    .ag-table {
+        display: block;
+        position: relative;
+
+        * {
+            box-sizing: border-box;
+        }
+    
+        > .top-shadow {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            transition-duration: .3s;
+            width: 100%;
+            box-shadow: 0 2px 0 -1px rgba(0, 0, 0, 0);
+    
+            &.to-drop {
+                box-shadow: 0 2px 0 -1px rgba(0, 0, 0, .1);
+            }
+        }
+    
+        &.ag-table-against {
+            margin-left: -15px;
+            width: calc(100% + 30px);
+        }
+    
+        &.ag-table-empty {
+            min-height: 450px;
+        }
+    
+        .ag-table-paginate {
+            position: absolute;
+            bottom: 0;
+            display: block;
+            transition-duration: .3s;
+            width: 100%;
+            box-shadow: 0 -1px 0 0px rgba(0, 0, 0, 0);
+    
+            &.to-drop {
+                width: 100%;
+                box-shadow: 0 -1px 0 0px rgba(0, 0, 0, .1);
+            }
+        }
+    
+        .ag-table-loading {
+            z-index: 3;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(#FFF, .7);
+    
+            .mat-spinner {
+                position: absolute;
+                left: calc(50% - 23px);
+                top: calc(50% - 23px);
+            }
+        }
+    }
+}

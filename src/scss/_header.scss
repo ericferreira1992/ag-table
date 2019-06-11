@@ -1,0 +1,19 @@
+@mixin header($color) {
+    .ag-table-header {
+        display: table;
+        width: 100%;
+        min-height: 37px;
+        height: auto;
+        position: absolute;
+        top: 0;
+        z-index: 2;
+    
+        &[align="top"] {
+            .ag-table  { vertical-align: top; }
+        }
+    
+        &[align="middle"] {
+            .ag-table  { vertical-align: middle; }
+        }
+    }
+}

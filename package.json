@@ -1,0 +1,55 @@
+{
+    "name": "ag-table",
+    "version": "1.0.0",
+    "scripts": {
+        "ng": "ng",
+        "start": "pushd demo && ng serve --port=4300 --host=0.0.0.0",
+        "build": "pushd demo && ng build --aot --prod",
+        "deploy-git-pages": "pushd demo && ng build --aot --prod --base-href=/ag-table/ && node ../node_modules/gh-pages/bin/gh-pages -d dist",
+        "build-lib": "rimraf dist && npm run packagr && node copy && cd dist && npm pack",
+        "publish-pkg": "pushd dist && npm publish",
+        "packagr": "ng-packagr -p src/package.json"
+    },
+    "engines": {
+        "node": "10.14.1",
+        "npm": "6.4.1"
+    },
+    "private": true,
+    "dependencies": {
+        "@angular/animations": "~7.2.0",
+        "@angular/common": "~7.2.0",
+        "@angular/compiler": "~7.2.0",
+        "@angular/core": "~7.2.0",
+        "@angular/forms": "~7.2.0",
+        "@angular/router": "~7.2.0",
+        "@angular/platform-browser": "~7.2.0",
+        "@angular/platform-browser-dynamic": "~7.2.0",
+        "core-js": "^2.5.4",
+        "express": "^4.16.3",
+        "fast-deep-equal": "^2.0.1",
+        "gh-pages": "^2.0.1",
+        "highlight.js": "^9.15.6",
+        "ngx-highlightjs": "^3.0.3",
+        "path": "^0.12.7",
+        "rxjs": "~6.3.3",
+        "tslib": "^1.9.0",
+        "zone.js": "~0.8.26"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "~0.13.0",
+        "@angular/cli": "~7.3.3",
+        "@angular/compiler-cli": "~7.2.0",
+        "@angular/language-service": "~7.2.0",
+        "@types/jasmine": "~2.8.8",
+        "@types/jasminewd2": "~2.0.3",
+        "@types/node": "~8.9.4",
+        "codelyzer": "~4.2.1",
+        "cpx": "^1.5.0",
+        "ng-packagr": "~4.7.1",
+        "protractor": "~5.3.0",
+        "ts-node": "~5.0.1",
+        "tsickle": "^0.34.3",
+        "tslint": "~5.9.1",
+        "typescript": "~3.2.2"
+    }
+}

@@ -1,0 +1,112 @@
+@import 'src/assets/scss/variables';
+
+:host {
+    > header {
+        background: $colorPrimary;
+        color: #FFF;
+        text-align: center;
+
+        > h1{
+            margin: 0;
+            padding: 10px 0;
+            color: #FFF;
+        }
+
+        > div {
+            background: $colorSecondary;
+    
+            > ul {
+                list-style: none;
+                margin: 0 auto;
+                padding: 0;
+                display: table;
+                width: 100%;
+                max-width: 1500px;
+    
+                > li {
+                    float: left;
+                    font-size: 14px;
+                    cursor: pointer;
+                    transition-duration: .2s;
+
+                    > a,
+                    > a:active,
+                    > a:visited {
+                        display: block;
+                        padding: 15px 25px;
+                        color: #FFF;
+                        text-decoration: none;
+                    }
+
+                    &:hover {
+                        background: rgba(#FFF, .05);
+                    }
+                }
+            }
+        }
+    }
+
+    > section {
+        display: table;
+        width: 100%;
+        height: calc(100% - 119px);
+    }
+}
+
+:host::ng-deep {
+    .main-container {
+        padding: 20px;
+        height: 100%;
+        overflow: auto;
+    }
+
+    .side-left-bar {
+        float: left;
+        width: 250px;
+        box-shadow: 0 5px 10px rgba(#000, .1);
+        height: 100%;
+
+        > ul {
+            list-style: none;
+            margin: 0 auto;
+            padding: 0;
+
+            > li {
+                font-size: 14px;
+
+                > a,
+                > a:active,
+                > a:visited {
+                    cursor: pointer;
+                    display: block;
+                    padding: 10px 15px;
+                    color: #555;
+                    text-decoration: none;
+                    transition-duration: .2s;
+                }
+
+                    
+                > a {
+                    &.active-link {
+                        cursor: default;
+                        color: $colorSecondary;
+                        font-weight: 500;
+                        background: rgba(#000, .03);
+                    }
+                }
+
+                &:hover {
+                    > a:not(.active-link) {
+                        background: rgba(#000, .05);
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        & ~ .main-container {
+            float: left;
+            width: calc(100% - 250px);
+        }
+    }
+}

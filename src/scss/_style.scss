@@ -1,0 +1,32 @@
+@import 'table';
+@import 'header';
+@import 'col';
+@import 'body';
+@import 'row';
+@import 'cell';
+@import 'filter';
+@import 'paginate';
+
+@mixin ag-table-core($color: rgb(0, 102, 255)) {
+
+    @include table($color);
+    @include header($color);
+    @include col($color);
+    @include body($color);
+    @include row($color);
+    @include cell($color);
+    @include filter($color);
+    @include paginate($color);
+
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+        display: block;
+    }
+
+    .w-100 { width: 100%; }
+    .w-50 { width: 50%; }
+    .w-auto { width: auto; }
+}

@@ -1,0 +1,22 @@
+<span *ngIf="!noSort" class="ag-table-col-sort" (click)="toggleSort()" [ngClass]="{ 'sort-none': !isSorting, 'sort-asc': isSorting && isSortAsc, 'sort-desc': isSorting && !isSortAsc }"></span>
+
+<div class="w-auto" [ngClass]="{ 'text-truncate': !noTruncate && !customFilter }">
+    <ng-content></ng-content>
+</div>
+
+<div *ngIf="canFiltering && parent?.filterCtrls">
+    <ag-table-filter *ngFor="let field of fields"
+        [frmControl]="parent?.filterCtrls[field]"
+        [type]="filter"
+        [placeholder]="placeholder"
+        [readOnly]="readOnly"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        [dateFormat]="dateFormat"
+        [dateSeparator]="dateSeparator"
+        [optionAllLabel]="optionAllLabel"
+        [options]="options"
+        (onChange)="onFiltering()" 
+        (onRender)="onFilterRender()"> 
+    </ag-table-filter>
+</div>

@@ -1,0 +1,29 @@
+<input *ngIf="type === 'currency'"
+    class="ag-table-filter-input" name="valor"
+    type="text"
+    autocomplete="off"
+    [formControl]="frmControl"
+    [placeholder]="placeholder ? placeholder : 'R$ 0,00'"
+/>
+
+<select *ngIf="type === 'select'" 
+    class="ag-table-filter-select"
+    [formControl]="frmControl">
+    <option [value]="selectAllOptionValue">{{optionAllLabel}}</option>
+    <option *ngFor="let option of options" [value]="option.value">{{option.text}}</option>
+</select>
+
+<input *ngIf="type === 'text'"
+    class="ag-table-filter-input"
+    [formControl]="frmControl"
+    type="text"
+    [placeholder]="placeholder ? placeholder : ''"
+/>
+
+<input *ngIf="type === 'number'"
+    class="ag-table-filter-input"
+    [formControl]="frmControl"
+    type="text"
+    OnlyNumber
+    [placeholder]="placeholder ? placeholder : ''"
+/>

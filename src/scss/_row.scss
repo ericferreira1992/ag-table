@@ -1,0 +1,11 @@
+@mixin row($color) {
+    .ag-table-row {
+        display: table;
+        width: 100%;
+        background-color: #FFF;
+    
+        animation-duration: .15s;
+        animation-fill-mode: unset;
+        animation-name: fadeIn;
+    }    
+}

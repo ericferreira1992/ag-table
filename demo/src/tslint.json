@@ -1,0 +1,22 @@
+{
+    "extends": "../tslint.json",
+    "rules": {
+        "indent": false,
+        "no-inferrable-types": false,
+        "no-input-rename": false,
+        "max-line-length": false,
+        "forin": false,
+        "curly": false,
+        "one-line": false,
+        "no-non-null-assertion": false,
+        "no-shadowed-variable": false,
+        "radix": false,
+        "no-bitwise": false,
+        "directive-selector": false,
+        "directive-class-suffix": false,
+        "use-host-property-decorator": false,
+        "no-output-on-prefix": false,
+        "prefer-const": false,
+        "variable-name": false
+    }
+}

@@ -1,0 +1,11 @@
+@mixin filter($color) {
+    .ag-table-filter {
+        display: block;
+
+        > *[disabled] {
+            background-color: lighten(#EAEAEA, 7);
+            border-color: lighten(#EAEAEA, 7);
+            opacity: .7;
+        }
+    }
+}

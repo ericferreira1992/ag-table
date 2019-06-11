@@ -1,0 +1,10 @@
+{
+    "ngPackage": {
+        "lib": {
+            "ngPackage": "./src",
+            "styleIncludePaths": [
+                "./ag-table"
+            ]
+        }
+    }
+}
