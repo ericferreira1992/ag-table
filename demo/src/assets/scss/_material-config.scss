@@ -1,0 +1,83 @@
+@import '~@angular/material/theming';
+
+// Material Pallets
+$mat-oliverablue: (
+    50 : #e6f8ea,
+    100 : #c4eecc,
+    200 : #9de3ac,
+    300 : #70d889,
+    400 : #48cf6e,
+    500 : #00c552,
+    600 : #00b548,
+    700 : #00a23c,
+    800 : #009130,
+    900 : #007118,
+    A100 : #e6f8ea,
+    A200 : #c4eecc,
+    A400 : #9de3ac,
+    A700 : #70d889,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$mat-blackdefault: (
+    50 : #e8e8e9,
+    100 : #c6c6c8,
+    200 : #a0a0a3,
+    300 : #7a7a7e,
+    400 : #5e5e62,
+    500 : #414146,
+    600 : #3b3b3f,
+    700 : #323237,
+    800 : #2a2a2f,
+    900 : #1c1c20,
+    A100 : #3b3b3f,
+    A200 : #323237,
+    A400 : #2a2a2f,
+    A700 : #1c1c20,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$candy-app-primary: mat-palette($mat-oliverablue);
+$candy-app-accent:  mat-palette($mat-blackdefault, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$candy-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+@include mat-core();
+@include angular-material-theme($candy-app-theme);

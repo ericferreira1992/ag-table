@@ -20,26 +20,36 @@
                 margin: 0 auto;
                 padding: 0;
                 display: table;
-                width: 100%;
                 max-width: 1500px;
     
                 > li {
                     float: left;
                     font-size: 14px;
                     cursor: pointer;
-                    transition-duration: .2s;
 
                     > a,
                     > a:active,
                     > a:visited {
                         display: block;
                         padding: 15px 25px;
+                        border-bottom: 0 solid #505050;
                         color: #FFF;
                         text-decoration: none;
+                        transition-duration: .2s;
+                    }
+
+                    > a {
+                        &.active-link {
+                            background: rgba(#FFF, .05);
+                            border-bottom-width: 3px;
+                            padding-bottom: 12px;
+                        }
                     }
 
                     &:hover {
-                        background: rgba(#FFF, .05);
+                        > a:not(.active-link) {
+                            background: rgba(#FFF, .05);
+                        }
                     }
                 }
             }
@@ -47,6 +57,7 @@
     }
 
     > section {
+        position: relative;
         display: table;
         width: 100%;
         height: calc(100% - 119px);
@@ -55,9 +66,34 @@
 
 :host::ng-deep {
     .main-container {
-        padding: 20px;
+        padding: 30px;
         height: 100%;
+        display: inline-table;
+        width: 100%;
         overflow: auto;
+        
+        animation-fill-mode: both;
+        animation-duration: .5s;
+        animation-name: fadeIn;
+
+        .main-container-inner {
+            animation-fill-mode: both;
+            animation-duration: .5s;
+            animation-name: fadeIn;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        p {
+            margin-top: 0;
+
+            &.about {
+                font-size: 13px;
+                color: #888;
+                padding: 10px;
+                background: rgba(#000, .025);
+            }
+        }
     }
 
     .side-left-bar {
@@ -85,7 +121,6 @@
                     transition-duration: .2s;
                 }
 
-                    
                 > a {
                     &.active-link {
                         cursor: default;
@@ -105,8 +140,14 @@
         }
 
         & ~ .main-container {
+            display: block;
             float: left;
             width: calc(100% - 250px);
+
+            .main-container-inner {
+                max-width: 900px;
+                margin: auto;
+            }
         }
     }
 }

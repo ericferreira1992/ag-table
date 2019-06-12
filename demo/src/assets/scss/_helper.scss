@@ -1,0 +1,19 @@
+.color {
+    &-primary { color: $colorPrimary; }
+    &-secondary { color: $colorSecondary; }
+}
+
+.d{
+    &-table { display: table !important; }
+    &-table-cell { display: table-cell !important; }
+    &-block { display: block !important; }
+    &-inline-block { display: inline-block !important; }
+    &-initial { display: initial !important; }
+}
+
+.p{
+    &-absolute { position: absolute !important; }
+    &-relative { position: relative !important; }
+    &-fixed { position: fixed !important; }
+    &-initial { position: initial !important; }
+}

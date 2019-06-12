@@ -33,7 +33,6 @@
             position: absolute;
             bottom: 0;
             display: block;
-            transition-duration: .3s;
             width: 100%;
             box-shadow: 0 -1px 0 0px rgba(0, 0, 0, 0);
     
@@ -52,7 +51,7 @@
             bottom: 0;
             background: rgba(#FFF, .7);
     
-            .mat-spinner {
+            .ag-table-spinner {
                 position: absolute;
                 left: calc(50% - 23px);
                 top: calc(50% - 23px);

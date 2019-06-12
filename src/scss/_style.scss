@@ -6,6 +6,7 @@
 @import 'cell';
 @import 'filter';
 @import 'paginate';
+@import 'spinner';
 
 @mixin ag-table-core($color: rgb(0, 102, 255)) {
 
@@ -17,6 +18,7 @@
     @include cell($color);
     @include filter($color);
     @include paginate($color);
+    @include spinner($color);
 
     .text-truncate {
         overflow: hidden;

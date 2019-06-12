@@ -25,11 +25,12 @@
         }
     
         &.clickable {
-            &::ng-deep .ag-table-row {
+            .ag-table-row {
+                transition: background-color .3s;
                 cursor: pointer;
         
                 &:hover {
-                    background-color: #EAEAEA;
+                    background-color: #E8E8E8;
                 }
             }
         }
@@ -83,7 +84,7 @@
                 transform: translateY(-50%);
             }
     
-            .mat-spinner {
+            .ag-table-spinner {
                 margin: auto;
             }
     

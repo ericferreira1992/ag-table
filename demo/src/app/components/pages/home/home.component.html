@@ -1,3 +1,97 @@
-<p>
-  home works!
-</p>
+<div class="main-container">
+    <div class="main-container-inner">
+        <div class="row">
+            <div class="col-12 p-initial">
+                <div class="get-started-link">
+                    <button>
+                        GET STARTED!
+                    </button>
+                </div>
+                        
+                <h4 class="mt-3">Porque usar?</h4>
+                <p>
+                    O <strong class="color-secondary">AgTable</strong> é uma excelente alternativa para o desenvolvedor que quer agilidade e praticidade na hora desenvolver.
+                    Com ele é possível montar uma grade de dados em poucos segundos, sem esforços.
+                    Com uma estrutura bem elaborada, não há necessidades de se criar compronentes para as colunas ou celulas, 
+                    como alguns outros componentes de data-table exigem.
+                </p>
+                        
+                <h4 class="mt-5">Porque ele é legal?</h4>
+                <p>
+                    Os motivos para se usar o <strong class="color-secondary">AgTable</strong> são diversos, alguns pontos o faz se destacar diante outros 
+                    diversos data-tables existentes, veja quais:
+                </p>
+                <ul>
+                    <li>Virtual scroll</li>
+                    <li>Filtro e paginação no lado do clinte</li>
+                    <li>Permite exibir dados obtidos pelo servidor (com inifity-scroll opicional)</li>
+                    <li>Performance ao exibir milhares de registros</li>
+                    <li>Não obriga a criar componentes para customizar colunas e células</li>
+                    <li>As medidas das colunas são customizaveis</li>
+                    <li>E muito mais;</li>
+                </ul>
+                        
+                <h4 class="mt-5">Get started!</h4>
+                <div class="get-started">
+                    <section>
+                        <h5>Install</h5>
+                        <pre class="themed">
+                            <code highlight="> npm install ag-table"></code>
+                        </pre>
+
+                        <h5 class="mt-4">Import into Module</h5>
+                        <pre>
+                            <code [highlight]="importModule"></code>
+                        </pre>
+
+                        <h5 class="mt-4">Simple example</h5>
+                        <mat-tab-group [style.minHeight.px]="450">
+                            <mat-tab label="Live demo">
+                                <div class="p-2">
+                                    <ag-table #table paginate="100" [items]="dataItems" clickable height="500px">
+                                        <ag-table-header>
+                                            <ag-table-col filter field="id" placeholder="Identifier" width="100px">
+                                                ID
+                                            </ag-table-col>
+                                            <ag-table-col filter field="name" placeholder="Set a name">
+                                                Name
+                                            </ag-table-col>
+                                            <ag-table-col filter="date" field="dateRef" width="200px">
+                                                Date
+                                            </ag-table-col>
+                                            <ag-table-col filter="select" field="type" [options]="types" width="150px">
+                                                Type
+                                            </ag-table-col>
+                                        </ag-table-header>
+                                        <ag-table-body>
+                                            <ag-table-row *ngFor="let item of table.items">
+                                                <ag-table-cell>{{item.id}}</ag-table-cell>
+                                                <ag-table-cell>
+                                                    {{item.name}}
+                                                </ag-table-cell>
+                                                <ag-table-cell>{{item.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>
+                                                <ag-table-cell>{{item.type}}</ag-table-cell>
+                                            </ag-table-row>
+                                        </ag-table-body>
+                                    </ag-table>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="HTML">
+                                <pre>
+                                    <code [highlight]="simpleExampleHtml"></code>
+                                </pre>
+                            </mat-tab>
+                        </mat-tab-group>
+
+                        <h5 class="mt-4">Important!</h5>
+                        <ul>
+                            <li>Whenever possible, set a height in '<strong>ag-table</strong>' because that is what will virtualize the items.</li>
+                            <li>Inform your all data list in [items].</li>
+                            <li>Add #table in '<strong>ag-table</strong>' to use in iteration <strong>*ngFor</strong> in '<strong>ag-table-row</strong>'.</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

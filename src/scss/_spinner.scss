@@ -1,0 +1,32 @@
+@mixin spinner($color) {
+    .ag-table-spinner {
+        display: table;
+
+        > svg  {
+            fill: transparent;
+            stroke: $color;
+            stroke-width: 7;
+            animation: ag-table-spinner-dash 1.5s ease infinite, ag-table-spinner-rotate 1.5s linear infinite;
+        }
+    }
+
+    @keyframes ag-table-spinner-dash {
+        0% {
+            stroke-dasharray: 1,158;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 142,158;
+            stroke-dashoffset: -92;
+        }
+        100% {
+            stroke-dasharray: 142,158;
+            stroke-dashoffset: -155;
+        }
+    }
+    
+    @keyframes ag-table-spinner-rotate {
+        0% {transform: rotate(0deg); }
+        100% {transform: rotate(360deg); }
+    }
+}

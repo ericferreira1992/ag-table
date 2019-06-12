@@ -17,6 +17,7 @@
         "use-host-property-decorator": false,
         "no-output-on-prefix": false,
         "prefer-const": false,
-        "variable-name": false
+        "variable-name": false,
+        "align": false
     }
 }

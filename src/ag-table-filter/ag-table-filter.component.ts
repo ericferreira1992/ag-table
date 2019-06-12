@@ -3,7 +3,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { isArray, isNullOrUndefined, isObject } from 'util';
 import { debounceTime, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { Helper } from './../services/helper';
+import { AgTableFilterType } from '../enums/ag-table-filter-type.enum';
+import { FILTER_TYPES } from '../constants/filter-types.const';
+import { Helper } from '../services/helper';
 
 @Component({
     selector: 'ag-table-filter',
@@ -50,10 +52,6 @@ export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if ('placeholder' in changes) {
-            if (!this.placeholder && this.type === 'date')
-                this.placeholder = this.dateFormat.replace(/y/g, 'a');
-        }
 
         if ('options' in changes) {
             if (!isArray(this.options)) {
@@ -77,6 +75,16 @@ export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
                     });
                 }
             }
+        }
+
+        if ('type' in changes) {
+            if (FILTER_TYPES.every(x => x !== this.type))
+                this.type = AgTableFilterType.TEXT;
+        }
+        
+        if ('placeholder' in changes) {
+            if (!this.placeholder && this.type === 'date')
+                this.placeholder = this.dateFormat.replace(/y/g, 'a');
         }
 
         if ('frmControl' in changes) {

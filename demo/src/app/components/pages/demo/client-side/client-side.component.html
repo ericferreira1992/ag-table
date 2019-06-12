@@ -1,34 +1,48 @@
-<div class="row">
-    <div class="col-12">
-        <h4>Client side</h4>
 
-        <ag-table #dt paginate="1000" [items]="testes" clickable height="500px">
-            <ag-table-header>
-                <ag-table-col filter field="id" placeholder="ID" width="100px">
-                    ID
-                </ag-table-col>
-                <ag-table-col filter field="name" placeholder="Informe o nome">
-                    Nome
-                </ag-table-col>
-                <ag-table-col filter="date" field="dateRef" width="200px">
-                    Data
-                </ag-table-col>
-                <ag-table-col filter="select" field="type" [options]="types" placeholder="Informe o Tipo" width="150px">
-                    Tipo
-                </ag-table-col>
-            </ag-table-header>
-            <ag-table-body>
-                <ag-table-row *ngFor="let teste of dt.items">
-                    <ag-table-cell>{{teste.id}}</ag-table-cell>
-                    <ag-table-cell>
-                        <div [style.height.px]="teste.height">
-                            {{teste.name}}
-                        </div>
-                    </ag-table-cell>
-                    <ag-table-cell>{{teste.dateRef | date:'dd/MM/yyyy'}}</ag-table-cell>
-                    <ag-table-cell>{{teste.type}}</ag-table-cell>
-                </ag-table-row>
-            </ag-table-body>
-        </ag-table>
+<div class="main-container-inner">
+    <div class="row">
+        <div class="col-12">
+            <h4>Client side</h4>
+            <p class="about">
+                Lorem ipsum
+            </p>
+
+            <h5>Example</h5>
+            <ag-table #table paginate="1000" [items]="dataItems" clickable height="500px">
+                <ag-table-header>
+                    <ag-table-col filter field="id" placeholder="Identifier" width="100px">
+                        ID
+                    </ag-table-col>
+                    <ag-table-col filter field="name" placeholder="Set a name">
+                        Name
+                    </ag-table-col>
+                    <ag-table-col filter="date" field="dateRef" width="200px">
+                        Date
+                    </ag-table-col>
+                    <ag-table-col filter="select" field="type" [options]="types" width="150px">
+                        Type
+                    </ag-table-col>
+                </ag-table-header>
+                <ag-table-body>
+                    <ag-table-row *ngFor="let item of table.items">
+                        <ag-table-cell>{{item.id}}</ag-table-cell>
+                        <ag-table-cell [style.height.px]="item.height">
+                            {{item.name}}
+                        </ag-table-cell>
+                        <ag-table-cell>{{item.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>
+                        <ag-table-cell>{{item.type}}</ag-table-cell>
+                    </ag-table-row>
+                </ag-table-body>
+            </ag-table>
+
+            <h5 class="mt-2 mb-0">Code</h5>
+            <mat-tab-group [style.minHeight.px]="450">
+                <mat-tab label="HTML">
+                    <pre>
+                            <code [highlight]="strHtml"></code>
+                    </pre>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
     </div>
 </div>

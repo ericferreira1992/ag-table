@@ -13,6 +13,7 @@ import { AgTableFilterComponent } from './ag-table-filter/ag-table-filter.compon
 import { AgTablePrepareService } from './services/ag-table-prepare.service';
 import { AgTableVirtualScrollService } from './services/ag-table-virtual-scroll.service';
 import { Helper } from './services/helper';
+import { AgTableSpinnerComponent } from './ag-table-spinner/ag-table-spinner.component';
 
 @NgModule({
 	imports: [
@@ -29,7 +30,8 @@ import { Helper } from './services/helper';
 		AgTableCellComponent,
 		AgTableColComponent,
 		AgTableFilterComponent,
-		AgTablePaginateComponent
+		AgTablePaginateComponent,
+		AgTableSpinnerComponent
 	],
 	exports: [
 		AgTableComponent,

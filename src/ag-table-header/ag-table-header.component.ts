@@ -1,10 +1,10 @@
 import { Component, OnInit, HostBinding, QueryList, ContentChildren, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { TRANSLATION } from './ag-table-header.component.trans';
-import { AgTableColComponent } from '../ag-table-col/ag-table-col.component';
 import { AgTableComponent } from '../ag-table/ag-table.component';
 import { FormBuilder, FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
 import { AgTableFilterMode } from '../enums/ag-table-filter-mode.enum';
+import { AgTableColComponent } from '../ag-table-col/ag-table-col.component';
 
 @Component({
 	selector: 'ag-table-header',
@@ -101,17 +101,18 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 	public checkFilterStatus(field: string, col: AgTableColComponent) {
 		let control = this.filterCtrls[field];
 
-		if (col.disableFilter) {
-			control.disable();
-		} else {
-			control.enable();
+		if (control) {
+			if (col.disableFilter)
+				control.disable();
+			else
+				control.enable();
 		}
 	}
 
 	public checkDefaultValue(field: string, value: string, col: AgTableColComponent) {
 		let control = this.filterCtrls[field];
 
-		if (value)
+		if (control && value)
 			control.setValue(col.filterValue);
 	}
 

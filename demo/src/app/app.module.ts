@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {MatTabsModule} from '@angular/material/tabs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AgTableModule } from './../../../src/public_api';
@@ -12,6 +14,20 @@ import { CoreModule } from './core/core.module';
 import { ClientSideComponent } from './components/pages/demo/client-side/client-side.component';
 import { ServerSideComponent } from './components/pages/demo/server-side/server-side.component';
 import { ServerSideInfinityComponent } from './components/pages/demo/server-side-infinity/server-side-infinity.component';
+
+import { HighlightModule } from 'ngx-highlightjs';
+
+import xml from 'highlight.js/lib/languages/xml';
+import scss from 'highlight.js/lib/languages/scss';
+import typescript from 'highlight.js/lib/languages/typescript';
+
+export function hljsLanguages() {
+    return [
+        { name: 'typescript', func: typescript },
+        { name: 'scss', func: scss },
+        { name: 'xml', func: xml }
+    ];
+}
 
 @NgModule({
     declarations: [
@@ -26,9 +42,14 @@ import { ServerSideInfinityComponent } from './components/pages/demo/server-side
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
+        HighlightModule.forRoot({
+            languages: hljsLanguages
+        }),
         AppRoutingModule,
         CoreModule,
-        AgTableModule
+        MatTabsModule,
+        AgTableModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

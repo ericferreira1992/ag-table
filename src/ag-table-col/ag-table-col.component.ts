@@ -137,14 +137,14 @@ export class AgTableColComponent implements OnInit, OnChanges {
 				if (this.filter !== AgTableFilterType.NONE && !this.mode) {
 					switch (this.filter) {
 						case AgTableFilterType.TEXT:
-						case AgTableFilterType.FEDERAL_ID:
-						case AgTableFilterType.CARD_NUMBER:
-						case AgTableFilterType.CURRENCY:
-						case AgTableFilterType.CARD_MASK:
+						// case AgTableFilterType.FEDERAL_ID:
+						// case AgTableFilterType.CARD_NUMBER:
+						// case AgTableFilterType.CURRENCY:
+						// case AgTableFilterType.CARD_MASK:
 							this.mode = AgTableFilterMode.CONTAINS;
 							break;
 						case AgTableFilterType.SELECT:
-						case AgTableFilterType.DATE:
+						// case AgTableFilterType.DATE:
 							this.mode = AgTableFilterMode.EQUALS;
 							break;
 						default:
@@ -249,7 +249,7 @@ export class AgTableColComponent implements OnInit, OnChanges {
 	}
 
 	public toggleSort() {
-		if (this.parent && this.parent.parent) {
+		if (this.parent && this.parent.parent && !this.parent.parent.loading) {
 			let asc;
 			if (this.isSorting) {
 				if (this.parent.colSorting.asc) {

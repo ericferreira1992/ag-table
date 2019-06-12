@@ -8,30 +8,57 @@ import { Helper } from 'src/app/core/services/helper';
 })
 export class ClientSideComponent implements OnInit {
 
-    public testes: any[] = [];
+    public dataItems: any[] = [];
 
     public types = [
         'Tipo 1',
         'Tipo 2',
         'Tipo 3',
     ];
-    public dataAreOver: boolean = false;
-    public dataLength: number = 0;
-    public loading: boolean = false;
 
+    public strHtml: string;
     constructor(
         private helper: Helper
     ) {
         this.prepareExampleData();
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.strHtml = '' +
+`<ag-table #table paginate="1000" [items]="dataItems" clickable height="500px">
+    <ag-table-header>
+        <ag-table-col filter field="id" placeholder="Identifier" width="100px">
+            ID
+        </ag-table-col>
+        <ag-table-col filter field="name" placeholder="Set a name">
+            Name
+        </ag-table-col>
+        <ag-table-col filter="date" field="dateRef" width="200px">
+            Date
+        </ag-table-col>
+        <ag-table-col filter="select" field="type" [options]="types" width="150px">
+            Type
+        </ag-table-col>
+    </ag-table-header>
+    <ag-table-body>
+        <ag-table-row *ngFor="let item of table.items">
+            <ag-table-cell>{{item.id}}</ag-table-cell>
+            <ag-table-cell [style.height.px]="item.height">
+                {{item.name}}
+            </ag-table-cell>
+            <ag-table-cell>{{item.dateRef | date:'dd/MM/yyyy'}}</ag-table-cell>
+            <ag-table-cell>{{item.type}}</ag-table-cell>
+        </ag-table-row>
+    </ag-table-body>
+</ag-table>
+`;
+    }
 
     prepareExampleData() {
         let type = 1;
         let date = new Date();
 
-        this.testes = Array.from({ length: 10000 }).map((x, i) => {
+        this.dataItems = Array.from({ length: 10000 }).map((x, i) => {
             let number = i + 1;
             if (type < 3)
                 type++;
