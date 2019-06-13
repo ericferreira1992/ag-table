@@ -20,6 +20,9 @@ import { HighlightModule } from 'ngx-highlightjs';
 import xml from 'highlight.js/lib/languages/xml';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
+import { StructureAgTableComponent } from './components/pages/api/structure/structure-ag-table/structure-ag-table.component';
+import { StructureAgTableBodyComponent } from './components/pages/api/structure/structure-ag-table-body/structure-ag-table-body.component';
+import { StructureAgTableHeaderComponent } from './components/pages/api/structure/structure-ag-table-header/structure-ag-table-header.component';
 
 export function hljsLanguages() {
     return [
@@ -38,7 +41,10 @@ export function hljsLanguages() {
         HomeComponent,
         ClientSideComponent,
         ServerSideComponent,
-        ServerSideInfinityComponent
+        ServerSideInfinityComponent,
+        StructureAgTableComponent,
+        StructureAgTableBodyComponent,
+        StructureAgTableHeaderComponent
     ],
     imports: [
         BrowserModule,

@@ -37,30 +37,36 @@ export class AppModule { }`;
 
 		this.simpleExampleHtml = '' +
 `<ag-table #table paginate="100" [items]="dataItems" clickable height="500px">
-	<ag-table-header>
-		<ag-table-col filter field="id" placeholder="Identifier" width="100px">
-			ID
-		</ag-table-col>
-		<ag-table-col filter field="name" placeholder="Set a name">
-			Name
-		</ag-table-col>
-		<ag-table-col filter="date" field="dateRef" width="200px">
-			Date
-		</ag-table-col>
-		<ag-table-col filter="select" field="type" [options]="types" width="150px">
-			Type
-		</ag-table-col>
+    <ag-table-header>
+        <ag-table-col filter field="id" placeholder="Identifier" width="100px">
+            ID
+        </ag-table-col>
+        <ag-table-col filter field="name" placeholder="Set a name">
+            Name
+        </ag-table-col>
+        <ag-table-col filter="date" field="dateRef" width="200px">
+            Date
+        </ag-table-col>
+        <ag-table-col filter="select" field="type" [options]="types" width="150px">
+            Type
+        </ag-table-col>
 	</ag-table-header>
-	<ag-table-body>
-		<ag-table-row *ngFor="let item of table.items">
-			<ag-table-cell>{{item.id}}</ag-table-cell>
-			<ag-table-cell>
-				{{item.name}}
-			</ag-table-cell>
-			<ag-table-cell>{{item.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>
-			<ag-table-cell>{{item.type}}</ag-table-cell>
-		</ag-table-row>
-	</ag-table-body>
+    <ag-table-body>
+        <ag-table-row *ngFor="let item of table.items">
+            <ag-table-cell>
+                {{item.id}}
+            </ag-table-cell>
+            <ag-table-cell>
+                {{item.name}}
+            </ag-table-cell>
+            <ag-table-cell>
+                {{item.dateRef | date:'yyyy/MM/dd'}}
+            </ag-table-cell>
+            <ag-table-cell>
+                {{item.type}}
+            </ag-table-cell>
+        </ag-table-row>
+    </ag-table-body>
 </ag-table>`;
 	}
 

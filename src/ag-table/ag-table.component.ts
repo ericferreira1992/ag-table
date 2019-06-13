@@ -46,15 +46,15 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input('server-side') public serverSide: boolean = false;
 
 	/** CALL REQUEST DATA ON INITIALIZATION DATA TABLE */
-	@Input('get-data-init') public getDataOnInit: boolean = true;
+	@Input('get-data-init') public getDataOnInit: boolean = false;
 
 	/** SET THE CURRENT PAGE WHEN USE PAGINATION */
 	@Input('current-page') public currentPage: number = 1;
 
-	/** Notifies that the data are over. */
+	/** Notifies that the data is gone (infinite-scroll only). */
 	@Input('data-are-over') public dataAreOver: boolean = false;
 
-	/** Notifies that the data are over. */
+	/** Sets whether to display empty-view or not. */
 	@Input('no-empty-view') public noEmptyView: boolean = false;
 
 	@Input('items') allItems: any[] = [];
@@ -132,7 +132,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 
 	public isDataEmpty: boolean = false;
 
-	public dataPaginatedLength: number = 0;
+	private dataPaginatedLength: number = 0;
 	public paginateCaptionConfig: { start: number, end: number, total: number };
 	public actionChange: AgTableChangeAction = AgTableChangeAction.INITIALIZE;
 
@@ -301,24 +301,12 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 				if (!this.serverSide)
 					this.currentPage = 1;
 
-				if (this.body) {
-					if (!this.body.parent)
-						this.body.parent = this;
-
-					this.dataVirtualScrollService.preparePreviousItemAfterDataChange(this.body);
-				}
-
-				this.prepareItemsPagingAndFilter();
-				this.updatePaginateConfig();
-				this.definePaddingBottom();
-
-				if (!this.infinity && this.body)
-					this.body.backToTheTop();
+				this.refreshRender();
 			}
 		}, 100);
 	}
 
-	public definePaddingBottom() {
+	private definePaddingBottom() {
 		if (this.el && this.el.nativeElement) {
 			let padding = '0px';
 			if (!this.infinity)
@@ -345,7 +333,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 		}
 	}
 
-	public heightIsValid() {
+	private heightIsValid() {
 		return !isNullOrUndefined(this.height) && (typeof this.height === 'string') && this.height !== '' && this.height !== 'auto';
 	}
 
@@ -406,7 +394,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 		}
 	}
 
-	public prepareItemsPagingAndFilter() {
+	private prepareItemsPagingAndFilter() {
 		this.filteredItems = this.dataPrepareService.apply(this.allItems, this);
 
 		if (this.body && this.dataVirtualScrollService.canApplyVirtualScroll(this.body))
@@ -435,7 +423,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 		}));
 	}
 
-	public emitDataRender() {
+	private emitDataRender() {
 		this.onDataRender.emit(new AgTableRenderEvent<any>({
 			items: this.items,
 			length: this.items.length,
@@ -450,7 +438,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 			this.updatePaginateConfig();
 	}
 
-	updatePaginateConfig() {
+	private updatePaginateConfig() {
 		let visibleLength = this.dataPaginatedLength;
 
 		if (this.serverSide && this.body)
@@ -475,5 +463,21 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 		}
 		if (getData)
 			this.emitGetData(true);
+	}
+
+	public refreshRender() {
+		if (this.body) {
+			if (!this.body.parent)
+				this.body.parent = this;
+
+			this.dataVirtualScrollService.preparePreviousItemAfterDataChange(this.body);
+		}
+
+		this.prepareItemsPagingAndFilter();
+		this.updatePaginateConfig();
+		this.definePaddingBottom();
+
+		if (!this.infinity && this.body)
+			this.body.backToTheTop();
 	}
 }

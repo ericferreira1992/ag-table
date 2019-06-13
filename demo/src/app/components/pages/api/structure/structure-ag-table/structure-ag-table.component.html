@@ -1,0 +1,186 @@
+<div class="main-container-inner">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="with-tag">
+                AgTable<br/>
+                <span>ag-table</span><span>ag-table/</span>
+            </h4>
+
+            <p class="about mt-3">
+                Component base para inicializar. Aqui você deverá informar <a routerLink="/api/structure/ag-table-header">ag-table-header</a> e <a routerLink="/api/structure/ag-table-body">ag-table-body</a>
+            </p>
+            
+            <h5 class="with-tag mt-3">@Inputs</h5>
+            <table class="w-100">
+                <thead>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="f-w-500">items</td>
+                        <td class="f-w-500">any[]</td>
+                        <td class="f-w-500">[]</td>
+                        <td>
+                            Data items
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">height</td>
+                        <td class="f-w-500">string</td>
+                        <td class="f-w-500">'auto'</td>
+                        <td>
+                            That will define the data table height, and it will has scroll bar in case of overflow
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">clickable</td>
+                        <td class="f-w-500">boolean</td>
+                        <td class="f-w-500">false</td>
+                        <td>
+                            If the rows it will have click (just enable hover effect and cursor as pointer)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">paginate</td>
+                        <td class="f-w-500">number</td>
+                        <td class="f-w-500">null</td>
+                        <td>
+                            This define if will go paginate or not
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">infinity</td>
+                        <td class="f-w-500">number</td>
+                        <td class="f-w-500">null</td>
+                        <td>
+                            This define if will go bring data based on scrolling when to arrive on bottom. (but use this only with server-side)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">loading</td>
+                        <td class="f-w-500">boolean</td>
+                        <td class="f-w-500">false</td>
+                        <td>Show loading spinner above the data table when loading is true</td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">data-length</td>
+                        <td class="f-w-500">number</td>
+                        <td class="f-w-500">0</td>
+                        <td>The total data length. This is used for make the pagination</td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">server-side</td>
+                        <td class="f-w-500">boolean</td>
+                        <td class="f-w-500">false</td>
+                        <td>Determines whether data will be swallowed via server-side</td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">get-data-init</td>
+                        <td class="f-w-500">boolean</td>
+                        <td class="f-w-500">false</td>
+                        <td>It will start by issuing a call in OnGetData so that it fetches your data (server-side only)</td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">current-page</td>
+                        <td class="f-w-500">number</td>
+                        <td class="f-w-500">1</td>
+                        <td>Set the current page when use pagination</td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">data-are-over</td>
+                        <td class="f-w-500">boolean</td>
+                        <td class="f-w-500">false</td>
+                        <td>Notifies that the data is gone (infinite-scroll only)</td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">no-empty-view</td>
+                        <td class="f-w-500">boolean</td>
+                        <td class="f-w-500">false</td>
+                        <td>Sets whether to display empty-view or not</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5 class="with-tag mt-4">@Outputs</h5>
+            <table class="w-100">
+                <thead>
+                    <th>Name</th>
+                    <th>Response Type</th>
+                    <th>Emitted when</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="f-w-500">onGetData</td>
+                        <td class="f-w-500">AgTableEvent</td>
+                        <td>
+                            When using the server side and when changing page, column filter and sorting. Or when using infinite-scroll.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">onDataRender</td>
+                        <td class="with-tag f-w-500">AgTableRenderEvent<span class="f-w-500">T</span></td>
+                        <td>
+                            Emit event wich items have been rendered
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">onTableRender</td>
+                        <td class="f-w-500">void</td>
+                        <td>
+                            Emit event when the ag-table has all been rendered
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">filterActivated</td>
+                        <td class="f-w-500">boolean</td>
+                        <td>
+                            Emit event when the filter is active or not.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5 class="with-tag mt-4">Public Methods/Properties</h5>
+            <table class="w-100">
+                <thead>
+                    <th>Name</th>
+                    <th>Return/Type</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="f-w-500">refreshRender()</td>
+                        <td class="f-w-500">void</td>
+                        <td>
+                            Refresh the render rows.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">resetFilters(<span class="opacity-8">getData: boolean = false</span>)</td>
+                        <td class="f-w-500">void</td>
+                        <td>
+                            Reset all filters. If <span class="f-w-500">getData</span> is defined as <span class="f-w-500">true</span> the <span class="f-w-500">onGetData</span> is emitted.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">header</td>
+                        <td class="f-w-500">AgTableHeaderComponent</td>
+                        <td class="with-tag">
+                            The instance of <span class="f-w-500">ag-table-heer/</span> AgTableHeader
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">body</td>
+                        <td class="f-w-500">AgTableBodyComponent</td>
+                        <td class="with-tag">
+                            The instance of <span class="f-w-500">ag-table-body/</span> AgTableBody
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

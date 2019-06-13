@@ -1,0 +1,38 @@
+:host::ng-deep {
+
+    .with-tag {
+        display: inline-block;
+        vertical-align: middle;
+
+        > span {
+            font-size: 15px;
+            padding: 5px 0;
+            color: #777;
+            background: #FAFAFA;
+
+            &::before {
+                display: initial;
+                content: '<';
+            }
+            &::after {
+                display: initial;
+                content: '>';
+            }
+
+            &:not(:only-child) {
+                &:nth-last-child(2) {
+                    padding-left: 5px;
+                }
+    
+                &:nth-last-child(1) {
+                    padding-right: 5px;
+                }
+            }
+
+            &:only-child {
+                padding: 5px 5px;
+            }
+        }
+    }
+
+}

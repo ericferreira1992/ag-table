@@ -1,0 +1,48 @@
+table {
+    font-size: 13px;
+
+    thead {
+        th {
+            background: #F5F5F5;
+            padding: 5px;
+            min-width: 110px;
+
+            &:not(:first-child) {
+                padding-left: 15px;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                padding: 5px;
+                border-bottom: 1px solid #DDD;
+                color: #444;
+                vertical-align: middle;
+
+                &:not(:first-child) {
+                    padding-left: 15px;
+                }
+            }
+            
+            &:last-child {
+                td {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+
+    tfoot {
+        padding-top: 10px;
+
+        tr {
+            td {
+                text-align: center;
+                padding: 40px;
+                border-bottom: 1px solid #F5F5F5;
+            }
+        }
+    }
+}

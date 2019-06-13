@@ -1,9 +1,19 @@
+<div class="side-left-bar">
+    <ul>
+        <li *ngFor="let menu of menuItems">
+            <a [routerLink]="menu.route ? ('/api' + menu.route) : null" [routerLinkActive]="(menu.route || menu.submenu?.visible) ? 'active-link' : ''" (click)="onMenuClick(menu)">
+                {{ menu.title }}
+            </a>
+            <ul *ngIf="menu.submenu?.menu?.length" [style.height.px]="menu.submenu?.visible ? (menu.submenu?.menu?.length * 30) : 0">
+                <li *ngFor="let submenu of menu.submenu.menu">
+                    <a [routerLink]="'/api' + menu.routePrefix + submenu.route" routerLinkActive="active-link">
+                        {{ submenu.title }}
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
 <div class="main-container">
-    <div class="main-container-inner">
-        <div class="row">
-            <div class="col-12">
-                <h4>API</h4>
-            </div>
-        </div>
-    </div>
+    <router-outlet></router-outlet>
 </div>
