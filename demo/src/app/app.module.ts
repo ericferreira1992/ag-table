@@ -24,6 +24,8 @@ import { StructureAgTableComponent } from './components/pages/api/structure/stru
 import { StructureAgTableBodyComponent } from './components/pages/api/structure/structure-ag-table-body/structure-ag-table-body.component';
 import { StructureAgTableHeaderComponent } from './components/pages/api/structure/structure-ag-table-header/structure-ag-table-header.component';
 import { StructureAgTableColComponent } from './components/pages/api/structure/structure-ag-table-col/structure-ag-table-col.component';
+import { StructureAgTableRowComponent } from './components/pages/api/structure/structure-ag-table-row/structure-ag-table-row.component';
+import { StructureAgTableCellComponent } from './components/pages/api/structure/structure-ag-table-cell/structure-ag-table-cell.component';
 
 export function hljsLanguages() {
     return [
@@ -46,7 +48,9 @@ export function hljsLanguages() {
         StructureAgTableComponent,
         StructureAgTableBodyComponent,
         StructureAgTableHeaderComponent,
-        StructureAgTableColComponent
+        StructureAgTableColComponent,
+        StructureAgTableRowComponent,
+        StructureAgTableCellComponent
     ],
     imports: [
         BrowserModule,

@@ -1,3 +1,211 @@
-<p>
-  structure-ag-table-col works!
-</p>
+<div class="main-container-inner">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="with-tag">
+                AgTableCol<br/>
+                <span>ag-table-col</span><span>ag-table-col/</span>
+            </h4>
+
+            <p class="about mt-3">
+                Component where you define the columns of your data grid.
+                It is important to know that the number of columns should equal the number of cells inside the rows.
+            </p>
+            
+            <h5 class="mt-3">@Inputs</h5>
+            <table class="w-100">
+                <thead>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Default value</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="f-w-500">width</td>
+                        <td class="f-w-500">string</td>
+                        <td class="f-w-500">null</td>
+                        <td>
+                            Width of column. If not defined, this will be set automatically.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">filter</td>
+                        <td class="f-w-500">AgTableFilterType</td>
+                        <td class="f-w-500">AgTableFilterType.TEXT</td>
+                        <td>
+                            When setting this, the column make a input based on defined value <br/>
+                            <span class="f-w-500">Example:</span><br/>
+                            <span [innerText]="'<ag-table-col filter=\'date\'> ... </ag-table-col>'"></span>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">custom-filter</td>
+                        <td class="f-w-500">
+                            <span [innerHTML]="'{ field: string, mode?: AgTableFilterMode, value?: any }'"></span> |<br>
+                            <span [innerHTML]="'{ field: string, mode?: AgTableFilterMode, value?: any }[]'"></span> |<br>
+                            string |<br>
+                            string[]
+                        </td>
+                        <td class="f-w-500">null</td>
+                        <td>
+                            This is used to make a custom filter. This is often used when the types of filters not apply for you.
+                            <!-- <a routerLink="">See a example use here.</a> -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">field</td>
+                        <td class="f-w-500">string</td>
+                        <td>null</td>
+                        <td>
+                            This is to be used when filtering or sorting.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">mode</td>
+                        <td class="f-w-500">AgTableFilterMode</td>
+                        <td class="f-w-500">AgTableFilterMode.CONTAINS</td>
+                        <td>
+                            This is to define how the column will be filtered.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">placeholder</td>
+                        <td class="f-w-500">string</td>
+                        <td class="f-w-500">''</td>
+                        <td>
+                            This is the placeholder that will be shown in the filter input.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">minDate</td>
+                        <td class="f-w-500">Date</td>
+                        <td class="f-w-500">null</td>
+                        <td>
+                            The minimum date of filter.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">maxDate</td>
+                        <td class="f-w-500">Date</td>
+                        <td class="f-w-500">null</td>
+                        <td>
+                            The maximum date of filter.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">dateFormat</td>
+                        <td class="f-w-500">string</td>
+                        <td class="f-w-500">'yyyy/MM/dd'</td>
+                        <td>
+                            Date format that will be displayed on filtering.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">dateSeparator</td>
+                        <td class="f-w-500">string</td>
+                        <td class="f-w-500">'/'</td>
+                        <td>
+                            Separator that will be displayed on date filtering.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">optionAllLabel</td>
+                        <td class="f-w-500">string</td>
+                        <td class="f-w-500">'All'</td>
+                        <td>
+                            Option displayed when no options of filter type of 'select' is selected.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">options</td>
+                        <td class="f-w-500" [innerHTML]="'{ text: string, value: any }[] | any[]'"></td>
+                        <td class="f-w-500">[]</td>
+                        <td>
+                            Selection options when used filter of type 'select'.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="f-w-500">no-sort</td>
+                        <td class="f-w-500">boolean</td>
+                        <td class="f-w-500">false</td>
+                        <td>
+                            The columns has sorting as true per default. Puting this, the column is not will go sort.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">no-truncate</td>
+                        <td class="f-w-500">boolean</td>
+                        <td class="f-w-500">false</td>
+                        <td>
+                            The columns has truncate text per default. Puting this, the text of column is not will go truncate.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">sort</td>
+                        <td class="f-w-500">string</td>
+                        <td class="f-w-500">'asc'</td>
+                        <td>
+                            The columns has sorting as true and ascendant per default. The column is will go sort based on value ('asc' or 'desc').
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">disable-filter</td>
+                        <td class="f-w-500">boolean</td>
+                        <td class="f-w-500">false</td>
+                        <td>
+                            This is disabled input of form control.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">filter-value</td>
+                        <td class="f-w-500">any</td>
+                        <td class="f-w-500">null</td>
+                        <td>
+                            This is initial value of input filter.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5 class="mt-4">@Outputs</h5>
+            <table class="w-100">
+                <thead>
+                    <th>Name</th>
+                    <th>Response Type</th>
+                    <th>Emitted when</th>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">Não possui</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <h5 class="mt-4">Public Methods/Properties</h5>
+            <table class="w-100">
+                <thead>
+                    <th>Name</th>
+                    <th>Return/Type</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="f-w-500">isSorting</td>
+                        <td class="f-w-500">boolean</td>
+                        <td>
+                            Return true if the column is sorting
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">isSortAsc</td>
+                        <td class="f-w-500">boolean</td>
+                        <td>
+                            Return true if the column is ascendant sorting
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

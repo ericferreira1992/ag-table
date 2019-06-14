@@ -27,9 +27,9 @@ export class AgTableColComponent implements OnInit, OnChanges {
     @Input() public readOnly: boolean = false;
     @Input() public minDate: Date;
     @Input() public maxDate: Date;
-    @Input() public dateFormat: string = 'dd/mm/yyyy';
+    @Input() public dateFormat: string = 'yyyy/MM/dd';
     @Input() public dateSeparator: string = '/';
-	@Input() public optionAllLabel: string = 'Todos';
+	@Input() public optionAllLabel: string = 'All';
 	@Input() public options: { text: string, value: any }[] | any[] = [];
 
 	@Input('no-sort') public noSort: boolean = false;
@@ -273,11 +273,11 @@ export class AgTableColComponent implements OnInit, OnChanges {
 		}
 	}
 
-	public widthIsValid() {
+	private widthIsValid() {
 		return !isNullOrUndefined(this.width) && (typeof this.width === 'string') && this.width !== '' && this.width !== 'auto';
 	}
 
-	public getWidthUnit() {
+	private getWidthUnit() {
 		return this.widthIsValid() ? this.width.replace(this.helper.onlyNumbers(this.width), '') : '';
 	}
 
@@ -290,7 +290,7 @@ export class AgTableColComponent implements OnInit, OnChanges {
 		this.ngOnChanges(null);
 	}
 
-	generateFieldsFilter() {
+	private generateFieldsFilter() {
 		if (this.canFilter) {
 			if (this.field)
 				return [this.field];
@@ -328,7 +328,7 @@ export class AgTableColComponent implements OnInit, OnChanges {
 		this.setCellsWidth();
 	}
 
-	public setCellsWidth() {
+	private setCellsWidth() {
 		if (this.parent && this.parent.parent.body && this.parent.parent.body.rows.length) {
 			this.parent.parent.body.rows.forEach(row => {
 				let cell = row.cells.find(cell => cell.cellIndex === this.colIndex);

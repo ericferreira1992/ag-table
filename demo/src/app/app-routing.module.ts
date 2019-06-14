@@ -10,6 +10,7 @@ import { ServerSideInfinityComponent } from './components/pages/demo/server-side
 import { StructureAgTableComponent } from './components/pages/api/structure/structure-ag-table/structure-ag-table.component';
 import { StructureAgTableBodyComponent } from './components/pages/api/structure/structure-ag-table-body/structure-ag-table-body.component';
 import { StructureAgTableHeaderComponent } from './components/pages/api/structure/structure-ag-table-header/structure-ag-table-header.component';
+import { StructureAgTableColComponent } from './components/pages/api/structure/structure-ag-table-col/structure-ag-table-col.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -27,8 +28,11 @@ const routes: Routes = [
             { path: 'structure',
                 children: [
                     { path: 'ag-table', component: StructureAgTableComponent },
-                    { path: 'ag-table-body', component: StructureAgTableBodyComponent },
                     { path: 'ag-table-header', component: StructureAgTableHeaderComponent },
+                    { path: 'ag-table-col', component: StructureAgTableColComponent },
+                    { path: 'ag-table-body', component: StructureAgTableBodyComponent },
+                    // { path: 'ag-table-row', component: StructureAgTableRowComponent },
+                    // { path: 'ag-table-cell', component: StructureAgTableCellComponent }
                 ]
             },
             /* { path: 'teste',

@@ -13,7 +13,7 @@ export class AgTableCellComponent implements OnInit, OnDestroy {
 	public cellIndex: number = null;
 	public parent: AgTableRowComponent;
 
-	public destroyed: boolean = false;
+	private destroyed: boolean = false;
 
 	public get col() {
 		if (!isNullOrUndefined(this.cellIndex) &&
