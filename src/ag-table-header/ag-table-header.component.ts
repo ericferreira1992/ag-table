@@ -11,7 +11,7 @@ import { AgTableColComponent } from '../ag-table-col/ag-table-col.component';
 	templateUrl: './ag-table-header.component.html'
 })
 export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit {
-	@HostBinding('class.ag-table-header') public class: boolean = true;
+	@HostBinding('class.ag-table-header') private class: boolean = true;
 
 	@ContentChildren(AgTableColComponent) private queryCols: QueryList<AgTableColComponent>;
 
@@ -98,7 +98,7 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 		});
 	}
 
-	public checkFilterStatus(field: string, col: AgTableColComponent) {
+	private checkFilterStatus(field: string, col: AgTableColComponent) {
 		let control = this.filterCtrls[field];
 
 		if (control) {
@@ -109,7 +109,7 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 		}
 	}
 
-	public checkDefaultValue(field: string, value: string, col: AgTableColComponent) {
+	private checkDefaultValue(field: string, value: string, col: AgTableColComponent) {
 		let control = this.filterCtrls[field];
 
 		if (control && value)
@@ -192,7 +192,7 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 		return dataModel;
 	}
 
-	public onBodyWidthChange() {
+	private onBodyWidthChange() {
 		if (this.el && this.el.nativeElement) {
 			let currentWidth = '100%';
 			if (this.parent && this.parent.body.itemsContainerEl && this.parent.body.itemsContainerEl.nativeElement)

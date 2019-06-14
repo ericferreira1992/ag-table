@@ -23,6 +23,7 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import { StructureAgTableComponent } from './components/pages/api/structure/structure-ag-table/structure-ag-table.component';
 import { StructureAgTableBodyComponent } from './components/pages/api/structure/structure-ag-table-body/structure-ag-table-body.component';
 import { StructureAgTableHeaderComponent } from './components/pages/api/structure/structure-ag-table-header/structure-ag-table-header.component';
+import { StructureAgTableColComponent } from './components/pages/api/structure/structure-ag-table-col/structure-ag-table-col.component';
 
 export function hljsLanguages() {
     return [
@@ -44,7 +45,8 @@ export function hljsLanguages() {
         ServerSideInfinityComponent,
         StructureAgTableComponent,
         StructureAgTableBodyComponent,
-        StructureAgTableHeaderComponent
+        StructureAgTableHeaderComponent,
+        StructureAgTableColComponent
     ],
     imports: [
         BrowserModule,
