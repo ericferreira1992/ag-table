@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AgTableEvent } from './../../../../../../../src/models/ag-table-filter-data.model';
+import { AgTableEvent } from './../../../../../../../src/events/ag-table-event.event';
 import { Helper } from 'src/app/core/services/helper';
 import { OrderByPipe } from 'src/app/core/pipes/order-by.pipe';
 
@@ -29,6 +29,7 @@ export class ServerSideComponent implements OnInit {
         private helper: Helper
     ) {
         this.prepareExampleData();
+        this.getData();
     }
 
     ngOnInit() {
@@ -95,6 +96,7 @@ export class ServerSideComponent {
         private helper: Helper
     ) {
         this.prepareExampleData();
+        this.getData();
     }
     private prepareExampleData() {
         let type = 1;
@@ -124,6 +126,11 @@ export class ServerSideComponent {
     public getData(event: AgTableEvent) {
         if (!this.loading) {
             this.loading = true;
+
+            if (!event)
+                event = new AgTableEvent({
+                    pageSize: 25,
+                });
 
             // Here consume your REST API
             setTimeout(() => {
@@ -181,9 +188,15 @@ export class ServerSideComponent {
         });
     }
 
-    getData(event: AgTableEvent) {
+    getData(event: AgTableEvent = null) {
         if (!this.loading) {
             this.loading = true;
+
+            if (!event)
+                event = new AgTableEvent({
+                    pageSize: 25,
+                });
+
             setTimeout(() => {
 
                 let _dataItems = this.allDataItems.filter(x => {

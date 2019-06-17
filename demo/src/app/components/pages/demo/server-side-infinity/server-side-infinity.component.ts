@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AgTableEvent } from './../../../../../../../src/models/ag-table-filter-data.model';
+import { AgTableEvent } from './../../../../../../../src/events/ag-table-event.event';
 import { Helper } from 'src/app/core/services/helper';
 import { OrderByPipe } from 'src/app/core/pipes/order-by.pipe';
 
@@ -29,6 +29,7 @@ export class ServerSideInfinityComponent implements OnInit {
         private helper: Helper
     ) {
         this.prepareExampleData();
+        this.getData();
     }
 
     ngOnInit() {
@@ -95,6 +96,7 @@ export class ServerSideInfinityComponent {
         private helper: Helper
     ) {
         this.prepareExampleData();
+        this.getData();
     }
 
     private prepareExampleData() {
@@ -126,6 +128,12 @@ export class ServerSideInfinityComponent {
         if (!this.loading) {
             if (!this.dataAreOver || event.resetData) {
                 this.loading = true;
+
+                if (!event)
+                    event = new AgTableEvent({
+                        pageSize: 25,
+                    });
+
                 if (event.resetData)
                     this.dataItems = [];
 
@@ -189,10 +197,16 @@ export class ServerSideInfinityComponent {
         });
     }
 
-    getData(event: AgTableEvent) {
+    getData(event: AgTableEvent = null) {
         if (!this.loading) {
             if (!this.dataAreOver || event.resetData) {
                 this.loading = true;
+
+                if (!event)
+                    event = new AgTableEvent({
+                        pageSize: 25,
+                    });
+
                 if (event.resetData)
                     this.dataItems = [];
                 setTimeout(() => {

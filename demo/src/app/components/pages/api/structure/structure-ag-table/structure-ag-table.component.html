@@ -1,13 +1,14 @@
-<div class="main-container-inner">
+<div class="main-container-inner structure">
     <div class="row">
         <div class="col-12">
             <h4 class="with-tag">
                 AgTable<br/>
-                <span>ag-table</span><span>ag-table/</span>
+                <span class="grayscale">ag-table</span><span class="grayscale">ag-table/</span>
             </h4>
 
             <p class="about mt-3">
-                Component base para inicializar. Aqui você deverá informar <a routerLink="/api/structure/ag-table-header">ag-table-header</a> e <a routerLink="/api/structure/ag-table-body">ag-table-body</a>
+                Base component to initialize. 
+                Here you will need to put <a routerLink="/api/structure/ag-table-header">ag-table-header</a> and <a routerLink="/api/structure/ag-table-body">ag-table-body</a>
             </p>
             
             <h5 class="mt-3">@Inputs</h5>
@@ -114,14 +115,20 @@
                 <tbody>
                     <tr>
                         <td class="f-w-500">onGetData</td>
-                        <td class="f-w-500">AgTableEvent</td>
+                        <td class="f-w-500">
+                            <a routerLink="/api/events/ag-table">AgTableEvent</a>
+                        </td>
                         <td>
                             When using the server side and when changing page, column filter and sorting. Or when using infinite-scroll.
                         </td>
                     </tr>
                     <tr>
                         <td class="f-w-500">onDataRender</td>
-                        <td class="with-tag f-w-500">AgTableRenderEvent<span class="f-w-500">T</span></td>
+                        <td class="f-w-500">
+                            <a class="with-tag" routerLink="/api/events/ag-table-data-render">
+                                AgTableDataRenderEvent<span class="f-w-500">T</span>
+                            </a>
+                        </td>
                         <td>
                             Emit event wich items have been rendered
                         </td>
@@ -168,15 +175,17 @@
                     <tr>
                         <td class="f-w-500">header</td>
                         <td class="f-w-500">AgTableHeaderComponent</td>
-                        <td class="with-tag">
-                            The instance of <span class="f-w-500">ag-table-heer/</span> AgTableHeader
+                        <td>
+                            The instance of<a class="with-tag" routerLink="/api/structure/ag-table-header"><span>ag-table-header/</span></a>
+                            (<span class="f-w-500">AgTableHeader</span>)
                         </td>
                     </tr>
                     <tr>
                         <td class="f-w-500">body</td>
                         <td class="f-w-500">AgTableBodyComponent</td>
-                        <td class="with-tag">
-                            The instance of <span class="f-w-500">ag-table-body/</span> AgTableBody
+                        <td>
+                            The instance of <a class="with-tag" routerLink="/api/structure/ag-table-body"><span>ag-table-body/</span></a>
+                            (<span class="f-w-500">AgTableBody</span>)
                         </td>
                     </tr>
                 </tbody>

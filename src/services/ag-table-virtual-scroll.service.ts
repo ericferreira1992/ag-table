@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Helper } from './helper';
 import { AgTableBodyComponent } from '../ag-table-body/ag-table-body.component';
-import { AgTableRenderEvent } from '../events/ag-table-render.event';
+import { AgTableDataRenderEvent } from '../events/ag-table-data-render.event';
 
 @Injectable()
 export class AgTableVirtualScrollService {
@@ -21,7 +21,7 @@ export class AgTableVirtualScrollService {
 		vs.currentEndIndex = vs.currentStartIndex + this.howManyCanAppear(body);
 
 		table.items = table.filteredItems.slice(vs.currentStartIndex, vs.currentEndIndex);
-		table.onDataRender.emit(new AgTableRenderEvent<any>({
+		table.onDataRender.emit(new AgTableDataRenderEvent<any>({
 			items: table.items,
 			length: table.items.length,
 			startIndex: vs.currentStartIndex,

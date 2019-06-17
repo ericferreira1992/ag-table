@@ -2,14 +2,8 @@
 
     .with-tag {
         display: inline-block;
-        vertical-align: middle;
 
         > span {
-            font-size: 15px;
-            padding: 5px 0;
-            color: #777;
-            background: #FAFAFA;
-
             &::before {
                 display: initial;
                 content: '<';
@@ -28,9 +22,36 @@
                     padding-right: 5px;
                 }
             }
-
+    
             &:only-child {
-                padding: 5px 5px;
+                padding: 0 5px 0 0;
+            }
+        }
+
+        &:not(a) {
+            vertical-align: middle;
+
+            > span {
+                padding: 5px 0;
+    
+                &:only-child {
+                    padding: 5px 5px;
+                }
+
+                &.grayscale {
+                    color: #777;
+                    background: #FAFAFA;
+                }
+            }
+        }
+    }
+
+    .structure {
+        .with-tag {
+            &:not(a) {
+                > span {
+                    font-size: 15px;
+                }
             }
         }
     }

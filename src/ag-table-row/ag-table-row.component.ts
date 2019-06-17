@@ -13,12 +13,12 @@ export class AgTableRowComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	@ContentChildren(AgTableCellComponent) private queryCells: QueryList<AgTableCellComponent>;
 
-	public set _height(value: string) {
+	private set _height(value: string) {
 		if (this.el && this.el.nativeElement){
 			this.el.nativeElement.style.minHeight = value;
 		}
 	}
-	public get _height() { return (this.el && this.el.nativeElement) ? this.el.nativeElement.style.minHeight : 'auto'; }
+	private get _height() { return (this.el && this.el.nativeElement) ? this.el.nativeElement.style.minHeight : 'auto'; }
 
 	public get cells() { return this.queryCells.toArray(); }
 
@@ -61,7 +61,7 @@ export class AgTableRowComponent implements OnInit, AfterViewInit, OnDestroy {
 		});
 	}
 
-	defineClass() {
+	private defineClass() {
 		if (this.index >= 0) {
 			let position = this.index + 1;
 			let currentClassName = 'ag-table-row-' + ((position % 2) === 0 ? 'even' : 'odd');

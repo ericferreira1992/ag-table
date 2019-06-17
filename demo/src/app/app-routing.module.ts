@@ -11,6 +11,12 @@ import { StructureAgTableComponent } from './components/pages/api/structure/stru
 import { StructureAgTableBodyComponent } from './components/pages/api/structure/structure-ag-table-body/structure-ag-table-body.component';
 import { StructureAgTableHeaderComponent } from './components/pages/api/structure/structure-ag-table-header/structure-ag-table-header.component';
 import { StructureAgTableColComponent } from './components/pages/api/structure/structure-ag-table-col/structure-ag-table-col.component';
+import { StructureAgTableRowComponent } from './components/pages/api/structure/structure-ag-table-row/structure-ag-table-row.component';
+import { StructureAgTableCellComponent } from './components/pages/api/structure/structure-ag-table-cell/structure-ag-table-cell.component';
+import { EventAgTableComponent } from './components/pages/api/events/event-ag-table/event-ag-table.component';
+import { EventAgTableDataRenderComponent } from './components/pages/api/events/event-ag-table-data-render/event-ag-table-data-render.component';
+import { EnumAgTableFilterModeComponent } from './components/pages/api/enums/enum-ag-table-filter-mode/enum-ag-table-filter-mode.component';
+import { EnumAgTableFilterTypeComponent } from './components/pages/api/enums/enum-ag-table-filter-type/enum-ag-table-filter-type.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,14 +37,22 @@ const routes: Routes = [
                     { path: 'ag-table-header', component: StructureAgTableHeaderComponent },
                     { path: 'ag-table-col', component: StructureAgTableColComponent },
                     { path: 'ag-table-body', component: StructureAgTableBodyComponent },
-                    // { path: 'ag-table-row', component: StructureAgTableRowComponent },
-                    // { path: 'ag-table-cell', component: StructureAgTableCellComponent }
+                    { path: 'ag-table-row', component: StructureAgTableRowComponent },
+                    { path: 'ag-table-cell', component: StructureAgTableCellComponent }
                 ]
             },
-            /* { path: 'teste',
+            { path: 'events',
                 children: [
+                    { path: 'ag-table', component: EventAgTableComponent },
+                    { path: 'ag-table-data-render', component: EventAgTableDataRenderComponent }
                 ]
-            }, */
+            },
+            { path: 'enums',
+                children: [
+                    { path: 'ag-table-filter-mode', component: EnumAgTableFilterModeComponent },
+                    { path: 'ag-table-filter-type', component: EnumAgTableFilterTypeComponent }
+                ]
+            },
         ]
     },
     { path: 'about', component: AboutComponent }

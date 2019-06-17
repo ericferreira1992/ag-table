@@ -1,9 +1,9 @@
-<div class="main-container-inner">
+<div class="main-container-inner structure">
     <div class="row">
         <div class="col-12">
             <h4 class="with-tag">
                 AgTableCol<br/>
-                <span>ag-table-col</span><span>ag-table-col/</span>
+                <span class="grayscale">ag-table-col</span><span class="grayscale">ag-table-col/</span>
             </h4>
 
             <p class="about mt-3">
@@ -30,8 +30,12 @@
                     </tr>
                     <tr>
                         <td class="f-w-500">filter</td>
-                        <td class="f-w-500">AgTableFilterType</td>
-                        <td class="f-w-500">AgTableFilterType.TEXT</td>
+                        <td class="f-w-500">
+                            <a routerLink="/api/enums/ag-table-filter-type">AgTableFilterType</a>
+                        </td>
+                        <td class="f-w-500">
+                            <a routerLink="/api/enums/ag-table-filter-type">AgTableFilterType.TEXT</a>
+                        </td>
                         <td>
                             When setting this, the column make a input based on defined value <br/>
                             <span class="f-w-500">Example:</span><br/>
@@ -41,8 +45,8 @@
                     <tr>
                         <td class="f-w-500">custom-filter</td>
                         <td class="f-w-500">
-                            <span [innerHTML]="'{ field: string, mode?: AgTableFilterMode, value?: any }'"></span> |<br>
-                            <span [innerHTML]="'{ field: string, mode?: AgTableFilterMode, value?: any }[]'"></span> |<br>
+                            <span [innerHTML]="'{ field: string, mode?: <a href=\'#/api/enums/ag-table-filter-mode\'>AgTableFilterMode</a>, value?: any }'"></span> |<br>
+                            <span [innerHTML]="'{ field: string, mode?: <a href=\'#/api/enums/ag-table-filter-mode\'>AgTableFilterMode</a>, value?: any }[]'"></span> |<br>
                             string |<br>
                             string[]
                         </td>
@@ -62,8 +66,12 @@
                     </tr>
                     <tr>
                         <td class="f-w-500">mode</td>
-                        <td class="f-w-500">AgTableFilterMode</td>
-                        <td class="f-w-500">AgTableFilterMode.CONTAINS</td>
+                        <td class="f-w-500">
+                            <a routerLink="/api/enums/ag-table-filter-mode">AgTableFilterMode</a>
+                        </td>
+                        <td class="f-w-500">
+                            <a routerLink="/api/enums/ag-table-filter-mode">AgTableFilterMode.CONTAINS</a>
+                        </td>
                         <td>
                             This is to define how the column will be filtered.
                         </td>
@@ -177,7 +185,7 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <td colspan="4">Não possui</td>
+                        <td colspan="3">Doesn't have</td>
                     </tr>
                 </tfoot>
             </table>

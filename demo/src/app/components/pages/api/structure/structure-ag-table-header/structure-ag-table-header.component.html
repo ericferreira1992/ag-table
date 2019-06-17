@@ -1,14 +1,14 @@
-<div class="main-container-inner">
+<div class="main-container-inner structure">
     <div class="row">
         <div class="col-12">
             <h4 class="with-tag">
                 AgTableHeader<br/>
-                <span>ag-table-header</span><span>ag-table-header/</span>
+                <span class="grayscale">ag-table-header</span><span class="grayscale">ag-table-header/</span>
             </h4>
 
             <p class="about mt-3">
-                Componente que serve de base para organização das colunas.
-                Aqui você deverá informar <a routerLink="/api/structure/ag-table-col">ag-table-col</a>.
+                Component used as the basis to organize the columns.
+                Here you will need to put <a routerLink="/api/structure/ag-table-col">ag-table-col</a>.
             </p>
             
             <h5 class="mt-3">@Inputs</h5>
@@ -21,7 +21,7 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <td colspan="4">Não possui</td>
+                        <td colspan="4">Doesn't have</td>
                     </tr>
                 </tfoot>
             </table>
@@ -35,7 +35,7 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <td colspan="3">Não possui</td>
+                        <td colspan="3">Doesn't have</td>
                     </tr>
                 </tfoot>
             </table>
@@ -52,13 +52,14 @@
                         <td class="f-w-500">cols</td>
                         <td class="f-w-500">AgTableColComponent[]</td>
                         <td>
-                            The instances of <span class="f-w-500">ag-table-col/</span> AgTableCol
+                            The instances of <a class="with-tag" routerLink="/api/structure/ag-table-col"><span>ag-table-col/</span></a>
+                            (<span class="f-w-500">AgTableCol</span>)
                         </td>
                     </tr>
                     <tr>
                         <td class="f-w-500">filterCtrls</td>
                         <td class="f-w-500" [innerHTML]="'{ [key: string]: AbstractControl }'"></td>
-                        <td class="with-tag">
+                        <td>
                             The controls of form filter from columns
                         </td>
                     </tr>

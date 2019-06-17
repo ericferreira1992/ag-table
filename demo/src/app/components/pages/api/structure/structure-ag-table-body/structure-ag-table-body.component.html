@@ -1,14 +1,14 @@
-<div class="main-container-inner">
+<div class="main-container-inner structure">
     <div class="row">
         <div class="col-12">
             <h4 class="with-tag">
                 AgTableBody<br/>
-                <span>ag-table-body</span><span>ag-table-body/</span>
+                <span class="grayscale">ag-table-body</span><span class="grayscale">ag-table-body/</span>
             </h4>
 
             <p class="about mt-3">
-                Componente que serve de base para exibição dos dados.
-                Aqui você deverá informar <a routerLink="/api/structure/ag-table-row">ag-table-row</a>.
+                Component used as the basis for displaying the data.
+                Here you will need to put <a routerLink="/api/structure/ag-table-row">ag-table-row</a>.
             </p>
             
             <h5 class="with-tag mt-3">@Inputs</h5>
@@ -21,11 +21,19 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="f-w-500"></td>
-                        <td class="f-w-500"></td>
-                        <td class="f-w-500"></td>
+                        <td class="f-w-500">row-height</td>
+                        <td class="f-w-500">string</td>
+                        <td class="f-w-500">40</td>
                         <td>
-                            
+                            This is the minimum height that row will have, but row height will can be higher if the row content is more than that height informed.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="f-w-500">'empty-msg</td>
+                        <td class="f-w-500">string</td>
+                        <td class="f-w-500">'You do not have data to display.'</td>
+                        <td>
+                            This is the message that will shown when not have data to be rendered.
                         </td>
                     </tr>
                 </tbody>
@@ -38,14 +46,11 @@
                     <th>Response Type</th>
                     <th>Emitted when</th>
                 </thead>
-                <tbody>
+                <tfoot>
                     <tr>
-                        <td class="f-w-500"></td>
-                        <td class="f-w-500"></td>
-                        <td>
-                        </td>
+                        <td colspan="3">Doesn't have</td>
                     </tr>
-                </tbody>
+                </tfoot>
             </table>
 
             <h5 class="with-tag mt-4">Public Methods/Properties</h5>
@@ -57,9 +62,11 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="f-w-500"></td>
-                        <td class="f-w-500"></td>
+                        <td class="f-w-500">rows</td>
+                        <td class="f-w-500">AgTableRowComponent[]</td>
                         <td>
+                            The instances of <a class="with-tag" routerLink="/api/structure/ag-table-row"><span>ag-table-row/</span></a>
+                            (<span class="f-w-500">AgTableRow</span>)
                         </td>
                     </tr>
                 </tbody>

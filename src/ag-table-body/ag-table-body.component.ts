@@ -14,14 +14,14 @@ import { HtmlHelper } from './../services/html.helper';
 	templateUrl: './ag-table-body.component.html'
 })
 export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
-	@HostBinding('class.ag-table-body') public class: boolean = true;
+	@HostBinding('class.ag-table-body') private class: boolean = true;
     @HostBinding('class.clickable') public clickable: boolean = false;
 
 	@ViewChild('itemsContainer') public itemsContainerEl: ElementRef<HTMLElement>;
 
     @ContentChildren(AgTableRowComponent) private queryRows: QueryList<AgTableRowComponent>;
 
-    public minHeight: number = 40;
+    private minHeight: number = 40;
 
 	@Input('row-height') rowHeight: string = this.minHeight + 'px';
 	@Input('empty-msg') emptyMsg: string = 'You do not have data to display.';
@@ -102,7 +102,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 		this.subscription = this.queryRows.changes.subscribe(this.configureChildrens.bind(this));
 	}
 
-	public configureChildrens() {
+	private configureChildrens() {
 		this.clickable = this.parent.clickable;
 		this.rows.forEach((row, index) => {
 			row.onRender(this, index);
@@ -115,12 +115,12 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
         this.renderer.listen(this.el.nativeElement, 'DOMMouseScroll', this.onMouseWheel.bind(this));
 	}
 
-	public dataTableInBottom() {
+	private dataTableInBottom() {
 		let element = this.el.nativeElement;
 		return element ? ((element.clientHeight + element.scrollTop) >= element.scrollHeight) : false;
 	}
 
-	onLoading() {
+	private onLoading() {
 		if (this.parent.infinity > 0 && this.parent.currentPage !== 1 && this.parent.loading) {
 			if (this.el && this.el.nativeElement) {
 				let element = this.el.nativeElement;

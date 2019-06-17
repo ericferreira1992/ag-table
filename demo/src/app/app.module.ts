@@ -26,6 +26,10 @@ import { StructureAgTableHeaderComponent } from './components/pages/api/structur
 import { StructureAgTableColComponent } from './components/pages/api/structure/structure-ag-table-col/structure-ag-table-col.component';
 import { StructureAgTableRowComponent } from './components/pages/api/structure/structure-ag-table-row/structure-ag-table-row.component';
 import { StructureAgTableCellComponent } from './components/pages/api/structure/structure-ag-table-cell/structure-ag-table-cell.component';
+import { EnumAgTableFilterModeComponent } from './components/pages/api/enums/enum-ag-table-filter-mode/enum-ag-table-filter-mode.component';
+import { EnumAgTableFilterTypeComponent } from './components/pages/api/enums/enum-ag-table-filter-type/enum-ag-table-filter-type.component';
+import { EventAgTableComponent } from './components/pages/api/events/event-ag-table/event-ag-table.component';
+import { EventAgTableDataRenderComponent } from './components/pages/api/events/event-ag-table-data-render/event-ag-table-data-render.component';
 
 export function hljsLanguages() {
     return [
@@ -50,7 +54,11 @@ export function hljsLanguages() {
         StructureAgTableHeaderComponent,
         StructureAgTableColComponent,
         StructureAgTableRowComponent,
-        StructureAgTableCellComponent
+        StructureAgTableCellComponent,
+        EnumAgTableFilterModeComponent,
+        EnumAgTableFilterTypeComponent,
+        EventAgTableComponent,
+        EventAgTableDataRenderComponent
     ],
     imports: [
         BrowserModule,

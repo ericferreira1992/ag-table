@@ -3,11 +3,11 @@ import { TRANSLATION } from './ag-table.component.trans';
 import { AgTableHeaderComponent } from '../ag-table-header/ag-table-header.component';
 import { AgTableBodyComponent } from '../ag-table-body/ag-table-body.component';
 import { AgTableChangeAction } from '../enums/ag-table-change-action.enum';
-import { AgTableEvent } from '../models/ag-table-filter-data.model';
+import { AgTableEvent } from '../events/ag-table-event.event';
 import { AgTablePrepareService } from '../services/ag-table-prepare.service';
 import { isNullOrUndefined } from 'util';
 import { AgTableVirtualScrollService } from '../services/ag-table-virtual-scroll.service';
-import { AgTableRenderEvent } from '../events/ag-table-render.event';
+import { AgTableDataRenderEvent } from '../events/ag-table-data-render.event';
 import { Helper } from '../services/helper';
 
 @Component({
@@ -63,7 +63,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 	@Output() public onGetData = new EventEmitter<AgTableEvent>();
 
 	/** EMIT EVENT WICH ITEMS HAVEN BEEN RENDERED */
-	@Output() public onDataRender = new EventEmitter<AgTableRenderEvent<any>>();
+	@Output() public onDataRender = new EventEmitter<AgTableDataRenderEvent<any>>();
 
 	/** EMIT EVENT WHEN THE ag-table HAS ALL BEEN RENDERED */
 	@Output() public onTableRender = new EventEmitter<void>();
@@ -424,7 +424,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 
 	private emitDataRender() {
-		this.onDataRender.emit(new AgTableRenderEvent<any>({
+		this.onDataRender.emit(new AgTableDataRenderEvent<any>({
 			items: this.items,
 			length: this.items.length,
 			startIndex: 0,
