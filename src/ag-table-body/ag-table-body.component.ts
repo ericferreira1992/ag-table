@@ -41,6 +41,8 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 
 	private lastScrollTop: number = -1;
 
+	private eventsLineters: Function[] = [];
+
 	constructor(
 		private langService: AgTableLangService,
 		private renderer: Renderer,
@@ -113,9 +115,14 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 	}
 
 	private applyListeners() {
-		this.renderer.listen(this.el.nativeElement, 'scroll', this.onScroll.bind(this));
-        this.renderer.listen(this.el.nativeElement, 'mousewheel', this.onMouseWheel.bind(this));
-        this.renderer.listen(this.el.nativeElement, 'DOMMouseScroll', this.onMouseWheel.bind(this));
+		if (this.eventsLineters && this.eventsLineters.length) {
+			this.eventsLineters.forEach((eventListener) => eventListener && eventListener());
+			this.eventsLineters = [];
+		}
+
+		this.eventsLineters.push(this.renderer.listen(this.el.nativeElement, 'scroll', this.onScroll.bind(this)));
+        this.eventsLineters.push(this.renderer.listen(this.el.nativeElement, 'mousewheel', this.onMouseWheel.bind(this)));
+        this.eventsLineters.push(this.renderer.listen(this.el.nativeElement, 'DOMMouseScroll', this.onMouseWheel.bind(this)));
 	}
 
 	private dataTableInBottom() {
@@ -163,6 +170,12 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
     }
 
 	ngOnDestroy() {
-		if (this.subscription) this.subscription.unsubscribe();
+		if (this.subscription)
+			this.subscription.unsubscribe();
+
+		if (this.eventsLineters && this.eventsLineters.length) {
+			this.eventsLineters.forEach((eventListener) => eventListener && eventListener());
+			this.eventsLineters = [];
+		}
 	}
 }

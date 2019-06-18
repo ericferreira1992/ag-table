@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, forwardRef, Inject } from '@angular/core';
 import { Helper } from '../../../core/services/helper';
 import { HtmlHelper } from '../../../core/services/html.helper';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
 	selector: 'app-home',
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
 	public simpleExampleHtml: string;
 
 	constructor(
+        @Inject(forwardRef(() => AppComponent)) private parent: AppComponent,
 		private helper: Helper
 	) {
 		this.importModule = '' +
@@ -124,6 +126,7 @@ export class AppModule { }`;
         if (getStartedEl && this.mainContainer.nativeElement) {
             const top = getStartedEl.offsetTop + 20;
             HtmlHelper.smoothScroll(this.mainContainer.nativeElement, top);
+            setTimeout(() => this.parent.hideTitleHeader = true, 200);
         }
     }
 

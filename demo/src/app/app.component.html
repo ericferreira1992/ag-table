@@ -1,6 +1,8 @@
-<header>
+<header [ngClass]="{'hide-title': hideTitleHeader}">
     <h1>
-        Ag-Table
+        <span [style.marginRight.px]="-92">
+            Ag-Table
+        </span>
 
         <div class="d-table f-right" [style.marginTop]="'-5px'">
             <div class="d-table-cell va-middle">
@@ -30,6 +32,6 @@
         </ul>
     </div>
 </header>
-<section>
+<section [ngClass]="{'hide-title': hideTitleHeader}">
     <router-outlet></router-outlet>
 </section>

@@ -1,5 +1,6 @@
 @import 'src/assets/scss/variables';
 
+$titleHeaderHeight: 68px;
 $headerHeight: 119px;
 
 :host {
@@ -9,6 +10,8 @@ $headerHeight: 119px;
         color: #FFF;
         text-align: center;
         height: $headerHeight;
+        margin-top: 0;
+        transition-duration: 300ms;
 
         > h1{
             margin: 0;
@@ -58,6 +61,10 @@ $headerHeight: 119px;
                 }
             }
         }
+
+        &.hide-title {
+            margin-top: -$titleHeaderHeight;
+        }
     }
 
     > section {
@@ -65,127 +72,139 @@ $headerHeight: 119px;
         display: table;
         width: 100%;
         height: calc(100vh - #{$headerHeight});
+        transition-duration: 300ms;
     }
 }
 
 :host::ng-deep {
-    .main-container {
-        padding: 30px;
-        display: block;
-        overflow: auto;
-        width: 100%;
-        height: calc(100vh - #{$headerHeight});
-        position: relative;
-        
-        animation-fill-mode: both;
-        animation-duration: .5s;
-        animation-name: fadeIn;
-
-        .main-container-inner {
+    > section {
+        .main-container {
+            position: relative;
+            padding: 30px;
+            display: block;
+            overflow: auto;
+            width: 100%;
+            height: calc(100vh - #{$headerHeight});
+            transition-duration: 300ms;
+            
             animation-fill-mode: both;
             animation-duration: .5s;
             animation-name: fadeIn;
-            max-width: 1100px;
-            margin: auto;
-            padding: 0 0 30px 0;
-        }
-
-        p {
-            margin-top: 0;
-
-            &.about {
-                font-size: 13px;
-                color: #888;
-                padding: 10px;
-                background: rgba(#000, .025);
-            }
-        }
-    }
-
-    .side-left-bar {
-        float: left;
-        width: 250px;
-        box-shadow: 0 5px 10px rgba(#000, .1);
-        height: calc(100vh - #{$headerHeight});
-
-        ul {
-            list-style: none;
-            margin: 0 auto;
-            padding: 0;
-
-            > li {
-                font-size: 14px;
-
-                > a,
-                > a:active,
-                > a:visited {
-                    cursor: pointer;
-                    display: block;
-                    padding: 10px 15px;
-                    color: #555;
-                    text-decoration: none;
-                    transition-duration: .2s;
-                }
-
-                > a {
-                    &.active-link {
-                        cursor: default;
-                        color: $colorSecondary;
-                        font-weight: 500;
-                        background: rgba(#000, .03);
-                    }
-                    &:not(.active-link):hover {
-                        background: rgba(#000, .05);
-                        text-decoration: underline;
-                        color: $colorSecondary;
-                    }
-                }
-
-                > ul {
-                    transition-duration: 300ms;
-                    overflow: hidden;
-        
-                    > li {
-                        font-size: 13px;
-        
-                        > a,
-                        > a:active,
-                        > a:visited {
-                            cursor: pointer;
-                            display: block;
-                            padding: 5px 15px 5px 25px;
-                            color: #555;
-                            text-decoration: none;
-                            transition-duration: .2s;
-                        }
-        
-                        > a {
-                            &.active-link {
-                                cursor: default;
-                                color: $colorSecondary;
-                                font-weight: 500;
-                                background: rgba(#000, .03);
-                            }
-                            &:not(.active-link):hover {
-                                background: rgba(#000, .05);
-                                text-decoration: underline;
-                                color: $colorSecondary;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        & ~ .main-container {
-            display: block;
-            float: left;
-            width: calc(100% - 250px);
-            position: initial;
-
+    
             .main-container-inner {
-                max-width: 900px;
+                animation-fill-mode: both;
+                animation-duration: .5s;
+                animation-name: fadeIn;
+                max-width: 1100px;
                 margin: auto;
+                padding: 0 0 30px 0;
+            }
+    
+            p {
+                margin-top: 0;
+    
+                &.about {
+                    font-size: 13px;
+                    color: #888;
+                    padding: 10px;
+                    background: rgba(#000, .025);
+                }
+            }
+        }
+    
+        .side-left-bar {
+            float: left;
+            width: 250px;
+            box-shadow: 0 5px 10px rgba(#000, .1);
+            height: calc(100vh - #{$headerHeight});
+            transition-duration: 300ms;
+    
+            ul {
+                list-style: none;
+                margin: 0 auto;
+                padding: 0;
+    
+                > li {
+                    font-size: 14px;
+    
+                    > a,
+                    > a:active,
+                    > a:visited {
+                        cursor: pointer;
+                        display: block;
+                        padding: 10px 15px;
+                        color: #555;
+                        text-decoration: none;
+                        transition-duration: .2s;
+                    }
+    
+                    > a {
+                        &.active-link {
+                            cursor: default;
+                            color: $colorSecondary;
+                            font-weight: 500;
+                            background: rgba(#000, .03);
+                        }
+                        &:not(.active-link):hover {
+                            background: rgba(#000, .05);
+                            text-decoration: underline;
+                            color: $colorSecondary;
+                        }
+                    }
+    
+                    > ul {
+                        transition-duration: 300ms;
+                        overflow: hidden;
+            
+                        > li {
+                            font-size: 13px;
+            
+                            > a,
+                            > a:active,
+                            > a:visited {
+                                cursor: pointer;
+                                display: block;
+                                padding: 5px 15px 5px 25px;
+                                color: #555;
+                                text-decoration: none;
+                                transition-duration: .2s;
+                            }
+            
+                            > a {
+                                &.active-link {
+                                    cursor: default;
+                                    color: $colorSecondary;
+                                    font-weight: 500;
+                                    background: rgba(#000, .03);
+                                }
+                                &:not(.active-link):hover {
+                                    background: rgba(#000, .05);
+                                    text-decoration: underline;
+                                    color: $colorSecondary;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    
+            & ~ .main-container {
+                display: block;
+                float: left;
+                width: calc(100% - 250px);
+                position: initial;
+    
+                .main-container-inner {
+                    max-width: 900px;
+                    margin: auto;
+                }
+            }
+        }
+
+        &.hide-title {
+            .side-left-bar,
+            .main-container {
+                height: calc(100vh - #{$headerHeight - $titleHeaderHeight});
             }
         }
     }
