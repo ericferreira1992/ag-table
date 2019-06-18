@@ -27,5 +27,9 @@ The reasons for using **AgTable** are diverse, some points make it stand out fro
 
 ### [Documentation / API](https://ericferreira1992.github.io/ag-table/#/api)
 
+### Preview
+![](preview.gif)
+
+
 ### Contribuitors
 - @ericferreira1992

@@ -1,14 +1,14 @@
 {
     "name": "ag-table",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scripts": {
         "ng": "ng",
         "start": "pushd demo && ng serve --port=4300 --host=0.0.0.0",
         "build": "pushd demo && ng build --aot --prod",
         "deploy-git-pages": "pushd demo && ng build --aot --prod --base-href=/ag-table/ && node ../node_modules/gh-pages/bin/gh-pages -d dist",
-        "build-lib": "rimraf dist && npm run packagr && node copy && cd dist && npm pack",
+        "build-pkg": "rimraf dist && npm run packagr && node copy && cd dist && npm pack",
         "publish-pkg": "pushd dist && npm publish",
-        "build-publish": "npm run build-lib && npm run publish-pkg",
+        "build-publish": "npm run build-pkg && npm run publish-pkg",
         "packagr": "ng-packagr -p src/package.json"
     },
     "engines": {
