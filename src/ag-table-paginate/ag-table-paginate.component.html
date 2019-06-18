@@ -1,10 +1,5 @@
 <span *ngIf="objCaption && !loading" class="caption animated fadeIn" [ngClass]="{ 'p-b-7': (length <= 1 || pages.length === 0) }">
-	<span *ngIf="objCaption.total">
-		{{objCaption.start}} - {{objCaption.end}} (Total: {{objCaption.total}})
-	</span>
-	<span *ngIf="!objCaption.total">
-		{{objCaption.start}} - {{objCaption.end}}
-	</span>
+	{{ (objCaption.total ? 'TOTAL_CAPTION' : 'WITHOUT_TOTAL_CAPTION') | translate:dictionary:objCaption }}
 </span>
 
 <ul *ngIf="length > 1 && pages.length > 0">

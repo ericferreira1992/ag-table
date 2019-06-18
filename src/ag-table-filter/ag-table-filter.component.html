@@ -1,9 +1,9 @@
 <input *ngIf="type === 'currency'"
-    class="ag-table-filter-input" name="valor"
+    class="ag-table-filter-input"
     type="text"
     autocomplete="off"
     [formControl]="frmControl"
-    [placeholder]="placeholder ? placeholder : 'R$ 0,00'"
+    [placeholder]="placeholder ? placeholder : (('CURRENCY_PH' | translate:dictionary) + ' 0,00')"
 />
 
 <select *ngIf="type === 'select'" 

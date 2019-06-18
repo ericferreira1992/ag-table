@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AgTableModule } from './../../../src/public_api';
+import { AgTableModule, AgTableCustomSettings } from './../../../src/public_api';
 import { DemoComponent } from './components/pages/demo/demo.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { ApiComponent } from './components/pages/api/api.component';
@@ -71,7 +71,9 @@ export function hljsLanguages() {
         MatTabsModule,
         AgTableModule,
     ],
-    providers: [],
+    providers: [
+        { provide: AgTableCustomSettings, useValue: { lang: 'pt-BR' } }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

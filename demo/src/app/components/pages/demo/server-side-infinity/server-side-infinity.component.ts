@@ -48,13 +48,13 @@ export class ServerSideInfinityComponent implements OnInit {
             ID
         </ag-table-col>
         <ag-table-col filter="text" field="name" placeholder="Set a name">
-            Nome
+            Name
         </ag-table-col>
         <ag-table-col filter="date" field="dateRef" width="200px">
-            Data
+            Date
         </ag-table-col>
         <ag-table-col filter="select" field="type" [options]="types" width="150px">
-            Tipo
+            Type
         </ag-table-col>
     </ag-table-header>
     <ag-table-body>
@@ -124,7 +124,7 @@ export class ServerSideInfinityComponent {
         });
     }
 
-    public getData(event: AgTableEvent) {
+    public getData(event: AgTableEvent = null) {
         if (!this.loading) {
             if (!this.dataAreOver || event.resetData) {
                 this.loading = true;

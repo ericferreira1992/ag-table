@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Helper } from '../../../core/services/helper';
+import { HtmlHelper } from '../../../core/services/html.helper';
 
 @Component({
 	selector: 'app-home',
@@ -7,6 +8,8 @@ import { Helper } from '../../../core/services/helper';
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+    @ViewChild('mainContainer') private mainContainer: ElementRef<HTMLElement>;
+
 	public dataItems: any[] = [];
 
     public types = [
@@ -16,24 +19,51 @@ export class HomeComponent implements OnInit {
     ];
 
 	public importModule: string;
+	public customLangModule: string;
+	public importScss1: string;
+	public importScss2: string;
 	public simpleExampleHtml: string;
 
 	constructor(
 		private helper: Helper
 	) {
 		this.importModule = '' +
-`import { AgTableModule } from 'ag-virtual-scroll';
+`import { AgTableModule } from 'ag-table';
 
 @NgModule({
+    declarations: [...],
     imports: [
     	...,
     	AgTableModule
     ],
-    declarations: [...],
     providers: [...],
     bootstrap: [AppComponent]
 })
 export class AppModule { }`;
+
+this.customLangModule = '' +
+`import { AgTableModule, AgTableCustomSettings } from 'ag-table';
+
+@NgModule({
+    declarations: [...],
+    imports: [...],
+    providers: [
+        { 
+            provide: AgTableCustomSettings,
+            useValue: { lang: 'pt-BR' } // Default is 'en-US'
+        }
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }`;
+
+		this.importScss1 = '' +
+`@import '~ag-table/scss/style.scss';
+@include ag-table-core();`;
+
+		this.importScss2 = '' +
+`@import '~ag-table/scss/style.scss';
+@include ag-table-core($yourColor);`;
 
 		this.simpleExampleHtml = '' +
 `<ag-table #table paginate="100" [items]="dataItems" clickable height="500px">
@@ -74,7 +104,7 @@ export class AppModule { }`;
         this.prepareExampleData();
 	}
 
-	prepareExampleData() {
+	private prepareExampleData() {
         let type = 1;
         let date = new Date();
 
@@ -88,6 +118,13 @@ export class AppModule { }`;
             date = this.helper.setDaysToDate(date, -1);
             return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Tipo ${type}` };
         });
+    }
+
+    public goToGetStarted(getStartedEl: HTMLElement) {
+        if (getStartedEl && this.mainContainer.nativeElement) {
+            const top = getStartedEl.offsetTop + 20;
+            HtmlHelper.smoothScroll(this.mainContainer.nativeElement, top);
+        }
     }
 
 }

@@ -8,6 +8,7 @@ import { AgTableVirtualScrollModel } from '../models/ag-table-virtual-scroll.mod
 import { AgTableVirtualScrollService } from '../services/ag-table-virtual-scroll.service';
 import { Helper } from './../services/helper';
 import { HtmlHelper } from './../services/html.helper';
+import { AgTableLangService } from '../services/ag-table-lang.service';
 
 @Component({
 	selector: 'ag-table-body',
@@ -24,7 +25,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
     private minHeight: number = 40;
 
 	@Input('row-height') rowHeight: string = this.minHeight + 'px';
-	@Input('empty-msg') emptyMsg: string = 'You do not have data to display.';
+	@Input('empty-msg') emptyMsg: string = '';
 
 	public get rows() { return this.queryRows ? this.queryRows.toArray() : []; }
 
@@ -42,6 +43,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 	private lastScrollTop: number = -1;
 
 	constructor(
+		private langService: AgTableLangService,
 		private renderer: Renderer,
 		private helper: Helper,
 		public el: ElementRef<HTMLElement>,
@@ -56,6 +58,8 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 	}
 
 	ngAfterViewInit() {
+		if (!this.emptyMsg)
+			this.emptyMsg = this.langService.getText('EMPTY', this.dictionary);
 	}
 
 	ngOnChanges(changes: SimpleChanges) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, OnChanges, SimpleChanges, ElementRef, AfterViewInit } from '@angular/core';
 import { TRANSLATION } from './ag-table-col.component.trans';
 import { AgTableHeaderComponent } from '../ag-table-header/ag-table-header.component';
 import { isNullOrUndefined, isObject, isArray } from 'util';
@@ -6,12 +6,13 @@ import { FormBuilder } from '@angular/forms';
 import { AgTableFilterMode } from '../enums/ag-table-filter-mode.enum';
 import { AgTableFilterType } from '../enums/ag-table-filter-type.enum';
 import { Helper } from './../services/helper';
+import { AgTableLangService } from '../services/ag-table-lang.service';
 
 @Component({
 	selector: 'ag-table-col',
 	templateUrl: './ag-table-col.component.html'
 })
-export class AgTableColComponent implements OnInit, OnChanges {
+export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 	@HostBinding('class.ag-table-col') public _class: boolean = true;
 
 	@Input() public width: string = null;
@@ -27,9 +28,9 @@ export class AgTableColComponent implements OnInit, OnChanges {
     @Input() public readOnly: boolean = false;
     @Input() public minDate: Date;
     @Input() public maxDate: Date;
-    @Input() public dateFormat: string = 'yyyy/MM/dd';
+    @Input() public dateFormat: string = '';
     @Input() public dateSeparator: string = '/';
-	@Input() public optionAllLabel: string = 'All';
+	@Input() public optionAllLabel: string = '';
 	@Input() public options: { text: string, value: any }[] | any[] = [];
 
 	@Input('no-sort') public noSort: boolean = false;
@@ -65,6 +66,7 @@ export class AgTableColComponent implements OnInit, OnChanges {
 
 	constructor(
 		private helper: Helper,
+        private langService: AgTableLangService,
 		private fb: FormBuilder,
 		private el: ElementRef<HTMLElement>
 	) {
@@ -76,6 +78,14 @@ export class AgTableColComponent implements OnInit, OnChanges {
 			console.warn(`The ordering will not applied because the [field] of column has not been defined.`);
 		}
 	}
+
+    ngAfterViewInit() {
+        if (!this.optionAllLabel)
+            this.optionAllLabel = this.langService.getText('ALL_OPTION', this.dictionary);
+
+        if (!this.dateFormat)
+            this.dateFormat = this.langService.getText('DATE_FORMAT', this.dictionary);
+    }
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (!changes || 'width' in changes) {

@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnInit, OnChanges, SimpleChanges, OnDestroy, HostBinding } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, OnChanges, SimpleChanges, OnDestroy, HostBinding, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { isArray, isNullOrUndefined, isObject } from 'util';
 import { debounceTime, map } from 'rxjs/operators';
@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { AgTableFilterType } from '../enums/ag-table-filter-type.enum';
 import { FILTER_TYPES } from '../constants/filter-types.const';
 import { Helper } from '../services/helper';
+import { TRANSLATION } from './ag-table-filter.component.trans';
+import { AgTableLangService } from '../services/ag-table-lang.service';
 
 @Component({
     selector: 'ag-table-filter',
@@ -20,13 +22,13 @@ export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public readOnly: boolean = false;
     @Input() public minDate: Date;
     @Input() public maxDate: Date;
-    @Input() public dateFormat: string = 'dd/mm/yyyy';
+    @Input() public dateFormat: string = '';
     @Input() public dateSeparator: string = '/';
-    @Input() public optionAllLabel: string = 'Todos';
+    @Input() public optionAllLabel: string = '';
     @Input() public options: { text: string, value: any }[] | any[] = [];
     @Input() public frmControl: FormControl;
 
-    @Output() public onChange = new EventEmitter<any>();
+    @Output() public onChange = new EventEmitter<any>();d
     @Output() public onRender = new EventEmitter<void>();
 
     private subscription: Subscription;
@@ -40,8 +42,11 @@ export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
             return 500;
     }
 
+	public dictionary = TRANSLATION;
+
     constructor(
-        private helper: Helper
+        private helper: Helper,
+        private langService: AgTableLangService
     ) {
     }
 

@@ -14,6 +14,10 @@ import { AgTablePrepareService } from './services/ag-table-prepare.service';
 import { AgTableVirtualScrollService } from './services/ag-table-virtual-scroll.service';
 import { Helper } from './services/helper';
 import { AgTableSpinnerComponent } from './ag-table-spinner/ag-table-spinner.component';
+import { AgTableLangService } from './services/ag-table-lang.service';
+import { AgTableSettings } from './ag-table.settings';
+import { AgTableCustomSettings } from './ag-table-custom.settings';
+import { TranslatePipe } from './pipes/translate.pipe';
 
 @NgModule({
 	imports: [
@@ -31,7 +35,9 @@ import { AgTableSpinnerComponent } from './ag-table-spinner/ag-table-spinner.com
 		AgTableColComponent,
 		AgTableFilterComponent,
 		AgTablePaginateComponent,
-		AgTableSpinnerComponent
+		AgTableSpinnerComponent,
+
+		TranslatePipe
 	],
 	exports: [
 		AgTableComponent,
@@ -46,6 +52,9 @@ import { AgTableSpinnerComponent } from './ag-table-spinner/ag-table-spinner.com
 	providers: [
 		AgTablePrepareService,
 		AgTableVirtualScrollService,
+		AgTableCustomSettings,
+		AgTableSettings,
+		AgTableLangService,
 		Helper
 	],
 	entryComponents: [

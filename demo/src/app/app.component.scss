@@ -1,10 +1,14 @@
 @import 'src/assets/scss/variables';
 
+$headerHeight: 119px;
+
 :host {
+
     > header {
         background: $colorPrimary;
         color: #FFF;
         text-align: center;
+        height: $headerHeight;
 
         > h1{
             margin: 0;
@@ -60,6 +64,7 @@
         position: relative;
         display: table;
         width: 100%;
+        height: calc(100vh - #{$headerHeight});
     }
 }
 
@@ -69,7 +74,8 @@
         display: block;
         overflow: auto;
         width: 100%;
-        height: calc(100vh - 119px);
+        height: calc(100vh - #{$headerHeight});
+        position: relative;
         
         animation-fill-mode: both;
         animation-duration: .5s;
@@ -100,7 +106,7 @@
         float: left;
         width: 250px;
         box-shadow: 0 5px 10px rgba(#000, .1);
-        height: calc(100vh - 119px);
+        height: calc(100vh - #{$headerHeight});
 
         ul {
             list-style: none;
@@ -175,6 +181,7 @@
             display: block;
             float: left;
             width: calc(100% - 250px);
+            position: initial;
 
             .main-container-inner {
                 max-width: 900px;

@@ -16,6 +16,7 @@ export class AgTableRowComponent implements OnInit, AfterViewInit, OnDestroy {
 	private set _height(value: string) {
 		if (this.el && this.el.nativeElement){
 			this.el.nativeElement.style.minHeight = value;
+			this.el.nativeElement.style.height = value;
 		}
 	}
 	private get _height() { return (this.el && this.el.nativeElement) ? this.el.nativeElement.style.minHeight : 'auto'; }
