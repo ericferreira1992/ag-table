@@ -11,7 +11,7 @@ import { AgTableColComponent } from '../ag-table-col/ag-table-col.component';
 	templateUrl: './ag-table-header.component.html'
 })
 export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit {
-	@HostBinding('class.ag-table-header') private class: boolean = true;
+	@HostBinding('class.ag-table-header') public class: boolean = true;
 
 	@ContentChildren(AgTableColComponent) private queryCols: QueryList<AgTableColComponent>;
 

@@ -6,7 +6,7 @@ import { TRANSLATION } from './ag-table-spinner.component.trans';
     templateUrl: './ag-table-spinner.component.html'
 })
 export class AgTableSpinnerComponent implements OnInit {
-    @HostBinding('class.ag-table-spinner') private class: boolean = true;
+    @HostBinding('class.ag-table-spinner') public class: boolean = true;
 
     public dictionary = TRANSLATION;
 

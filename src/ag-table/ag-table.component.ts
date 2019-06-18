@@ -15,8 +15,8 @@ import { Helper } from '../services/helper';
 	templateUrl: './ag-table.component.html'
 })
 export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
-	@HostBinding('class.ag-table') private class: boolean = true;
-	@HostBinding('class.ag-table-empty') private get showEmptyView() { return this.isDataEmpty && !this.noEmptyView; }
+	@HostBinding('class.ag-table') public class: boolean = true;
+	@HostBinding('class.ag-table-empty') public get showEmptyView() { return this.isDataEmpty && !this.noEmptyView; }
 
 	@ContentChildren(AgTableHeaderComponent) private queryHeader: QueryList<AgTableHeaderComponent>;
 	@ContentChildren(AgTableBodyComponent) private queryBody: QueryList<AgTableBodyComponent>;
