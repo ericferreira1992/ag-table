@@ -1,0 +1,11 @@
+.demo-card {
+    margin: 0 auto;
+    padding: 10px 25px;
+
+    > section {
+        background: #FFF;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+        border-radius: 4px;
+        padding: 0 10px;
+    }
+}
