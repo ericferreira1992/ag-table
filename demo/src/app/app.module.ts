@@ -72,7 +72,7 @@ export function hljsLanguages() {
         AgTableModule,
     ],
     providers: [
-        { provide: AgTableCustomSettings, useValue: { lang: 'pt-BR' } }
+        // { provide: AgTableCustomSettings, useValue: { lang: 'pt-BR' } }
     ],
     bootstrap: [AppComponent]
 })
