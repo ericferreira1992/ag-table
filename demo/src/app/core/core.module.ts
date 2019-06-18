@@ -4,6 +4,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { Helper } from './services/helper';
 import { RouterOutletDefaultComponent } from './components/router-outlet-default/router-outlet-default.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -12,10 +13,12 @@ import { RouterModule } from '@angular/router';
     ],
     imports: [
         CommonModule,
+        ReactiveFormsModule,
         RouterModule
     ],
     exports: [
-        OrderByPipe
+        OrderByPipe,
+        ReactiveFormsModule,
     ],
     providers: [
         Helper

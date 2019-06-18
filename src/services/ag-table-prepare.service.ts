@@ -24,7 +24,7 @@ export class AgTablePrepareService {
 					length = _data.length;
 				}
 
-				if (AgTable.isOrdering) {
+				if (AgTable.isSorting) {
 					_data = this.applySort(_data ? _data : data, AgTable);
 					length = _data.length;
 				}
@@ -113,8 +113,16 @@ export class AgTablePrepareService {
 			table.setCurrentPage(1);
 
 		if (table.header.colSorting) {
-			let field = table.header.colSorting.col.field;
+			let col = table.header.colSorting.col;
 			let asc = table.header.colSorting.asc;
+
+			let field = '';
+
+			if (!col.field && col.customFilter && (col.customFilter as any[]).length) 
+				field = (col.customFilter as any[])[0].field;
+			else
+				field = col.field;
+
 
 			let dateRegex: RegExp = new RegExp('^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$');
 			let _data = data.sort((a: any, b: any) => {

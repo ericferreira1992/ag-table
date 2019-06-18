@@ -1,0 +1,63 @@
+
+<div class="main-container-inner">
+    <div class="row">
+        <div class="col-12">
+            <h4>Custom filter</h4>
+            <p class="about">
+                This example shows how to insert a custom filter. Maybe will need to follow the steps below.
+            </p>
+
+            <ul class="step-list">
+                <li>Add <span class="code">#header</span> on <span class="code" [innerText]="'<ag-table-header>'"></span>.</li>
+                <li>Add directive <span class="code">custom-filter="yourField"</span> with the data field</li>
+                <li>Put your <span class="code">input</span> inside <span class="code" [innerText]="'<ag-table-col>'"></span>.</li>
+                <li>Add the AgTable class <span class="code">input</span> to style and maintain the fields pattern: <span class="code">class="ag-table-filter-input"</span>.</li>
+                <li>Set into your <span class="code">input</span> the <span class="code">[formControl]="header.filterCtrls.yourField"</span>.</li>
+                <li>And finally, put on your <span class="code">input</span> a <span class="code">*ngIf="header.filterCtrls.yourField"</span> to check the filter control it's ready.</li>
+            </ul> 
+
+            <h5>Example</h5>
+            <ag-table #table paginate="1000" [items]="dataItems" clickable height="500px">
+                <ag-table-header #header>
+                    <ag-table-col filter field="id" placeholder="Identifier" width="100px">
+                        ID
+                    </ag-table-col>
+                    <ag-table-col filter field="name" placeholder="Set a name">
+                        Name
+                    </ag-table-col>
+                    <ag-table-col custom-filter="dateRef" width="200px">
+                        Date
+                        <input *ngIf="header.filterCtrls.dateRef" class="ag-table-filter-input" [formControl]="header.filterCtrls.dateRef" placeholder="yyyy/mm/dd"/>
+                    </ag-table-col>
+                    <ag-table-col custom-filter="type" width="150px">
+                        Type
+                        <select *ngIf="header.filterCtrls.type" class="ag-table-filter-select" [formControl]="header.filterCtrls.type">
+                            <option [value]="null">All</option>
+                            <option [value]="'Type 1'">Type 1</option>
+                            <option [value]="'Type 1'">Type 2</option>
+                        </select>
+                    </ag-table-col>
+                </ag-table-header>
+                <ag-table-body>
+                    <ag-table-row *ngFor="let item of table.items">
+                        <ag-table-cell>{{item.id}}</ag-table-cell>
+                        <ag-table-cell [style.height.px]="item.height">
+                            {{item.name}}
+                        </ag-table-cell>
+                        <ag-table-cell>{{item.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>
+                        <ag-table-cell>{{item.type}}</ag-table-cell>
+                    </ag-table-row>
+                </ag-table-body>
+            </ag-table>
+
+            <h5 class="mt-2 mb-0">Code</h5>
+            <mat-tab-group [style.minHeight.px]="450">
+                <mat-tab label="HTML">
+                    <pre>
+                            <code [highlight]="strHtml"></code>
+                    </pre>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,8 @@ import { EventAgTableComponent } from './components/pages/api/events/event-ag-ta
 import { EventAgTableDataRenderComponent } from './components/pages/api/events/event-ag-table-data-render/event-ag-table-data-render.component';
 import { EnumAgTableFilterModeComponent } from './components/pages/api/enums/enum-ag-table-filter-mode/enum-ag-table-filter-mode.component';
 import { EnumAgTableFilterTypeComponent } from './components/pages/api/enums/enum-ag-table-filter-type/enum-ag-table-filter-type.component';
+import { OthersCustomFilterComponent } from './components/pages/demo/others/others-custom-filter/others-custom-filter.component';
+import { OthersDataRenderEventComponent } from './components/pages/demo/others/others-data-render-event/others-data-render-event.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,7 +28,13 @@ const routes: Routes = [
             { path: '', redirectTo: 'client-side', pathMatch: 'prefix'},
             { path: 'client-side', component: ClientSideComponent },
             { path: 'server-side', component: ServerSideComponent },
-            { path: 'server-side-infinity', component: ServerSideInfinityComponent }
+            { path: 'server-side-infinity', component: ServerSideInfinityComponent },
+            { path: 'others',
+                children: [
+                    { path: 'custom-filter', component: OthersCustomFilterComponent },
+                    { path: 'using-data-render-event', component: OthersDataRenderEventComponent },
+                ]
+            },
         ]
     },
     { path: 'api', component: ApiComponent,

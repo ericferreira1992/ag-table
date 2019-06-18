@@ -2,9 +2,9 @@
 
 <ng-content></ng-content>
 
-<ag-table-paginate *ngIf="!infinity && (numPages || dataLength > 0)"
+<ag-table-paginate
     class="animated fadeIn"
-    [ngClass]="{'to-drop': bottomShadow}"
+    [ngClass]="{ 'to-drop': bottomShadow, 'on-infinity': infinity }"
     [length]="(isPaging && numPages) ? numPages : 1"
     [current]="(isPaging && numPages) ? currentPage : 1"
     [objCaption]="(isPaging && numPages) ? paginateCaptionConfig : { start: 1, end: dataLength, total: 0 }"

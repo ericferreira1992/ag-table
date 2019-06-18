@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ContentChildren, QueryList, AfterViewInit, Input, OnChanges, ElementRef, SimpleChanges, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, HostBinding, ContentChildren, QueryList, AfterViewInit, AfterContentChecked, Input, OnChanges, ElementRef, SimpleChanges, EventEmitter, Output, ViewChild } from '@angular/core';
 import { TRANSLATION } from './ag-table.component.trans';
 import { AgTableHeaderComponent } from '../ag-table-header/ag-table-header.component';
 import { AgTableBodyComponent } from '../ag-table-body/ag-table-body.component';
@@ -14,7 +14,7 @@ import { Helper } from '../services/helper';
 	selector: 'ag-table',
 	templateUrl: './ag-table.component.html'
 })
-export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
+export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, AfterContentChecked {
 	@HostBinding('class.ag-table') public class: boolean = true;
 	@HostBinding('class.ag-table-empty') public get showEmptyView() { return this.isDataEmpty && !this.noEmptyView; }
 
@@ -113,7 +113,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 
 	public get isPaging() { return this.paginate; }
 
-	public get isOrdering() { return this.header && this.header.colSorting; }
+	public get isSorting() { return this.header && this.header.colSorting; }
 
 	public get isFiltering() { return ((this.header && this.header.cols) ? this.header.cols.some(x => x.canFilter) : false); }
 
@@ -135,6 +135,9 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 	private dataPaginatedLength: number = 0;
 	public paginateCaptionConfig: { start: number, end: number, total: number };
 	public actionChange: AgTableChangeAction = AgTableChangeAction.INITIALIZE;
+
+	private DOMisVisible: boolean = false;
+	private DOMcountVisibleChange: number = 0;
 
 	constructor(
 		public el: ElementRef<HTMLElement>,
@@ -170,6 +173,23 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 			this.filterActivated.emit(false);
 			this.initialized = true;
 		});
+	}
+
+	ngAfterContentChecked() {
+		if (this.el && this.el.nativeElement) {
+			let elem = this.el.nativeElement;
+			let visible = !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
+			if (visible !== this.DOMisVisible) {
+				this.DOMisVisible = visible;
+
+				if (this.DOMisVisible && this.DOMcountVisibleChange > 0)
+					this.body.onScroll();
+					
+				this.DOMcountVisibleChange++;
+			}
+		}
+		else
+			this.DOMisVisible = false;
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -453,7 +473,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit {
 		};
 	}
 
-	public notifyChanges(action: AgTableChangeAction = AgTableChangeAction.INITIALIZE) {
+	private notifyChanges(action: AgTableChangeAction = AgTableChangeAction.INITIALIZE) {
 		this.actionChange = action;
 	}
 

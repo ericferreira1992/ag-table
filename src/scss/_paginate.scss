@@ -2,6 +2,8 @@
     .ag-table-paginate {
         display: block;
         padding: 10px 0;
+        overflow: hidden;
+        margin-bottom: -1px;
     
         > ul {
             padding: 0;
@@ -124,6 +126,11 @@
             color: #999999;
             padding-top: 4px;
             float: left;
+        }
+
+        &.on-infinity {
+            padding: 0;
+            height: 1px;
         }
     }
 }

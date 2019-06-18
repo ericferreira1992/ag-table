@@ -1,0 +1,56 @@
+
+<div class="main-container-inner">
+    <div class="row">
+        <div class="col-12">
+            <h4>Using data render event</h4>
+            <p class="about">
+                This is an example of using onDataRender, in this case the dates will be load when the items are rendered.
+            </p>
+
+            <h5>Example</h5>
+            <ag-table #table paginate="1000" [items]="dataItems" height="500px" (onDataRender)="onDataRender($event)">
+                <ag-table-header #header>
+                    <ag-table-col filter field="id" placeholder="Identifier" width="100px">
+                        ID
+                    </ag-table-col>
+                    <ag-table-col filter field="name" placeholder="Set a name">
+                        Name
+                    </ag-table-col>
+                    <ag-table-col filter field="dateRef" width="200px">
+                        Date
+                    </ag-table-col>
+                    <ag-table-col field="type" filter="select" [options]="types" width="150px">
+                        Type
+                    </ag-table-col>
+                </ag-table-header>
+                <ag-table-body>
+                    <ag-table-row *ngFor="let item of table.items">
+                        <ag-table-cell>{{item.id}}</ag-table-cell>
+                        <ag-table-cell>
+                            {{item.name}}
+                        </ag-table-cell>
+                        <ag-table-cell>
+                            <span *ngIf="item.loading">Loading...</span>
+                            <span *ngIf="!item.loading">{{item.dateRef | date:'yyyy/MM/dd'}}</span>
+                        </ag-table-cell>
+                        <ag-table-cell>{{item.type}}</ag-table-cell>
+                    </ag-table-row>
+                </ag-table-body>
+            </ag-table>
+
+            <h5 class="mt-2 mb-0">Code</h5>
+            <mat-tab-group [style.minHeight.px]="450">
+                <mat-tab label="HTML">
+                    <pre>
+                        <code [highlight]="strHtml"></code>
+                    </pre>
+                </mat-tab>
+                <mat-tab label="TypeScript">
+                    <pre>
+                        <code [highlight]="strTs"></code>
+                    </pre>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

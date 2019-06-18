@@ -74,7 +74,7 @@ export class ServerSideComponent implements OnInit {
 `@Component({
     ...
 })
-export class ServerSideComponent {
+export class DemoComponent {
 
     private allDataItems: any[] = [];
 
@@ -88,9 +88,6 @@ export class ServerSideComponent {
     public dataAreOver: boolean = false;
     public dataLength: number = 0;
     public loading: boolean = false;
-
-    public strHtml: string;
-    public strTs: string;
 
     constructor(
         private helper: Helper

@@ -74,7 +74,7 @@ this.strTs = '' +
 `@Component({
 ...
 })
-export class ServerSideInfinityComponent {
+export class DemoComponent {
 
     private allDataItems: any[] = [];
 
@@ -88,10 +88,6 @@ export class ServerSideInfinityComponent {
     public dataAreOver: boolean = false;
     public dataLength: number = 0;
     public loading: boolean = false;
-
-    public strHtml: string;
-    public strTs: string;
-
     constructor(
         private helper: Helper
     ) {

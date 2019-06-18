@@ -1,13 +1,16 @@
 <div class="side-left-bar">
     <ul>
-        <li>
-            <a routerLink="/demo/client-side" routerLinkActive="active-link">Client side</a>
-        </li>
-        <li>
-            <a routerLink="/demo/server-side" routerLinkActive="active-link">Server side</a>
-        </li>
-        <li>
-            <a routerLink="/demo/server-side-infinity" routerLinkActive="active-link">Server side infinity scroll</a>
+        <li *ngFor="let menu of menuItems">
+            <a [routerLink]="menu.route ? ('/demo' + menu.route) : null" [routerLinkActive]="(menu.route) ? 'active-link' : ''" [ngClass]="{'active-link': menu.submenu?.visible}" (click)="onMenuClick(menu)">
+                {{ menu.title }}
+            </a>
+            <ul *ngIf="menu.submenu?.items?.length" [style.height.px]="menu.submenu?.visible ? (menu.submenu?.items?.length * 30) : 0">
+                <li *ngFor="let submenu of menu.submenu.items" class="animated" [ngClass]="{'fadeOut': !menu.submenu.visible, 'fadeIn': menu.submenu.visible}">
+                    <a [routerLink]="'/demo' + menu.routePrefix + submenu.route" routerLinkActive="active-link">
+                        {{ submenu.title }}
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>

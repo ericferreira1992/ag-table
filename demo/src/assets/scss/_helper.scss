@@ -11,6 +11,12 @@
     &-initial { display: initial !important; }
 }
 
+.va {
+    &-middle { vertical-align: middle; }
+    &-top { vertical-align: top; }
+    &-bottom { vertical-align: bottom; }
+}
+
 .p{
     &-absolute { position: absolute !important; }
     &-relative { position: relative !important; }
@@ -27,6 +33,12 @@
     &-bold { font-weight: bold; }
 }
 
+.f {
+    &-right { float: right; }
+    &-left { float: left; }
+    &-none { float: none; }
+}
+
 .opacity {
     &-default { 
         opacity: 1;
@@ -36,4 +48,18 @@
             opacity: #{$i / 10};
         }
     }
+}
+
+.code {
+    background: #F8F8F8;
+    padding: 2px;
+    color: #222;
+    font-weight: 400;
+}
+
+.step-list {
+    padding-left: 15px;
+    font-size: 14px;
+    color: #555;
+    list-style-type: decimal;
 }

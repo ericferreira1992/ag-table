@@ -218,4 +218,8 @@ export class Helper {
 	public stringReplace(source, str, strToRep){
 		return source.replace(str, strToRep).toString();
 	}
+
+	public  randomInterval(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
 }

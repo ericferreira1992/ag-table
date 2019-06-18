@@ -7,7 +7,6 @@ import { isNullOrUndefined } from 'util';
 import { AgTableVirtualScrollModel } from '../models/ag-table-virtual-scroll.model';
 import { AgTableVirtualScrollService } from '../services/ag-table-virtual-scroll.service';
 import { Helper } from './../services/helper';
-import { HtmlHelper } from './../services/html.helper';
 import { AgTableLangService } from '../services/ag-table-lang.service';
 
 @Component({
@@ -124,29 +123,6 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 		return element ? ((element.clientHeight + element.scrollTop) >= element.scrollHeight) : false;
 	}
 
-	private onLoading() {
-		if (this.parent.infinity > 0 && this.parent.currentPage !== 1 && this.parent.loading) {
-			if (this.el && this.el.nativeElement) {
-				let element = this.el.nativeElement;
-				let stepTime = 10;
-				let countTime = 0;
-				let interval = setInterval(() => {
-					try {
-						if (this.parent.loading) {
-							countTime += stepTime;
-							HtmlHelper.srollBottom(element);
-							if (countTime >= 150)
-								clearInterval(interval);
-						}
-						else
-							clearInterval(interval);
-					}
-					catch { clearInterval(interval); }
-				}, stepTime);
-			}
-		}
-	}
-
 	private onScrollFinished() {
 		if (this.parent.infinity && this.parent && !this.parent.dataAreOver) {
 			this.parent.currentPage++;
@@ -154,7 +130,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 		}
 	}
 
-	private onScroll() {
+	public onScroll() {
 		if (!this.parent.loading) {
 			if (this.dataTableInBottom()) {
 				if (!this.scrollInBottom) {

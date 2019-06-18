@@ -30,6 +30,8 @@ import { EnumAgTableFilterModeComponent } from './components/pages/api/enums/enu
 import { EnumAgTableFilterTypeComponent } from './components/pages/api/enums/enum-ag-table-filter-type/enum-ag-table-filter-type.component';
 import { EventAgTableComponent } from './components/pages/api/events/event-ag-table/event-ag-table.component';
 import { EventAgTableDataRenderComponent } from './components/pages/api/events/event-ag-table-data-render/event-ag-table-data-render.component';
+import { OthersCustomFilterComponent } from './components/pages/demo/others/others-custom-filter/others-custom-filter.component';
+import { OthersDataRenderEventComponent } from './components/pages/demo/others/others-data-render-event/others-data-render-event.component';
 
 export function hljsLanguages() {
     return [
@@ -58,7 +60,9 @@ export function hljsLanguages() {
         EnumAgTableFilterModeComponent,
         EnumAgTableFilterTypeComponent,
         EventAgTableComponent,
-        EventAgTableDataRenderComponent
+        EventAgTableDataRenderComponent,
+        OthersCustomFilterComponent,
+        OthersDataRenderEventComponent
     ],
     imports: [
         BrowserModule,

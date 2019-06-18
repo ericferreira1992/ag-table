@@ -73,10 +73,6 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 
 	ngOnInit() {
-		if (!this.noSort && !this.field) {
-			this.filter = AgTableFilterType.NONE;
-			console.warn(`The ordering will not applied because the [field] of column has not been defined.`);
-		}
 	}
 
     ngAfterViewInit() {
@@ -84,7 +80,12 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
             this.optionAllLabel = this.langService.getText('ALL_OPTION', this.dictionary);
 
         if (!this.dateFormat)
-            this.dateFormat = this.langService.getText('DATE_FORMAT', this.dictionary);
+			this.dateFormat = this.langService.getText('DATE_FORMAT', this.dictionary);
+			
+		if (!this.noSort && !this.field && (!this.customFilter || !(this.customFilter as any[]).length)) {
+			this.filter = AgTableFilterType.NONE;
+			console.warn(`The ordering will not applied because the [field] of column has not been defined.`);
+		}
     }
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -210,7 +211,8 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 							this.customFilter = null;
 						}
 						else {
-							this.noSort = true;
+							if (!this.noSort)
+								this.noSort = (this.customFilter as any[]).length > 1;
 
 							(this.customFilter as any[]).forEach((filter) => {
 								if (!filter.mode)

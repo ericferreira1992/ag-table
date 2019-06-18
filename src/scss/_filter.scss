@@ -2,10 +2,6 @@
     .ag-table-filter {
         display: block;
 
-        input, select {
-            outline: 0;
-        }
-
         > *[disabled] {
             background-color: lighten(#EAEAEA, 7);
             border-color: lighten(#EAEAEA, 7);
