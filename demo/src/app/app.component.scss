@@ -15,8 +15,15 @@ $headerHeight: 119px;
 
         > h1{
             margin: 0;
-            padding: 10px 0;
+            padding: 9px 0;
             color: #FFF;
+            max-height: 68px;
+
+            .logo {
+                margin-right: -92px;
+                width: auto;
+                height: 40px;
+            }
         }
 
         > div {

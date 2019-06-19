@@ -126,7 +126,9 @@ export class AppModule { }`;
         if (getStartedEl && this.mainContainer.nativeElement) {
             const top = getStartedEl.offsetTop + 20;
             HtmlHelper.smoothScroll(this.mainContainer.nativeElement, top);
-            setTimeout(() => this.parent.hideTitleHeader = true, 200);
+
+            if (!this.helper.isMobileDevice())
+                setTimeout(() => this.parent.hideTitleHeader = true, 200);
         }
     }
 

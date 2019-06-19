@@ -221,5 +221,9 @@ export class Helper {
 
 	public  randomInterval(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1) + min);
-    }
+	}
+	
+	public isMobileDevice() {
+		return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+	};
 }
