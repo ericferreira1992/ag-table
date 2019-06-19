@@ -1,6 +1,6 @@
-<header [ngClass]="{'hide-title': hideTitleHeader}">
+<header [ngClass]="{'hide-title': hideTitleHeader, 'with-shadow': shadowHeader}">
     <h1>
-        <img class="logo" src="assets/img/ag-table.svg"/>
+        <img class="logo animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': !hideTitleHeader, 'fadeOut': hideTitleHeader}"/>
 
         <div class="d-table f-right" [style.marginTop]="'-5px'">
             <div class="d-table-cell va-middle">
@@ -16,8 +16,10 @@
         </div>
     </h1>
     <div>
-    
         <ul>
+            <li class="logo" [ngClass]="{'expand-logo': hideTitleHeader}">
+                <img class="animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': hideTitleHeader, 'fadeOut': !hideTitleHeader}"/>
+            </li>
             <li>
                 <a routerLink="/home" routerLinkActive="active-link">Home</a>
             </li>

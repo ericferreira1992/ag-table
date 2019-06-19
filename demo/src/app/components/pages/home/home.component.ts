@@ -50,7 +50,7 @@ this.customLangModule = '' +
     declarations: [...],
     imports: [...],
     providers: [
-        { 
+        {
             provide: AgTableCustomSettings,
             useValue: { lang: 'pt-BR' } // Default is 'en-US'
         }

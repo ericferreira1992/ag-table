@@ -6,12 +6,16 @@ $headerHeight: 119px;
 :host {
 
     > header {
+        position: relative;
+        z-index: 1;
         background: $colorPrimary;
         color: #FFF;
         text-align: center;
         height: $headerHeight;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
         margin-top: 0;
-        transition-duration: 300ms;
+        transition-duration: 500ms;
+        overflow: hidden;
 
         > h1{
             margin: 0;
@@ -19,10 +23,11 @@ $headerHeight: 119px;
             color: #FFF;
             max-height: 68px;
 
-            .logo {
+            > .logo {
                 margin-right: -92px;
                 width: auto;
                 height: 40px;
+                animation-delay: 200ms;
             }
         }
 
@@ -37,7 +42,8 @@ $headerHeight: 119px;
                 max-width: 1500px;
     
                 > li {
-                    float: left;
+                    display: inline-block;
+                    vertical-align: middle;
                     font-size: 14px;
                     cursor: pointer;
 
@@ -65,12 +71,34 @@ $headerHeight: 119px;
                             background: rgba(#FFF, .05);
                         }
                     }
+
+                    &.logo {
+                        width: 0;
+                        margin-right: 0;
+                        transition-duration: 500ms;
+                        overflow: hidden;
+
+                        > img {
+                            width: inherit;
+                            height: auto;
+                            animation-delay: 200ms;
+                        }
+
+                        &.expand-logo {
+                            width: 80px;
+                            margin-right: 10px;
+                        }
+                    }
                 }
             }
         }
 
         &.hide-title {
             margin-top: -$titleHeaderHeight;
+        }
+        
+        &.with-shadow {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
         }
     }
 
@@ -79,7 +107,7 @@ $headerHeight: 119px;
         display: table;
         width: 100%;
         height: calc(100vh - #{$headerHeight});
-        transition-duration: 300ms;
+        transition-duration: 500ms;
     }
 }
 
@@ -92,7 +120,7 @@ $headerHeight: 119px;
             overflow: auto;
             width: 100%;
             height: calc(100vh - #{$headerHeight});
-            transition-duration: 300ms;
+            transition-duration: 500ms;
             
             animation-fill-mode: both;
             animation-duration: .5s;
@@ -124,7 +152,7 @@ $headerHeight: 119px;
             width: 250px;
             box-shadow: 0 5px 10px rgba(#000, .1);
             height: calc(100vh - #{$headerHeight});
-            transition-duration: 300ms;
+            transition-duration: 500ms;
     
             ul {
                 list-style: none;
@@ -160,7 +188,7 @@ $headerHeight: 119px;
                     }
     
                     > ul {
-                        transition-duration: 300ms;
+                        transition-duration: 500ms;
                         overflow: hidden;
             
                         > li {

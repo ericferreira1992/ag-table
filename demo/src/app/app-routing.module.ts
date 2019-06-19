@@ -39,8 +39,10 @@ const routes: Routes = [
     },
     { path: 'api', component: ApiComponent,
         children: [
+            { path: '', redirectTo: 'structure/ag-table', pathMatch: 'prefix'},
             { path: 'structure',
                 children: [
+                    { path: '', redirectTo: 'ag-table', pathMatch: 'prefix'},
                     { path: 'ag-table', component: StructureAgTableComponent },
                     { path: 'ag-table-header', component: StructureAgTableHeaderComponent },
                     { path: 'ag-table-col', component: StructureAgTableColComponent },
@@ -51,12 +53,14 @@ const routes: Routes = [
             },
             { path: 'events',
                 children: [
+                    { path: '', redirectTo: 'ag-table', pathMatch: 'prefix'},
                     { path: 'ag-table', component: EventAgTableComponent },
                     { path: 'ag-table-data-render', component: EventAgTableDataRenderComponent }
                 ]
             },
             { path: 'enums',
                 children: [
+                    { path: '', redirectTo: 'ag-table-filter-mode', pathMatch: 'prefix'},
                     { path: 'ag-table-filter-mode', component: EnumAgTableFilterModeComponent },
                     { path: 'ag-table-filter-type', component: EnumAgTableFilterTypeComponent }
                 ]

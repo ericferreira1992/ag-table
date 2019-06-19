@@ -18,6 +18,7 @@
         "no-output-on-prefix": false,
         "prefer-const": false,
         "variable-name": false,
-        "align": false
+        "align": false,
+        "ban-types": false
     }
 }
