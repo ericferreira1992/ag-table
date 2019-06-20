@@ -9,6 +9,16 @@ import { isNullOrUndefined } from 'util';
 })
 export class AgTableCellComponent implements OnInit, OnDestroy {
 	@HostBinding('class.ag-table-cell') public class: boolean = true;
+	
+	public get truncate() { return this.el.classList.contains('text-truncate'); }
+	public set truncate(value: boolean) {
+		if (this.el) {
+			if (value)
+				this.el.classList.add('text-truncate');
+			else
+				this.el.classList.remove('text-truncate');
+		}
+	}
 
 	public cellIndex: number = null;
 	public parent: AgTableRowComponent;
@@ -34,9 +44,13 @@ export class AgTableCellComponent implements OnInit, OnDestroy {
 
 	public dictionary = TRANSLATION;
 
+	private get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
+
 	constructor(
-		private el: ElementRef<HTMLElement>
+		private elRef: ElementRef<HTMLElement>,
+		public detectorRef: ChangeDetectorRef
 	) {
+		this.truncate = true;
 	}
 
 	ngOnInit() {
@@ -46,15 +60,17 @@ export class AgTableCellComponent implements OnInit, OnDestroy {
 		this.cellIndex = index;
 		this.parent = parent;
 
+		this.truncate = !this.parent.noTruncate
+
 		this.setWidth();
 	}
 
 	public setWidth() {
-		if (this.el && this.el.nativeElement) {
+		if (this.el) {
 			let newWidth = this.col ? this.col._width : 'auto';
-			if (newWidth !== this.el.nativeElement.style.width) {
-				this.el.nativeElement.style.width = newWidth;
-				this.el.nativeElement.style.maxWidth = newWidth;
+			if (newWidth !== this.el.style.width) {
+				this.el.style.width = newWidth;
+				this.el.style.maxWidth = newWidth;
 			}
 		}
 	}

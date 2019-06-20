@@ -9,17 +9,6 @@
 @import 'spinner';
 
 @mixin ag-table-core($color: rgb(0, 102, 255)) {
-
-    @include table($color);
-    @include header($color);
-    @include col($color);
-    @include body($color);
-    @include row($color);
-    @include cell($color);
-    @include filter($color);
-    @include paginate($color);
-    @include spinner($color);
-
     .text-truncate {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -31,4 +20,15 @@
     .w-100 { width: 100%; }
     .w-50 { width: 50%; }
     .w-auto { width: auto; }
+
+    @include table($color);
+    @include header($color);
+    @include col($color);
+    @include body($color);
+    @include row($color);
+    @include cell($color);
+    @include filter($color);
+    @include paginate($color);
+    @include spinner($color);
+
 }

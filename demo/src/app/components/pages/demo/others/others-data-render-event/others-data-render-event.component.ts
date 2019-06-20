@@ -30,7 +30,7 @@ export class OthersDataRenderEventComponent implements OnInit {
 
     ngOnInit() {
         this.strHtml = '' +
-`<ag-table #table paginate="1000" [items]="dataItems" height="500px" (onDataRender)="onDataRender($event)">
+`<ag-table #table paginate="1000" [items]="dataItems" height="500px" min-width="800px" (onDataRender)="onDataRender($event)">
     <ag-table-header #header>
         <ag-table-col filter field="id" placeholder="Identifier" width="100px">
             ID

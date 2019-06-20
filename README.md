@@ -8,7 +8,7 @@ The simple, clean and light DataTable component for Angular framework.
 **AgTable** is an excellent alternative for the developer who wants agility and practicality when developing.
 With it is possible to mount a data grid in a few seconds without effort. With a well elaborated structure, there is no need to create compronents for the columns or cells, as some other data-table components require.
 
-## Because he's cool?
+## Why he's cool?
 
 The reasons for using **AgTable** are diverse, some points make it stand out from other existing data-tables, see:
 

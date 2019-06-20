@@ -3,18 +3,18 @@
 </span>
 
 <ul *ngIf="length > 1 && pages.length > 0">
-	<li [ngClass]="{'disabled': current <= 1}">
+	<li [ngClass]="{'disabled': current <= 1}" class="animated fadeIn">
 		<button (click)="pageClick(current - 1)">
 			<i class="arrow-prev"></i>
 		</button>
 	</li>
-	<li *ngFor="let page of pages"
+	<li *ngFor="let page of pages" class="animated fadeIn"
 		[ngClass]="{'actived': page === current, 'disabled': disabled, 'interval': page === '...'}">
 		<button (click)="pageClick(page)">
 			<span>{{page}}</span>
 		</button>
 	</li>
-	<li [ngClass]="{'disabled': current >= length}">
+	<li [ngClass]="{'disabled': current >= length}" class="animated fadeIn">
 		<button (click)="pageClick(current + 1)">
 			<i class="arrow-next"></i>
 		</button>

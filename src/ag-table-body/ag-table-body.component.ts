@@ -28,6 +28,8 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 
 	public get rows() { return this.queryRows ? this.queryRows.toArray() : []; }
 
+	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
+
 	public parent: AgTableComponent;
 
 	public dictionary = TRANSLATION;
@@ -47,14 +49,14 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 		private langService: AgTableLangService,
 		private renderer: Renderer,
 		private helper: Helper,
-		public el: ElementRef<HTMLElement>,
+		public elRef: ElementRef<HTMLElement>,
 		private dataVirtualScrollService: AgTableVirtualScrollService
 	) {
 	}
 
 	ngOnInit() {
         this.virtualScroll = new AgTableVirtualScrollModel({
-            containerSrollEl: this.el
+            containerSrollEl: this.elRef
         });
 	}
 
@@ -98,6 +100,8 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 		this.applyListeners();
 		this.scrollEnabled = this.parent.loading;
 
+		this.parent.checkMinWidthcanApply();
+
 		if (this.dataVirtualScrollService.canApplyVirtualScroll(this))
 			this.dataVirtualScrollService.defineItens(this);
 		else
@@ -120,13 +124,13 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 			this.eventsLineters = [];
 		}
 
-		this.eventsLineters.push(this.renderer.listen(this.el.nativeElement, 'scroll', this.onScroll.bind(this)));
-        this.eventsLineters.push(this.renderer.listen(this.el.nativeElement, 'mousewheel', this.onMouseWheel.bind(this)));
-        this.eventsLineters.push(this.renderer.listen(this.el.nativeElement, 'DOMMouseScroll', this.onMouseWheel.bind(this)));
+		this.eventsLineters.push(this.renderer.listen(this.elRef.nativeElement, 'scroll', this.onScroll.bind(this)));
+        this.eventsLineters.push(this.renderer.listen(this.elRef.nativeElement, 'mousewheel', this.onMouseWheel.bind(this)));
+        this.eventsLineters.push(this.renderer.listen(this.elRef.nativeElement, 'DOMMouseScroll', this.onMouseWheel.bind(this)));
 	}
 
 	private dataTableInBottom() {
-		let element = this.el.nativeElement;
+		let element = this.elRef.nativeElement;
 		return element ? ((element.clientHeight + element.scrollTop) >= element.scrollHeight) : false;
 	}
 
@@ -157,7 +161,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 	}
 
 	public backToTheTop() {
-		this.el.nativeElement.scrollTop = 0;
+		this.elRef.nativeElement.scrollTop = 0;
 	}
 
 	public getRowIndexBasedVirtual(virtualIndex: number) {

@@ -8,7 +8,7 @@
             </p>
 
             <h5>Example</h5>
-            <ag-table #table paginate="25" height="450px" [items]="dataItems" server-side [data-length]="dataLength" [loading]="loading" (onGetData)="getData($event)">
+            <ag-table #table paginate="25" height="450px" min-width="800px" [items]="dataItems" server-side [data-length]="dataLength" [loading]="loading" (onGetData)="getData($event)">
                 <ag-table-header>
                     <ag-table-col filter="text" field="id" placeholder="Identifier" width="100px">
                         ID

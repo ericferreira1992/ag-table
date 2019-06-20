@@ -36,6 +36,7 @@ export class ServerSideInfinityComponent implements OnInit {
         this.strHtml = '' +
 `<ag-table #table
     height="450px"
+    min-width="800px"
     infinity="25"
     server-side
     [items]="dataItems"

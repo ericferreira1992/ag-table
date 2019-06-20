@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, QueryList, ContentChildren, AfterViewInit, OnDestroy, ElementRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, HostBinding, QueryList, ContentChildren, AfterViewInit, OnDestroy, ElementRef, ViewContainerRef, ViewChild, SimpleChanges, OnChanges, Input } from '@angular/core';
 import { TRANSLATION } from './ag-table-row.component.trans';
 import { AgTableBodyComponent } from '../ag-table-body/ag-table-body.component';
 import { AgTableCellComponent } from '../ag-table-cell/ag-table-cell.component';
@@ -8,10 +8,12 @@ import { Subscription } from 'rxjs';
 	selector: 'ag-table-row',
 	templateUrl: './ag-table-row.component.html'
 })
-export class AgTableRowComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AgTableRowComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 	@HostBinding('class.ag-table-row') public class: boolean = true;
 
 	@ContentChildren(AgTableCellComponent) private queryCells: QueryList<AgTableCellComponent>;
+
+	@Input('no-truncate') public noTruncate: boolean = false;
 
 	private set _height(value: string) {
 		if (this.el && this.el.nativeElement){
@@ -21,7 +23,7 @@ export class AgTableRowComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 	private get _height() { return (this.el && this.el.nativeElement) ? this.el.nativeElement.style.minHeight : 'auto'; }
 
-	public get cells() { return this.queryCells.toArray(); }
+	public get cells() { return this.queryCells ? this.queryCells.toArray() : []; }
 
 	public parent: AgTableBodyComponent;
 
@@ -39,6 +41,18 @@ export class AgTableRowComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	ngOnInit() {
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes) {
+			if ('noTruncate' in changes) {
+				this.noTruncate = (typeof this.noTruncate === 'string' && (this.noTruncate === '' || this.noTruncate === 'true')) ? true : this.noTruncate;
+				if (this.cells.length)
+					this.cells.forEach(cell => {
+						cell.truncate = !this.noTruncate;
+					});
+			}
+		}
 	}
 
 	ngAfterViewInit() {

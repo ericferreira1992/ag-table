@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ContentChildren, QueryList, AfterViewInit, AfterContentChecked, Input, OnChanges, ElementRef, SimpleChanges, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, HostBinding, ContentChildren, QueryList, AfterViewInit, AfterContentChecked, Input, OnChanges, ElementRef, SimpleChanges, EventEmitter, Output, ViewChild, OnDestroy } from '@angular/core';
 import { TRANSLATION } from './ag-table.component.trans';
 import { AgTableHeaderComponent } from '../ag-table-header/ag-table-header.component';
 import { AgTableBodyComponent } from '../ag-table-body/ag-table-body.component';
@@ -9,17 +9,20 @@ import { isNullOrUndefined } from 'util';
 import { AgTableVirtualScrollService } from '../services/ag-table-virtual-scroll.service';
 import { AgTableDataRenderEvent } from '../events/ag-table-data-render.event';
 import { Helper } from '../services/helper';
+import { AgTablePaginateComponent } from '../ag-table-paginate/ag-table-paginate.component';
 
 @Component({
 	selector: 'ag-table',
 	templateUrl: './ag-table.component.html'
 })
-export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, AfterContentChecked {
+export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit, AfterContentChecked {
 	@HostBinding('class.ag-table') public class: boolean = true;
 	@HostBinding('class.ag-table-empty') public get showEmptyView() { return this.isDataEmpty && !this.noEmptyView; }
 
 	@ContentChildren(AgTableHeaderComponent) private queryHeader: QueryList<AgTableHeaderComponent>;
 	@ContentChildren(AgTableBodyComponent) private queryBody: QueryList<AgTableBodyComponent>;
+
+	@ViewChild(AgTablePaginateComponent) private paginateComp: AgTablePaginateComponent;
 
 	@ViewChild('headerShadowEl') private headerShadowEl: ElementRef<HTMLElement>;
 	@ViewChild('headerShadowEl') private loadingEl: ElementRef<HTMLElement>;
@@ -57,6 +60,9 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 	/** Sets whether to display empty-view or not. */
 	@Input('no-empty-view') public noEmptyView: boolean = false;
 
+	/** Sets a minimum width in ag-table. When the minimum width is reached, the side table will scroll horizontally. */
+	@Input('min-width') public minWidth: string = '';
+
 	@Input('items') allItems: any[] = [];
 
 	/** CALL/EMIT EVENT TO GET DATA (SERVER-SIDE) */
@@ -70,11 +76,11 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 
 	@Output() public  filterActivated = new EventEmitter<boolean>();
 
-	private get paddingTop() { return this.el && this.el.nativeElement ? this.el.nativeElement.style.paddingTop : '0px'; }
-	private set paddingTop(value: string) { if (this.el && this.el.nativeElement) this.el.nativeElement.style.paddingTop = value; }
+	private get paddingTop() { return this.elRef && this.elRef.nativeElement ? this.elRef.nativeElement.style.paddingTop : '0px'; }
+	private set paddingTop(value: string) { if (this.elRef && this.elRef.nativeElement) this.elRef.nativeElement.style.paddingTop = value; }
 
 	private set _height(value: string) {
-		this.el.nativeElement.style.height = value;
+		this.elRef.nativeElement.style.height = value;
 
 		if (this.header) {
 			if (value === '0' || value === '0px')
@@ -85,7 +91,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 
 		this.definePaddingTop();
 	}
-	private get _height() { return this.el.nativeElement.style.height; }
+	private get _height() { return this.elRef.nativeElement.style.height; }
 
 	public items: any[] = [];
 	public filteredItems: any[] = [];
@@ -94,7 +100,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 	public get body() { return this.queryBody ? this.queryBody.first : null; }
 
 	public get topShadow() {
-		let body = (this.body && this.body.el && this.body.el.nativeElement) ? this.body.el.nativeElement : null;
+		let body = (this.body && this.body.elRef && this.body.elRef.nativeElement) ? this.body.elRef.nativeElement : null;
 		let header = (this.header && this.header.el && this.header.el.nativeElement) ? this.header.el.nativeElement : null;
 		if (body && header)
 			return body.scrollTop >= (header.clientHeight / 2);
@@ -103,7 +109,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 	}
 
 	public get bottomShadow() {
-		let body = (this.body && this.body.el && this.body.el.nativeElement) ? this.body.el.nativeElement : null;
+		let body = (this.body && this.body.elRef && this.body.elRef.nativeElement) ? this.body.elRef.nativeElement : null;
 		let header = (this.header && this.header.el && this.header.el.nativeElement) ? this.header.el.nativeElement : null;
 		if (body && header)
 			return (body.scrollTop + body.clientHeight) < body.scrollHeight;
@@ -126,6 +132,8 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 			return 0;
 	}
 
+	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
+
 	public dictionary = TRANSLATION;
 
 	public initialized: boolean = false;
@@ -139,8 +147,10 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 	private DOMisVisible: boolean = false;
 	private DOMcountVisibleChange: number = 0;
 
+	private intervalListenerWidth: any;
+
 	constructor(
-		public el: ElementRef<HTMLElement>,
+		public elRef: ElementRef<HTMLElement>,
 		private helper: Helper,
 		private dataPrepareService: AgTablePrepareService,
 		private dataVirtualScrollService: AgTableVirtualScrollService
@@ -154,6 +164,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 		setTimeout(() => {
 			this.body.onRender(this);
 			this.header.onRender(this);
+			if (this.paginateComp) this.paginateComp.onRender(this);
 
 			this.queryHeader.changes.subscribe(() => this.definePaddingTop());
 
@@ -176,8 +187,8 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 	}
 
 	ngAfterContentChecked() {
-		if (this.el && this.el.nativeElement) {
-			let elem = this.el.nativeElement;
+		if (this.elRef && this.elRef.nativeElement) {
+			let elem = this.elRef.nativeElement;
 			let visible = !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
 			if (visible !== this.DOMisVisible) {
 				this.DOMisVisible = visible;
@@ -218,6 +229,18 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 
 				if (!this.infinity && this.body)
 					this.body.backToTheTop();
+			}
+
+			if ('minWidth' in changes) {
+				if (!this.minWidthIsValid()) {
+					console.warn(`The min-width of table is invalid.`);
+					this.minWidth = '';
+				}
+				
+				if (!this.minWidthIsValid())
+					this.stopListenerWidth();
+				else
+					this.startListenerWidth();
 			}
 
 			if ('currentPage' in changes) {
@@ -305,7 +328,7 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 				});
 
 				if (this._height.replace('px', '') === '0' && this.loading)
-					this.el.nativeElement.style.height = '50px';
+					this.elRef.nativeElement.style.height = '50px';
 
 				if (this.header && this.header.frmFilter) {
 					if (this.loading)
@@ -327,24 +350,24 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 	}
 
 	private definePaddingBottom() {
-		if (this.el && this.el.nativeElement) {
+		if (this.elRef && this.elRef.nativeElement) {
 			let padding = '0px';
 			if (!this.infinity)
 				padding = '46px';
 
-			if (padding !== this.el.nativeElement.style.paddingBottom)
-				this.el.nativeElement.style.paddingBottom = padding;
+			if (padding !== this.elRef.nativeElement.style.paddingBottom)
+				this.elRef.nativeElement.style.paddingBottom = padding;
 		}
 	}
 
 	public definePaddingTop(forceDefine: boolean = false) {
-		if (this.el && this.el.nativeElement && this.header) {
+		if (this.elRef && this.elRef.nativeElement && this.header) {
 			let padding = '0px';
 			if (this.header && this.header.el && this.header.el.nativeElement)
 				if (this.header.visible)
 					padding = this.header.height;
 
-			if (forceDefine || padding !== this.el.nativeElement.style.paddingTop) {
+			if (forceDefine || padding !== this.elRef.nativeElement.style.paddingTop) {
 				this.paddingTop = padding;
 
 				if (this.headerShadowEl && this.headerShadowEl.nativeElement)
@@ -355,6 +378,50 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 
 	private heightIsValid() {
 		return !isNullOrUndefined(this.height) && (typeof this.height === 'string') && this.height !== '' && this.height !== 'auto';
+	}
+
+	private minWidthIsValid() {
+		return !isNullOrUndefined(this.minWidth) && (typeof this.minWidth === 'string') && this.minWidth !== '' && this.minWidth !== 'auto';
+	}
+
+	private startListenerWidth() {
+		this.stopListenerWidth();
+		this.intervalListenerWidth = setInterval(() => {
+			if (this.el && this.minWidthIsValid()) {
+				let width = this.el.clientWidth;
+				let minWidth = parseInt(this.helper.onlyNumbers(this.minWidth));
+				if (width <= minWidth)
+					this.el.style.overflowX = 'auto';
+				else
+					this.el.style.overflowX = '';
+			}
+		}, 250);
+	}
+
+	private stopListenerWidth() {
+		if (this.intervalListenerWidth) {
+			clearInterval(this.intervalListenerWidth);
+			this.intervalListenerWidth = null;
+		}
+	}
+
+	public checkMinWidthcanApply() {
+		if (this.minWidthIsValid()) {
+			if (this.el)
+			if (this.body && this.body.el)
+				this.body.el.style.minWidth = this.minWidth;
+
+			if (this.paginateComp && this.paginateComp.el)
+				this.paginateComp.el.style.minWidth = this.minWidth;
+		}
+		else {
+			if (this.el) 
+			if (this.body && this.body.el)
+				this.body.el.style.minWidth = '';
+
+			if (this.paginateComp && this.paginateComp.el)
+				this.paginateComp.el.style.minWidth = '';
+		}
 	}
 
 	public setDataLength(length: number, paginatedLength: number) {
@@ -499,5 +566,9 @@ export class AgTableComponent implements OnInit, OnChanges, AfterViewInit, After
 
 		if (!this.infinity && this.body)
 			this.body.backToTheTop();
+	}
+
+	ngOnDestroy() {
+		this.stopListenerWidth();
 	}
 }

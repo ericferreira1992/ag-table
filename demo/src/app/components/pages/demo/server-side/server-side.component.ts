@@ -37,6 +37,7 @@ export class ServerSideComponent implements OnInit {
 `<ag-table #table
     paginate="25"
     height="450px"
+    min-width="800px"
     server-side
     [items]="dataItems"
     [data-length]="dataLength"

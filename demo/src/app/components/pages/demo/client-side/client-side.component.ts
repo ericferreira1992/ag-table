@@ -25,7 +25,7 @@ export class ClientSideComponent implements OnInit {
 
     ngOnInit() {
         this.strHtml = '' +
-`<ag-table #table paginate="1000" [items]="dataItems" clickable height="500px">
+`<ag-table #table paginate="1000" [items]="dataItems" clickable height="500px" min-width="800px">
     <ag-table-header>
         <ag-table-col filter field="id" placeholder="Identifier" width="100px">
             ID
