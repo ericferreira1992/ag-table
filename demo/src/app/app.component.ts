@@ -1,21 +1,34 @@
-import { Component, OnInit, Renderer2, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, NavigationCancel, NavigationError, NavigationStart, Router } from '@angular/router';
 import { Helper } from './core/services/helper';
+import { HtmlHelper } from './core/services/html.helper';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    host: {
+        '(document:click)': 'onWindowClick($event)',
+        '(document:keydown)': 'onWindowKeydown($event)'
+    }
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
+    @ViewChild('menuElRef') private menuElRef: ElementRef<HTMLElement>;
+    @ViewChild('menuButtonElRef') private menuButtonElRef: ElementRef<HTMLElement>;
+
     public hideTitleHeader: boolean = false;
     public shadowHeader: boolean = true;
+    public mobileScreen: boolean = false;
+    public showMobileScreenMenu: boolean = false;
 
     private eventsLineters: Function[] = [];
     private get el() { return this.elRef && this.elRef.nativeElement ? this.elRef.nativeElement : null; }
 
-	private subscriptionListenRoutes: Subscription;
+    private subscriptionListenRoutes: Subscription;
+    
+    private get menuEl() { return this.menuElRef && this.menuElRef.nativeElement; }
+    private get menuButtonEl() { return this.menuButtonElRef && this.menuButtonElRef.nativeElement; }
 
     constructor(
         private renderer: Renderer2,
@@ -28,6 +41,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngOnInit() {
         this.hideTitleHeader = this.helper.isMobileDevice();
+        this.onScreenResize();
     }
 
     ngAfterViewInit() {
@@ -61,6 +75,15 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         this.checkHeaderShadow();
     }
 
+    private onScreenResize() {
+        let mobileScreen = window.innerWidth <= 800;
+
+        if (mobileScreen !== this.mobileScreen) {
+            this.mobileScreen = window.innerWidth <= 800;
+            this.showMobileScreenMenu = !this.mobileScreen;
+        }
+    }
+
     private listenChangeRoutes() {
 		if (!this.subscriptionListenRoutes || this.subscriptionListenRoutes.closed)
 			this.subscriptionListenRoutes = this.router.events.subscribe((event: any) => {
@@ -85,6 +108,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
             this.clearEventListeners();
             this.eventsLineters.push(this.renderer.listen(this.el, 'mousewheel', this.onMouseWheel.bind(this)));
             this.eventsLineters.push(this.renderer.listen(this.el, 'DOMMouseScroll', this.onMouseWheel.bind(this)));
+            this.eventsLineters.push(this.renderer.listen(window, 'resize', this.onScreenResize.bind(this)));
 
             setTimeout(() => this.eventsLineters.push(this.renderer.listen(this.getMainContainerEl(), 'scroll', this.onMainContainerScroll.bind(this))));
         }
@@ -93,6 +117,18 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private getMainContainerEl() {
         let element = document.body.querySelector('.main-container');
         return element;
+    }
+
+    public onWindowClick(event: MouseEvent) {
+        if (this.menuButtonEl && !HtmlHelper.isContains(event.target, this.menuButtonEl)) {
+            this.showMobileScreenMenu = false;
+        }
+    }
+
+    public onWindowKeydown(event: KeyboardEvent) {
+        if (event.keyCode == 27 && this.mobileScreen && this.showMobileScreenMenu) {
+            this.showMobileScreenMenu = false;
+        }
     }
 
     ngOnDestroy() {

@@ -1,6 +1,6 @@
-<header [ngClass]="{'hide-title': hideTitleHeader, 'with-shadow': shadowHeader}">
+<header [ngClass]="{'hide-title': mobileScreen || hideTitleHeader, 'with-shadow': shadowHeader}">
     <h1>
-        <img class="logo animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': !hideTitleHeader, 'fadeOut': hideTitleHeader}"/>
+        <img class="logo animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': !mobileScreen && !hideTitleHeader, 'fadeOut': mobileScreen || hideTitleHeader}"/>
 
         <div class="d-table f-right" [style.marginTop]="'-5px'">
             <div class="d-table-cell va-middle">
@@ -15,23 +15,30 @@
             </div>
         </div>
     </h1>
-    <div>
-        <ul>
-            <li class="logo" [ngClass]="{'expand-logo': hideTitleHeader}">
-                <img class="animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': hideTitleHeader, 'fadeOut': !hideTitleHeader}"/>
-            </li>
-            <li>
-                <a routerLink="/home" routerLinkActive="active-link">Home</a>
-            </li>
-            <li>
-                <a routerLink="/demo" routerLinkActive="active-link">Demo</a>
-            </li>
-            <li>
-                <a routerLink="/api" routerLinkActive="active-link">Documentation / API</a>
-            </li>
-        </ul>
+    <div [ngClass]="{ 'mobile': mobileScreen }">
+        <div class="header-content">
+            <div #menuButtonElRef *ngIf="mobileScreen" class="menu-button" (click)="showMobileScreenMenu = !showMobileScreenMenu">
+                <span></span>
+            </div>
+
+            <div class="logo" [ngClass]="{'expand-logo': mobileScreen || hideTitleHeader}">
+                <img class="animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': mobileScreen || hideTitleHeader, 'fadeOut': !mobileScreen && !hideTitleHeader}"/>
+            </div>
+
+            <ul #menuElRef *ngIf="!mobileScreen || showMobileScreenMenu" class="animated fadeIn">
+                <li>
+                    <a routerLink="/home" routerLinkActive="active-link">Home</a>
+                </li>
+                <li>
+                    <a routerLink="/demo" routerLinkActive="active-link">Demo</a>
+                </li>
+                <li>
+                    <a routerLink="/api" routerLinkActive="active-link">Documentation / API</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </header>
-<section [ngClass]="{'hide-title': hideTitleHeader}">
+<section [ngClass]="{'hide-title': mobileScreen || hideTitleHeader}">
     <router-outlet></router-outlet>
 </section>

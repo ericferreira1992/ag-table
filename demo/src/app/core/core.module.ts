@@ -5,11 +5,13 @@ import { Helper } from './services/helper';
 import { RouterOutletDefaultComponent } from './components/router-outlet-default/router-outlet-default.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SideLeftBarComponent } from './components/side-left-bar/side-left-bar.component';
 
 @NgModule({
     declarations: [
         OrderByPipe,
-        RouterOutletDefaultComponent
+        RouterOutletDefaultComponent,
+        SideLeftBarComponent
     ],
     imports: [
         CommonModule,
@@ -19,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     exports: [
         OrderByPipe,
         ReactiveFormsModule,
+        SideLeftBarComponent
     ],
     providers: [
         Helper

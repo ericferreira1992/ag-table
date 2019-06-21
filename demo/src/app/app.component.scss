@@ -1,8 +1,5 @@
 @import 'src/assets/scss/variables';
 
-$titleHeaderHeight: 68px;
-$headerHeight: 119px;
-
 :host {
 
     > header {
@@ -31,62 +28,181 @@ $headerHeight: 119px;
             }
         }
 
+
         > div {
             background: $colorSecondary;
-    
-            > ul {
-                list-style: none;
-                margin: 0 auto;
-                padding: 0;
+
+            .header-content {
                 display: table;
-                max-width: 1500px;
-    
-                > li {
-                    display: inline-block;
+                margin: 0 auto;
+
+                .menu-button {
+                    display: table-cell;
                     vertical-align: middle;
-                    font-size: 14px;
+                    width: 70px;
+                    padding: 15px;
                     cursor: pointer;
 
-                    > a,
-                    > a:active,
-                    > a:visited {
+                    > span,
+                    &::after,
+                    &::before {
+                        content: '';
                         display: block;
-                        padding: 15px 25px;
-                        border-bottom: 0 solid #505050;
-                        color: #FFF;
-                        text-decoration: none;
-                        transition-duration: .2s;
+                        width: 100%;
+                        height: 4px;
+                        border-radius: 2px;
+                        margin-bottom: 3px;
+                        background: #FFF;
                     }
 
-                    > a {
-                        &.active-link {
-                            background: rgba(#FFF, .05);
-                            border-bottom-width: 3px;
-                            padding-bottom: 12px;
-                        }
+                    &::after {
+                        margin-bottom: 0;
                     }
 
                     &:hover {
-                        > a:not(.active-link) {
-                            background: rgba(#FFF, .05);
-                        }
+                        background: rgba(#FFF, .1);
+                    }
+                }
+        
+                
+
+                .logo {
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 0;
+                    margin-right: 0;
+                    transition-duration: 500ms;
+                    overflow: hidden;
+
+                    > img {
+                        width: inherit;
+                        height: auto;
+                        animation-delay: 200ms;
                     }
 
-                    &.logo {
-                        width: 0;
-                        margin-right: 0;
-                        transition-duration: 500ms;
-                        overflow: hidden;
+                    &.expand-logo {
+                        width: 80px;
+                        margin-right: 10px;
+                    }
+                }
+            }
 
-                        > img {
-                            width: inherit;
-                            height: auto;
-                            animation-delay: 200ms;
+            &:not(.mobile) {
+                .header-content {
+                    > ul {
+                        display: inline-block;
+                        vertical-align: middle;
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+                        max-width: 1500px;
+            
+                        > li {
+                            display: inline-block;
+                            vertical-align: middle;
+                            font-size: 14px;
+                            cursor: pointer;
+    
+                            > a,
+                            > a:active,
+                            > a:visited {
+                                display: block;
+                                padding: 15px 25px;
+                                border-bottom: 0 solid #505050;
+                                color: #FFF;
+                                text-decoration: none;
+                                transition-duration: .2s;
+                            }
+    
+                            > a {
+                                &.active-link {
+                                    background: rgba(#FFF, .05);
+                                    border-bottom-width: 3px;
+                                    padding-bottom: 12px;
+                                }
+                            }
+    
+                            &:hover {
+                                > a:not(.active-link) {
+                                    background: rgba(#FFF, .05);
+                                }
+                            }
                         }
+                    }
+                }
+            }
 
-                        &.expand-logo {
-                            width: 80px;
-                            margin-right: 10px;
+            &.mobile {
+                .header-content {
+                    width: 100%;
+                    text-align: left;
+                    height: #{$headerHeight - $titleHeaderHeight};
+                    position: relative;
+
+                    .logo {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    > ul {
+                        position: fixed;
+                        top: #{$headerHeight - $titleHeaderHeight - 9px};
+                        left: 10px;
+                        background: #FFF;
+                        border-radius: 3px;
+                        box-shadow: 0 0 8px rgba(#000, .3);
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+
+                        > li {
+                            display: block;
+    
+                            > a,
+                            > a:active,
+                            > a:visited {
+                                display: block;
+                                padding: 15px 25px;
+                                border-right: 0 solid $colorSecondary;
+                                color: #FFF;
+                                text-decoration: none;
+                                transition-duration: .2s;
+                                color: #555;
+                                font-size: 14px;
+                            }
+    
+                            > a {
+                                &.active-link {
+                                    background: rgba(#FFF, .05);
+                                    border-right-width: 3px;
+                                    color: $colorSecondary;
+                                    cursor: default;
+                                }
+                            }
+    
+                            &:hover {
+                                > a:not(.active-link) {
+                                    background: rgba(#000, .05);
+                                }
+                            }
+
+                            &:first-child {
+                                > a,
+                                > a:active,
+                                > a:visited {
+                                    border-radius: 3px 3px 0 0;
+                                }
+                            }
+
+                            &:last-child {
+                                > a,
+                                > a:active,
+                                > a:visited {
+                                    border-radius: 0 0 3px 3px;
+                                }
+                            }
                         }
                     }
                 }
@@ -146,93 +262,18 @@ $headerHeight: 119px;
                 }
             }
         }
-    
-        .side-left-bar {
+
+        
+
+        .side-left-bar ~ .main-container {
+            display: block;
             float: left;
-            width: 250px;
-            box-shadow: 0 5px 10px rgba(#000, .1);
-            height: calc(100vh - #{$headerHeight});
-            transition-duration: 500ms;
-    
-            ul {
-                list-style: none;
-                margin: 0 auto;
-                padding: 0;
-    
-                > li {
-                    font-size: 14px;
-    
-                    > a,
-                    > a:active,
-                    > a:visited {
-                        cursor: pointer;
-                        display: block;
-                        padding: 10px 15px;
-                        color: #555;
-                        text-decoration: none;
-                        transition-duration: .2s;
-                    }
-    
-                    > a {
-                        &.active-link {
-                            cursor: default;
-                            color: $colorSecondary;
-                            font-weight: 500;
-                            background: rgba(#000, .03);
-                        }
-                        &:not(.active-link):hover {
-                            background: rgba(#000, .05);
-                            text-decoration: underline;
-                            color: $colorSecondary;
-                        }
-                    }
-    
-                    > ul {
-                        transition-duration: 500ms;
-                        overflow: hidden;
-            
-                        > li {
-                            font-size: 13px;
-            
-                            > a,
-                            > a:active,
-                            > a:visited {
-                                cursor: pointer;
-                                display: block;
-                                padding: 5px 15px 5px 25px;
-                                color: #555;
-                                text-decoration: none;
-                                transition-duration: .2s;
-                            }
-            
-                            > a {
-                                &.active-link {
-                                    cursor: default;
-                                    color: $colorSecondary;
-                                    font-weight: 500;
-                                    background: rgba(#000, .03);
-                                }
-                                &:not(.active-link):hover {
-                                    background: rgba(#000, .05);
-                                    text-decoration: underline;
-                                    color: $colorSecondary;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-    
-            & ~ .main-container {
-                display: block;
-                float: left;
-                width: calc(100% - 250px);
-                position: initial;
-    
-                .main-container-inner {
-                    max-width: 900px;
-                    margin: auto;
-                }
+            width: calc(100% - 250px);
+            position: initial;
+
+            .main-container-inner {
+                max-width: 900px;
+                margin: auto;
             }
         }
 

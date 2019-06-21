@@ -1,0 +1,18 @@
+<!-- <div #menuButtonElRef *ngIf="mobileScreen" class="menu-button" (click)="showMobileScreenMenu = !showMobileScreenMenu">
+    <span></span>
+</div> -->
+
+<ul *ngIf="menuItems">
+    <li *ngFor="let menu of menuItems">
+        <a [routerLink]="menu.route ? ('/demo' + menu.route) : null" [routerLinkActive]="(menu.route) ? 'active-link' : ''" [ngClass]="{'active-link': menu.submenu?.visible}" (click)="onMenuClick(menu)">
+            {{ menu.title }}
+        </a>
+        <ul *ngIf="menu.submenu?.items?.length" [style.height.px]="menu.submenu?.visible ? (menu.submenu?.items?.length * 30) : 0">
+            <li *ngFor="let submenu of menu.submenu.items" class="animated" [ngClass]="{'fadeOut': !menu.submenu.visible, 'fadeIn': menu.submenu.visible}">
+                <a [routerLink]="'/demo' + menu.routePrefix + submenu.route" routerLinkActive="active-link">
+                    {{ submenu.title }}
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>

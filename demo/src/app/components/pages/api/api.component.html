@@ -1,19 +1,4 @@
-<div class="side-left-bar">
-    <ul>
-        <li *ngFor="let menu of menuItems">
-            <a [routerLink]="menu.route ? ('/api' + menu.route) : null" [routerLinkActive]="(menu.route) ? 'active-link' : ''" [ngClass]="{'active-link': menu.submenu?.visible}" (click)="onMenuClick(menu)">
-                {{ menu.title }}
-            </a>
-            <ul *ngIf="menu.submenu?.items?.length" [style.height.px]="menu.submenu?.visible ? (menu.submenu?.items?.length * 30) : 0">
-                <li *ngFor="let submenu of menu.submenu.items" class="animated" [ngClass]="{'fadeOut': !menu.submenu.visible, 'fadeIn': menu.submenu.visible}">
-                    <a [routerLink]="'/api' + menu.routePrefix + submenu.route" routerLinkActive="active-link">
-                        {{ submenu.title }}
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
+<side-left-bar [menu-items]="menuItems" [is-mobile]="parent.mobile"></side-left-bar>
 <div class="main-container">
     <router-outlet></router-outlet>
 </div>

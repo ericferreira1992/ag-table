@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, forwardRef, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppComponent } from '../../../app.component';
 
 @Component({
     selector: 'app-demo',
@@ -11,6 +12,7 @@ export class DemoComponent implements OnInit {
     public menuItems: any[] = [];
 
     constructor(
+        @Inject(forwardRef(() => AppComponent)) private parent: AppComponent,
         private route: Router
     ) {
         this.prepareMenu();
