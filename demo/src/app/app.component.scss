@@ -310,16 +310,21 @@
             display: block;
             overflow: auto;
             height: calc(100vh - #{$headerHeight - $titleHeaderHeight});
+            padding-bottom: 50px;
 
             .main-container {
                 overflow: initial;
                 height: auto;
-                margin-top: 48px;
-                padding-top: 0;
+                padding-top: 104px;
             }
 
             .side-left-bar {
                 height: auto;
+
+                ~ .main-container {
+                    padding-top: 0;
+                    margin-top: 48px;
+                }
             }
         }
     }

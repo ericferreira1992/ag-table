@@ -18,8 +18,8 @@ export class SideLeftBarComponent implements OnInit, OnChanges {
     @HostBinding('class.side-left-bar') public class: boolean = true;
     @HostBinding('class.mobile') public mobile: boolean = true;
 
-    @Input('menu-items') private menuItems: any[] = [];
-    @Input('is-mobile') private isMobile: boolean = false;
+    @Input('menu-items') public menuItems: any[] = [];
+    @Input('is-mobile') public isMobile: boolean = false;
     
     private get menuButtonEl() { return this.menuButtonElRef && this.menuButtonElRef.nativeElement; }
     private get menuEl() { return this.menuElRef && this.menuElRef.nativeElement; }

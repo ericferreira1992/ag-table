@@ -12,7 +12,7 @@ export class DemoComponent implements OnInit {
     public menuItems: any[] = [];
 
     constructor(
-        @Inject(forwardRef(() => AppComponent)) private parent: AppComponent,
+        @Inject(forwardRef(() => AppComponent)) public parent: AppComponent,
         private route: Router
     ) {
         this.prepareMenu();
