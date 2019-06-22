@@ -46,6 +46,9 @@
                     > span,
                     &::after,
                     &::before {
+                        position: relative;
+                        top: 0;
+                        left: 0;
                         content: '';
                         display: block;
                         width: 100%;
@@ -53,6 +56,7 @@
                         border-radius: 2px;
                         margin-bottom: 3px;
                         background: #FFF;
+                        transition-duration: 300ms;
                     }
 
                     &::after {
@@ -62,9 +66,27 @@
                     &:hover {
                         background: rgba(#FFF, .1);
                     }
+
+                    &.opened {
+                        > span {
+                            opacity: 0;
+                        }
+            
+                        &::before {
+                            transform: rotate(-45deg);
+                            width: 30px;
+                            left: 5px;
+                            top: 7px;
+                        }
+            
+                        &::after {
+                            transform: rotate(45deg);
+                            width: 30px;
+                            left: 6px;
+                            top: -6px;
+                        }
+                    }
                 }
-        
-                
 
                 .logo {
                     display: inline-block;
@@ -148,6 +170,7 @@
 
                     > ul {
                         position: fixed;
+                        z-index: 99;
                         top: #{$headerHeight - $titleHeaderHeight - 9px};
                         left: 10px;
                         background: #FFF;
@@ -223,7 +246,6 @@
         display: table;
         width: 100%;
         height: calc(100vh - #{$headerHeight});
-        transition-duration: 500ms;
     }
 }
 
@@ -263,17 +285,17 @@
             }
         }
 
-        
-
-        .side-left-bar ~ .main-container {
-            display: block;
-            float: left;
-            width: calc(100% - 250px);
-            position: initial;
-
-            .main-container-inner {
-                max-width: 900px;
-                margin: auto;
+        .side-left-bar {
+            &:not(.mobile) ~ .main-container {
+                display: block;
+                float: left;
+                width: calc(100% - 250px);
+                position: initial;
+    
+                .main-container-inner {
+                    max-width: 900px;
+                    margin: auto;
+                }
             }
         }
 
@@ -281,6 +303,23 @@
             .side-left-bar,
             .main-container {
                 height: calc(100vh - #{$headerHeight - $titleHeaderHeight});
+            }
+        }
+
+        &.mobile {
+            display: block;
+            overflow: auto;
+            height: calc(100vh - #{$headerHeight - $titleHeaderHeight});
+
+            .main-container {
+                overflow: initial;
+                height: auto;
+                margin-top: 48px;
+                padding-top: 0;
+            }
+
+            .side-left-bar {
+                height: auto;
             }
         }
     }

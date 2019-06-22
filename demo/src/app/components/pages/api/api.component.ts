@@ -16,7 +16,6 @@ export class ApiComponent implements OnInit {
         private route: Router
     ) {
         this.prepareMenu();
-        this.checkIsActiveMenu();
     }
 
     ngOnInit() {
@@ -26,7 +25,7 @@ export class ApiComponent implements OnInit {
         this.menuItems = [
             {
                 title: 'Structure of components',
-                routePrefix: '/structure',
+                routePrefix: '/api/structure',
                 submenu: {
                     visible: false,
                     items: [
@@ -60,7 +59,7 @@ export class ApiComponent implements OnInit {
             },
             {
                 title: 'Events',
-                routePrefix: '/events',
+                routePrefix: '/api/events',
                 submenu: {
                     visible: false,
                     items: [
@@ -77,7 +76,7 @@ export class ApiComponent implements OnInit {
             },
             {
                 title: 'Enums',
-                routePrefix: '/enums',
+                routePrefix: '/api/enums',
                 submenu: {
                     visible: false,
                     items: [
@@ -93,26 +92,6 @@ export class ApiComponent implements OnInit {
                 }
             },
         ];
-    }
-
-    private checkIsActiveMenu() {
-        for (let item of this.menuItems) {
-            if (item.submenu && item.submenu.items && item.submenu.items.length) {
-                item.submenu.visible = item.submenu.items.some(subitem => this.route.url === '/api' + item.routePrefix + subitem.route);
-            }
-        }
-    }
-
-    public onMenuClick(menu: any) {
-        if (!menu.route && menu.submenu && menu.submenu.items && menu.submenu.items.length) {
-            menu.submenu.visible = !menu.submenu.visible;
-
-            if (menu.submenu.visible)
-                for (let item of this.menuItems) {
-                    if (menu !== item && item.submenu)
-                        item.submenu.visible = false;
-                }
-        }
     }
 
 }

@@ -16,7 +16,6 @@ export class DemoComponent implements OnInit {
         private route: Router
     ) {
         this.prepareMenu();
-        this.checkIsActiveMenu();
     }
 
     ngOnInit() {
@@ -26,19 +25,19 @@ export class DemoComponent implements OnInit {
         this.menuItems = [
             {
                 title: 'Client side',
-                route: '/client-side',
+                route: '/demo/client-side',
             },
             {
                 title: 'Server side',
-                route: '/server-side',
+                route: '/demo/server-side',
             },
             {
                 title: 'Server side infinity scroll',
-                route: '/server-side-infinity',
+                route: '/demo/server-side-infinity',
             },
             {
                 title: 'Others',
-                routePrefix: '/others',
+                routePrefix: '/demo/others',
                 submenu: {
                     visible: false,
                     items: [
@@ -54,31 +53,5 @@ export class DemoComponent implements OnInit {
                 }
             }
         ];
-    }
-
-    private checkIsActiveMenu() {
-        for (let item of this.menuItems) {
-            if (item.submenu && item.submenu.items && item.submenu.items.length) {
-                item.submenu.visible = item.submenu.items.some(subitem => this.route.url === '/demo' + item.routePrefix + subitem.route);
-            }
-        }
-    }
-
-    public onMenuClick(menu: any) {
-        if (!menu.route && menu.submenu && menu.submenu.items && menu.submenu.items.length) {
-            menu.submenu.visible = !menu.submenu.visible;
-
-            if (menu.submenu.visible)
-                for (let item of this.menuItems) {
-                    if (menu !== item && item.submenu)
-                        item.submenu.visible = false;
-                }
-        }
-        else {
-            for (let item of this.menuItems) {
-                if (item.submenu)
-                    item.submenu.visible = false;
-            }
-        }
     }
 }

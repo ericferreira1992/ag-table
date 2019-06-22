@@ -2,7 +2,7 @@
     <h1>
         <img class="logo animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': !mobileScreen && !hideTitleHeader, 'fadeOut': mobileScreen || hideTitleHeader}"/>
 
-        <div class="d-table f-right" [style.marginTop]="'-5px'">
+        <div class="d-table f-right" [style.marginTop.px]="-5">
             <div class="d-table-cell va-middle">
                 <a class="mr-3" href="https://github.com/ericferreira1992/ag-table" target="_blank" title="Github repositoty">
                     <img width="24" height="24" src="assets/img/github.png" alt="github">
@@ -17,12 +17,25 @@
     </h1>
     <div [ngClass]="{ 'mobile': mobileScreen }">
         <div class="header-content">
-            <div #menuButtonElRef *ngIf="mobileScreen" class="menu-button" (click)="showMobileScreenMenu = !showMobileScreenMenu">
+            <div #menuButtonElRef *ngIf="mobileScreen" class="menu-button" [ngClass]="{'opened': showMobileScreenMenu}" (click)="showMobileScreenMenu = !showMobileScreenMenu">
                 <span></span>
             </div>
 
             <div class="logo" [ngClass]="{'expand-logo': mobileScreen || hideTitleHeader}">
                 <img class="animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': mobileScreen || hideTitleHeader, 'fadeOut': !mobileScreen && !hideTitleHeader}"/>
+            </div>
+
+            <div *ngIf="mobileScreen" class="d-table f-right" [style.marginTop.px]="4">
+                <div class="d-table-cell va-middle">
+                    <a class="mr-3" href="https://github.com/ericferreira1992/ag-table" target="_blank" title="Github repositoty">
+                        <img width="21" height="21" src="assets/img/github.png" alt="github">
+                    </a>
+                </div>
+                <div class="d-table-cell va-middle">
+                    <a class="mr-3" href="https://www.npmjs.com/package/ag-table" target="_blank" title="NPM Package">
+                        <img width="32" height="32" src="assets/img/npm.png" alt="npm" [style.marginTop.px]="4">
+                    </a>
+                </div>
             </div>
 
             <ul #menuElRef *ngIf="!mobileScreen || showMobileScreenMenu" class="animated fadeIn">
@@ -39,6 +52,6 @@
         </div>
     </div>
 </header>
-<section [ngClass]="{'hide-title': mobileScreen || hideTitleHeader}">
+<section [ngClass]="{'hide-title': mobileScreen || hideTitleHeader, 'mobile': mobileScreen}">
     <router-outlet></router-outlet>
 </section>
