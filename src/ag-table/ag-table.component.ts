@@ -390,10 +390,14 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 			if (this.el && this.minWidthIsValid()) {
 				let width = this.el.clientWidth;
 				let minWidth = parseInt(this.helper.onlyNumbers(this.minWidth));
-				if (width <= minWidth)
+				if (width <= minWidth) {
 					this.el.style.overflowX = 'auto';
-				else
+					this.el.style.overflowY = 'hidden';
+				}
+				else {
 					this.el.style.overflowX = '';
+					this.el.style.overflowY = '';
+				}
 			}
 		}, 250);
 	}
