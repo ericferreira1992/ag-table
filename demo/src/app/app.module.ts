@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AgTableModule, AgTableCustomSettings } from './../../../src/public_api';
@@ -32,6 +33,7 @@ import { EventAgTableComponent } from './components/pages/api/events/event-ag-ta
 import { EventAgTableDataRenderComponent } from './components/pages/api/events/event-ag-table-data-render/event-ag-table-data-render.component';
 import { OthersCustomFilterComponent } from './components/pages/demo/others/others-custom-filter/others-custom-filter.component';
 import { OthersDataRenderEventComponent } from './components/pages/demo/others/others-data-render-event/others-data-render-event.component';
+import { ModalExampleClickComponent } from './components/pages/home/modal-example-click/modal-example-click.component';
 
 export function hljsLanguages() {
     return [
@@ -62,7 +64,11 @@ export function hljsLanguages() {
         EventAgTableComponent,
         EventAgTableDataRenderComponent,
         OthersCustomFilterComponent,
-        OthersDataRenderEventComponent
+        OthersDataRenderEventComponent,
+        ModalExampleClickComponent
+    ],
+    entryComponents: [
+        ModalExampleClickComponent
     ],
     imports: [
         BrowserModule,
@@ -73,6 +79,7 @@ export function hljsLanguages() {
         AppRoutingModule,
         CoreModule,
         MatTabsModule,
+        MatDialogModule,
         AgTableModule,
     ],
     providers: [

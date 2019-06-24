@@ -12,9 +12,9 @@ export class OthersDataRenderEventComponent implements OnInit {
     public dataItems: any[] = [];
 
     public types = [
-        'Tipo 1',
-        'Tipo 2',
-        'Tipo 3',
+        'Type 1',
+        'Type 2',
+        'Type 3',
     ];
 
     private initialDate = new Date();
@@ -69,9 +69,9 @@ export class DemoComponent {
     public dataItems: any[] = [];
 
     public types = [
-        'Tipo 1',
-        'Tipo 2',
-        'Tipo 3',
+        'Type 1',
+        'Type 2',
+        'Type 3',
     ];
 
     private initialDate = new Date();
@@ -96,7 +96,7 @@ export class DemoComponent {
                 id: number,
                 name: \`Teste $\{number}\`,
                 dateRef: null,
-                type: \`Tipo $\{type}\`,
+                type: \`Type $\{type}\`,
                 height: Math.floor(Math.random() * 100)
             };
         });
@@ -134,7 +134,7 @@ export class DemoComponent {
                 id: `${number}`,
                 name: `Teste ${number}`,
                 dateRef: null,
-                type: `Tipo ${type}`,
+                type: `Type ${type}`,
                 height: Math.floor(Math.random() * 100)
             };
         });

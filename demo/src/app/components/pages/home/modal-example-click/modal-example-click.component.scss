@@ -1,0 +1,67 @@
+:host {
+    position: relative;
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-size: 14px;
+
+    > h1 {
+        margin-bottom: 10px;
+    }
+    
+    > img {
+        border-radius: 50%;
+        margin-bottom: 15px;
+        border: 5px solid #F0F0F0;
+        box-shadow: 0 5px 15px rgba(#000, .15);
+    }
+
+    > span {
+        font-weight: bold;
+    }
+
+    .close {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        border: none;
+        background: transparent;
+        outline: 0;
+        cursor: pointer;
+
+        &::after,
+        &::before {
+            content: ' ';
+            display: block;
+            position: absolute;
+            transform-origin: center;
+            width: 30px;
+            height: 4px;
+            border-radius: 2px;
+            background: #777;
+            top: 22px;
+            left: 10px;
+        }
+
+        &::after{
+            transform: rotate(45deg);
+        }
+
+        &::before {
+            transform: rotate(-45deg);
+        }
+
+        &:hover {
+            background: #FAFAFA;
+
+            &::after,
+            &::before {
+                background: #444;
+            }
+        }
+    }
+}

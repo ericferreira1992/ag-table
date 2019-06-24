@@ -61,34 +61,39 @@
                             <code [highlight]="importScss2"></code>
                         </pre>
 
-                        <h5 class="mt-4">Simple example</h5>
+                        <h5 class="mt-4">Sample</h5>
                         <mat-tab-group [style.minHeight.px]="450">
                             <mat-tab label="Live demo">
                                 <div class="demo-card pt-3">
                                     <section>
-                                        <ag-table #table paginate="100" [items]="dataItems" clickable height="500px" min-width="800px">
+                                        <ag-table #table paginate="100" [items]="dataItems" clickable height="500px" min-width="650px">
                                             <ag-table-header>
-                                                <ag-table-col filter field="id" placeholder="Identifier" width="100px">
-                                                    ID
+                                                <ag-table-col filter field="name" placeholder="Set a professional">
+                                                    Professional
                                                 </ag-table-col>
-                                                <ag-table-col filter field="name" placeholder="Set a name">
-                                                    Name
+                                                <ag-table-col filter="date" field="date" placeholder="Set a area" width="200px">
+                                                    Area
                                                 </ag-table-col>
-                                                <ag-table-col filter="date" field="dateRef" width="200px">
-                                                    Date
-                                                </ag-table-col>
-                                                <ag-table-col filter="select" field="type" [options]="types" width="150px">
+                                                <ag-table-col filter="select" field="profType" [options]="types" width="150px">
                                                     Type
                                                 </ag-table-col>
                                             </ag-table-header>
-                                            <ag-table-body>
-                                                <ag-table-row *ngFor="let item of table.items">
-                                                    <ag-table-cell>{{item.id}}</ag-table-cell>
-                                                    <ag-table-cell>
-                                                        {{item.name}}
+                                            <ag-table-body row-height="90px">
+                                                <ag-table-row *ngFor="let item of table.items" (click)="onClick(item)">
+                                                    <ag-table-cell class="name">
+                                                        <img [src]="item.avatar" />
+                                                        <div>
+                                                            <span>{{item.name}}</span><br/>
+                                                            {{item.phone}}<br/>
+                                                            {{item.email}}
+                                                        </div>
                                                     </ag-table-cell>
-                                                    <ag-table-cell>{{item.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>
-                                                    <ag-table-cell>{{item.type}}</ag-table-cell>
+                                                    <ag-table-cell>
+                                                        {{item.profArea}}
+                                                    </ag-table-cell>
+                                                    <ag-table-cell>
+                                                        {{item.profType}}
+                                                    </ag-table-cell>
                                                 </ag-table-row>
                                             </ag-table-body>
                                         </ag-table>

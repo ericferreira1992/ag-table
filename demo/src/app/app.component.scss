@@ -21,6 +21,7 @@
             max-height: 68px;
 
             > .logo {
+                cursor: pointer;
                 margin-right: -92px;
                 width: auto;
                 height: 40px;
@@ -76,19 +77,20 @@
                             transform: rotate(-45deg);
                             width: 30px;
                             left: 5px;
-                            top: 7px;
+                            top: 8px;
                         }
             
                         &::after {
                             transform: rotate(45deg);
                             width: 30px;
-                            left: 6px;
+                            left: 5px;
                             top: -6px;
                         }
                     }
                 }
 
                 .logo {
+                    cursor: pointer;
                     display: inline-block;
                     vertical-align: middle;
                     width: 0;
@@ -313,6 +315,7 @@
             padding-bottom: 50px;
 
             .main-container {
+                position: initial;
                 overflow: initial;
                 height: auto;
                 padding-top: 104px;

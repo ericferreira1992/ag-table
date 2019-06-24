@@ -14,8 +14,9 @@ import { HtmlHelper } from './core/services/html.helper';
     }
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
-    @ViewChild('menuElRef') private menuElRef: ElementRef<HTMLElement>;
-    @ViewChild('menuButtonElRef') private menuButtonElRef: ElementRef<HTMLElement>;
+    @ViewChild('mainSectionElRef') public mainSectionElRef: ElementRef<HTMLElement>;
+    @ViewChild('menuElRef') public menuElRef: ElementRef<HTMLElement>;
+    @ViewChild('menuButtonElRef') public menuButtonElRef: ElementRef<HTMLElement>;
 
     public hideTitleHeader: boolean = false;
     public shadowHeader: boolean = true;
@@ -27,8 +28,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
     private subscriptionListenRoutes: Subscription;
     
-    private get menuEl() { return this.menuElRef && this.menuElRef.nativeElement; }
-    private get menuButtonEl() { return this.menuButtonElRef && this.menuButtonElRef.nativeElement; }
+    public get menuEl() { return this.menuElRef && this.menuElRef.nativeElement; }
+    public get menuButtonEl() { return this.menuButtonElRef && this.menuButtonElRef.nativeElement; }
+    public get mainSectionEl() { return this.mainSectionElRef && this.mainSectionElRef.nativeElement; }
 
     constructor(
         private renderer: Renderer2,

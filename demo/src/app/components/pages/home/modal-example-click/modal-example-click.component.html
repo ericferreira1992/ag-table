@@ -1,0 +1,13 @@
+<button class="close" [mat-dialog-close]="false"></button>
+
+<img [src]="item.avatar"/>
+<h1 mat-dialog-title>
+    {{ item.name }}
+</h1>
+
+<span>Name:</span> {{item.name}}<br/>
+<span>Phone:</span> {{item.phone}}<br/>
+<span>E-Mail:</span> {{item.email}}<br/>
+<br>
+<span>Area:</span> {{item.profArea}}<br/>
+<span>Type:</span> {{item.profType}}<br/>

@@ -1,6 +1,6 @@
 <header [ngClass]="{'hide-title': mobileScreen || hideTitleHeader, 'with-shadow': shadowHeader}">
     <h1>
-        <img class="logo animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': !mobileScreen && !hideTitleHeader, 'fadeOut': mobileScreen || hideTitleHeader}"/>
+        <img class="logo animated" src="assets/img/ag-table.svg" routerLink="/home" [ngClass]="{'fadeIn': !mobileScreen && !hideTitleHeader, 'fadeOut': mobileScreen || hideTitleHeader}"/>
 
         <div class="d-table f-right" [style.marginTop.px]="-5">
             <div class="d-table-cell va-middle">
@@ -22,7 +22,7 @@
             </div>
 
             <div class="logo" [ngClass]="{'expand-logo': mobileScreen || hideTitleHeader}">
-                <img class="animated" src="assets/img/ag-table.svg" [ngClass]="{'fadeIn': mobileScreen || hideTitleHeader, 'fadeOut': !mobileScreen && !hideTitleHeader}"/>
+                <img class="animated" src="assets/img/ag-table.svg" routerLink="/home" [ngClass]="{'fadeIn': mobileScreen || hideTitleHeader, 'fadeOut': !mobileScreen && !hideTitleHeader}"/>
             </div>
 
             <div *ngIf="mobileScreen" class="d-table f-right" [style.marginTop.px]="4">
@@ -52,6 +52,6 @@
         </div>
     </div>
 </header>
-<section [ngClass]="{'hide-title': mobileScreen || hideTitleHeader, 'mobile': mobileScreen}">
+<section #mainSectionElRef [ngClass]="{'hide-title': mobileScreen || hideTitleHeader, 'mobile': mobileScreen}">
     <router-outlet></router-outlet>
 </section>

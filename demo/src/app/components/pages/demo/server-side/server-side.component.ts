@@ -182,7 +182,7 @@ export class DemoComponent {
                 type = 1;
 
             date = this.helper.setDaysToDate(date, -1);
-            return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Tipo ${type}`, height: Math.floor(Math.random() * 100) };
+            return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Type ${type}`, height: Math.floor(Math.random() * 100) };
         });
     }
 

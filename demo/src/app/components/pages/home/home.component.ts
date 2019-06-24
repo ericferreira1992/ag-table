@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef, forwardRef, Inject } from '@a
 import { Helper } from '../../../core/services/helper';
 import { HtmlHelper } from '../../../core/services/html.helper';
 import { AppComponent } from 'src/app/app.component';
+import { DataFactory } from 'src/app/core/services/data.factory';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalExampleClickComponent } from './modal-example-click/modal-example-click.component';
 
 @Component({
 	selector: 'app-home',
@@ -9,15 +12,13 @@ import { AppComponent } from 'src/app/app.component';
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-    @ViewChild('mainContainer') private mainContainer: ElementRef<HTMLElement>;
+    @ViewChild('mainContainer') private mainContainerElRef: ElementRef<HTMLElement>;
+
+    private get mainContainerEl() { return this.mainContainerElRef && this.mainContainerElRef.nativeElement; }
 
 	public dataItems: any[] = [];
 
-    public types = [
-        'Tipo 1',
-        'Tipo 2',
-        'Tipo 3',
-    ];
+    public types = [];
 
 	public importModule: string;
 	public customLangModule: string;
@@ -27,7 +28,9 @@ export class HomeComponent implements OnInit {
 
 	constructor(
         @Inject(forwardRef(() => AppComponent)) private parent: AppComponent,
-		private helper: Helper
+        private helper: Helper,
+        private dialog: MatDialog,
+        private dataFactory: DataFactory
 	) {
 		this.importModule = '' +
 `import { AgTableModule } from 'ag-table';
@@ -68,34 +71,33 @@ export class AppModule { }`;
 @include ag-table-core($yourColor);`;
 
 		this.simpleExampleHtml = '' +
-`<ag-table #table paginate="100" [items]="dataItems" clickable height="500px" min-width="800px">
+`<ag-table #table paginate="100" [items]="dataItems" clickable height="500px" min-width="650px">
     <ag-table-header>
-        <ag-table-col filter field="id" placeholder="Identifier" width="100px">
-            ID
+        <ag-table-col filter field="name" placeholder="Set a professional">
+            Professional
         </ag-table-col>
-        <ag-table-col filter field="name" placeholder="Set a name">
-            Name
+        <ag-table-col filter="date" field="date" placeholder="Set a area" width="200px">
+            Area
         </ag-table-col>
-        <ag-table-col filter="date" field="dateRef" width="200px">
-            Date
-        </ag-table-col>
-        <ag-table-col filter="select" field="type" [options]="types" width="150px">
+        <ag-table-col filter="select" field="profType" [options]="types" width="150px">
             Type
         </ag-table-col>
-	</ag-table-header>
-    <ag-table-body>
-        <ag-table-row *ngFor="let item of table.items">
-            <ag-table-cell>
-                {{item.id}}
+    </ag-table-header>
+    <ag-table-body row-height="90px">
+        <ag-table-row *ngFor="let item of table.items" (click)="onClick(item)">
+            <ag-table-cell class="name">
+                <img [src]="item.avatar" />
+                <div>
+                    <span>{{item.name}}</span><br/>
+                    {{item.phone}}<br/>
+                    {{item.email}}
+                </div>
             </ag-table-cell>
             <ag-table-cell>
-                {{item.name}}
+                {{item.profArea}}
             </ag-table-cell>
             <ag-table-cell>
-                {{item.dateRef | date:'yyyy/MM/dd'}}
-            </ag-table-cell>
-            <ag-table-cell>
-                {{item.type}}
+                {{item.profType}}
             </ag-table-cell>
         </ag-table-row>
     </ag-table-body>
@@ -107,29 +109,32 @@ export class AppModule { }`;
 	}
 
 	private prepareExampleData() {
-        let type = 1;
-        let date = new Date();
-
-        this.dataItems = Array.from({ length: 1000 }).map((x, i) => {
-            let number = i + 1;
-            if (type < 3)
-                type++;
-            else
-                type = 1;
-
-            date = this.helper.setDaysToDate(date, -1);
-            return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Tipo ${type}` };
+        this.dataItems = Array.from({ length: 1000 }).map(() => {
+            let random = this.dataFactory.getRandomObject();
+            if (!this.types.some(x => x === random.profType))
+                this.types.push(random.profType);
+            return random;
         });
     }
 
     public goToGetStarted(getStartedEl: HTMLElement) {
-        if (getStartedEl && this.mainContainer.nativeElement) {
+        if (getStartedEl && this.mainContainerEl) {
             const top = getStartedEl.offsetTop + 20;
-            HtmlHelper.smoothScroll(this.mainContainer.nativeElement, top);
+
+            if (this.parent.mobileScreen)
+                HtmlHelper.smoothScroll(this.parent.mainSectionEl, top);
+            else
+                HtmlHelper.smoothScroll(this.mainContainerEl, top);
 
             if (!this.helper.isMobileDevice())
                 setTimeout(() => this.parent.hideTitleHeader = true, 200);
         }
+    }
+
+    public onClick(item) {
+        this.dialog.open(ModalExampleClickComponent, {
+            data: { item }
+        });
     }
 
 }

@@ -6,6 +6,7 @@ import { RouterOutletDefaultComponent } from './components/router-outlet-default
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SideLeftBarComponent } from './components/side-left-bar/side-left-bar.component';
+import { DataFactory } from './services/data.factory';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { SideLeftBarComponent } from './components/side-left-bar/side-left-bar.c
         SideLeftBarComponent
     ],
     providers: [
-        Helper
+        Helper,
+        DataFactory
     ]
 })
 export class CoreModule { }

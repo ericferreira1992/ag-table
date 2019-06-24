@@ -11,9 +11,9 @@ export class ClientSideComponent implements OnInit {
     public dataItems: any[] = [];
 
     public types = [
-        'Tipo 1',
-        'Tipo 2',
-        'Tipo 3',
+        'Type 1',
+        'Type 2',
+        'Type 3',
     ];
 
     public strHtml: string;
@@ -66,7 +66,7 @@ export class ClientSideComponent implements OnInit {
                 type = 1;
 
             date = this.helper.setDaysToDate(date, -1);
-            return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Tipo ${type}`, height: Math.floor(Math.random() * 100) };
+            return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Type ${type}`, height: Math.floor(Math.random() * 100) };
         });
     }
 }
