@@ -4,6 +4,7 @@ import { isNullOrUndefined, isArray, isObject } from 'util';
 import { AgTableFilterMode } from '../enums/ag-table-filter-mode.enum';
 import { AgTableChangeAction } from '../enums/ag-table-change-action.enum';
 import { Helper } from './helper';
+import { AgTableFilterType } from '../enums/ag-table-filter-type.enum';
 
 @Injectable()
 export class AgTablePrepareService {
@@ -61,9 +62,6 @@ export class AgTablePrepareService {
 			let ok = true;
 			for (let field in frm.controls) {
 
-				let filterValue = frm.controls[field].value;
-				filterValue = (filterValue || (typeof filterValue === 'number')) ? this.helper.removeAccents(filterValue.toString() as string).toUpperCase() : '';
-
 				let value: any;
 				if (field.includes('.')) {
 					let fields = field.split('.');
@@ -76,10 +74,26 @@ export class AgTablePrepareService {
 				else
 					value = item[field];
 
-				value = (value || (typeof value === 'number')) ? this.helper.removeAccents(value.toString() as string).toUpperCase() : '';
-
 				let filterCol = header.getColByField(field);
 				let filterMode = header.getColFilterModeByField(field);
+
+				let filterValue = frm.controls[field].value;
+
+				if (filterCol && filterCol.filter === AgTableFilterType.DATE) {
+					value = this.helper.dateFormat(value, filterCol.dateFormat);
+					filterValue = filterValue;
+				}
+				else {
+					if (filterValue || (typeof filterValue === 'number'))
+						filterValue = this.helper.removeAccents(filterValue.toString() as string).toUpperCase();
+					else
+						filterValue = '';
+
+					if ((value || (typeof value === 'number')))
+						value = this.helper.removeAccents(value.toString() as string).toUpperCase();
+					else
+						value = '';
+				}
 
 				if (filterCol && !isNullOrUndefined(filterValue) && filterValue !== '') {
 					filterValue = this.helper.removeAccents(filterValue.toString() as string).toUpperCase();

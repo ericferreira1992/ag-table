@@ -34,14 +34,7 @@ import { EventAgTableDataRenderComponent } from './components/pages/api/events/e
 import { OthersCustomFilterComponent } from './components/pages/demo/others/others-custom-filter/others-custom-filter.component';
 import { OthersDataRenderEventComponent } from './components/pages/demo/others/others-data-render-event/others-data-render-event.component';
 import { ModalExampleClickComponent } from './components/pages/home/modal-example-click/modal-example-click.component';
-
-export function hljsLanguages() {
-    return [
-        { name: 'typescript', func: typescript },
-        { name: 'scss', func: scss },
-        { name: 'xml', func: xml }
-    ];
-}
+import { OthersUnequealRowHeightComponent } from './components/pages/demo/others/others-unequal-row-height/others-unequal-row-height.component';
 
 @NgModule({
     declarations: [
@@ -65,6 +58,7 @@ export function hljsLanguages() {
         EventAgTableDataRenderComponent,
         OthersCustomFilterComponent,
         OthersDataRenderEventComponent,
+        OthersUnequealRowHeightComponent,
         ModalExampleClickComponent
     ],
     entryComponents: [
@@ -74,7 +68,11 @@ export function hljsLanguages() {
         BrowserModule,
         BrowserAnimationsModule,
         HighlightModule.forRoot({
-            languages: hljsLanguages
+            languages: () => [
+                { name: 'typescript', func: typescript },
+                { name: 'scss', func: scss },
+                { name: 'xml', func: xml }
+            ]
         }),
         AppRoutingModule,
         CoreModule,

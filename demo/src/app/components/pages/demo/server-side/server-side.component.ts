@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AgTableEvent } from './../../../../../../../src/events/ag-table-event.event';
-import { Helper } from 'src/app/core/services/helper';
-import { OrderByPipe } from 'src/app/core/pipes/order-by.pipe';
+import { Helper } from '../../../../core/services/helper';
+import { OrderByPipe } from '../../../../core/pipes/order-by.pipe';
 
 @Component({
     selector: 'app-server-side',
@@ -61,7 +61,7 @@ export class ServerSideComponent implements OnInit {
     <ag-table-body>
         <ag-table-row *ngFor="let teste of table.items">
             <ag-table-cell>{{teste.id}}</ag-table-cell>
-            <ag-table-cell [style.height.px]="teste.height">
+            <ag-table-cell>
                 {{teste.name}}
             </ag-table-cell>
             <ag-table-cell>{{teste.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>
@@ -197,13 +197,17 @@ export class DemoComponent {
 
             setTimeout(() => {
 
-                let _dataItems = this.allDataItems.filter(x => {
+                let _dataItems = this.allDataItems.filter(item => {
                     let ok = true;
                     for (let field in event.filters) {
                         let filterValue = event.filters[field];
                         if (filterValue) {
                             filterValue = (filterValue.toString() as string).toUpperCase();
-                            ok = x[field] && (x[field].toString() as string).toUpperCase().includes(filterValue);
+
+                            if (field === 'dateRef')
+                                ok = this.helper.dateFormat(filterValue, 'yyyy-MM-dd') === item[field];
+                            else
+                                ok = item[field] && (item[field].toString() as string).toUpperCase().includes(filterValue);
                         }
 
                         if (!ok)

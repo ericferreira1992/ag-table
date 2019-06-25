@@ -38,7 +38,7 @@ export class OthersDataRenderEventComponent implements OnInit {
         <ag-table-col filter field="name" placeholder="Set a name">
             Name
         </ag-table-col>
-        <ag-table-col field="dateRef" width="200px">
+        <ag-table-col field="dateRef" date-format="yyyy/dd" width="200px">
             Date
         </ag-table-col>
         <ag-table-col field="type" filter="select" [options]="types" width="150px">

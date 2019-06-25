@@ -48,7 +48,11 @@ export class DemoComponent implements OnInit {
                         {
                             title: 'Using data render event',
                             route: '/using-data-render-event',
-                        }
+                        },
+                        {
+                            title: 'Using unequal row height',
+                            route: '/unequal-row-height',
+                        },
                     ]
                 }
             }

@@ -263,16 +263,17 @@
             transition-duration: 500ms;
             
             animation-fill-mode: both;
-            animation-duration: .5s;
+            animation-duration: 500ms;
             animation-name: fadeIn;
     
             .main-container-inner {
-                animation-fill-mode: both;
-                animation-duration: .5s;
-                animation-name: fadeIn;
                 max-width: 1100px;
                 margin: auto;
                 padding: 0 0 30px 0;
+            
+                animation-fill-mode: both;
+                animation-duration: 500ms;
+                animation-name: fadeIn;
             }
     
             p {

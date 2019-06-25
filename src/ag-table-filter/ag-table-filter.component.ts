@@ -19,16 +19,18 @@ export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
     public currentFilter: any = '';
     @Input() public type = '';
     @Input() public placeholder = '';
-    @Input() public readOnly: boolean = false;
-    @Input() public minDate: Date;
-    @Input() public maxDate: Date;
     @Input() public dateFormat: string = '';
-    @Input() public dateSeparator: string = '/';
     @Input() public optionAllLabel: string = '';
     @Input() public options: { text: string, value: any }[] | any[] = [];
     @Input() public frmControl: FormControl;
 
-    @Output() public onChange = new EventEmitter<any>();d
+    /* DISABLED
+    @Input() public readOnly: boolean = false;
+    @Input() public minDate: Date;
+    @Input() public maxDate: Date;
+    @Input() public dateSeparator: string = '/'; */
+
+    @Output() public onChange = new EventEmitter<any>();
     @Output() public onRender = new EventEmitter<void>();
 
     private subscription: Subscription;
@@ -89,7 +91,7 @@ export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
         
         if ('placeholder' in changes) {
             if (!this.placeholder && this.type === 'date')
-                this.placeholder = this.dateFormat.replace(/y/g, 'a');
+                this.placeholder = this.dateFormat.replace(/y/g, this.langService.getText('YEAR_INITIAL', this.dictionary)).toUpperCase();
         }
 
         if ('frmControl' in changes) {
@@ -127,13 +129,11 @@ export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
 
         if (this.frmControl.value !== this.currentFilter) {
             if (this.type === 'date') {
-                if (this.frmControl.value && !this.helper.dateIsValid(this.frmControl.value)) {
+                if (this.frmControl.value && !this.helper.dateIsValid(this.frmControl.value, this.dateFormat)) {
                     this.currentFilter = this.selectAllOptionValue;
                     this.frmControl.setValue(null);
                     return false;
                 }
-
-                this.dateFormat = this.dateFormat.replace(new RegExp('/', 'g'), this.dateSeparator).substr(0, 10);
             }
 
             this.currentFilter = this.frmControl.value;

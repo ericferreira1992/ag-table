@@ -26,7 +26,7 @@
                 <ag-table-body>
                     <ag-table-row *ngFor="let teste of table.items">
                         <ag-table-cell>{{teste.id}}</ag-table-cell>
-                        <ag-table-cell [style.height.px]="teste.height">
+                        <ag-table-cell>
                             {{teste.name}}
                         </ag-table-cell>
                         <ag-table-cell>{{teste.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>

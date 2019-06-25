@@ -18,6 +18,7 @@ import { AgTableLangService } from './services/ag-table-lang.service';
 import { AgTableSettings } from './ag-table.settings';
 import { AgTableCustomSettings } from './ag-table-custom.settings';
 import { TranslatePipe } from './pipes/translate.pipe';
+import { DateFormatDirective } from './directives/date-format-directive';
 
 @NgModule({
 	imports: [
@@ -37,7 +38,11 @@ import { TranslatePipe } from './pipes/translate.pipe';
 		AgTablePaginateComponent,
 		AgTableSpinnerComponent,
 
-		TranslatePipe
+		// Pipes
+		TranslatePipe,
+
+		// Directives
+		DateFormatDirective
 	],
 	exports: [
 		AgTableComponent,

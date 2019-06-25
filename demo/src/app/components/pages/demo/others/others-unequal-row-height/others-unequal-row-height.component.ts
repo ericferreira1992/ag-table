@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Helper } from 'src/app/core/services/helper';
 
 @Component({
-    selector: 'app-client-side',
-    templateUrl: './client-side.component.html',
-    styleUrls: ['./client-side.component.scss']
+    selector: 'app-others-unequal-row-height',
+    templateUrl: './others-unequal-row-height.component.html',
+    styleUrls: ['./others-unequal-row-height.component.scss']
 })
-export class ClientSideComponent implements OnInit {
+export class OthersUnequealRowHeightComponent implements OnInit {
 
     public dataItems: any[] = [];
 
@@ -33,7 +33,7 @@ export class ClientSideComponent implements OnInit {
         <ag-table-col filter field="name" placeholder="Set a name">
             Name
         </ag-table-col>
-        <ag-table-col filter="date" field="dateRef" date-format="yyyy/MM" width="200px">
+        <ag-table-col filter="date" field="dateRef" width="200px">
             Date
         </ag-table-col>
         <ag-table-col filter="select" field="type" [options]="types" width="150px">
@@ -43,7 +43,7 @@ export class ClientSideComponent implements OnInit {
     <ag-table-body>
         <ag-table-row *ngFor="let item of table.items">
             <ag-table-cell>{{item.id}}</ag-table-cell>
-            <ag-table-cell>
+            <ag-table-cell [style.height.px]="item.height">
                 {{item.name}}
             </ag-table-cell>
             <ag-table-cell>{{item.dateRef | date:'dd/MM/yyyy'}}</ag-table-cell>

@@ -32,9 +32,11 @@ export class Helper {
 		return Math.max(number, min);
 	}
 
-	onlyNumbers(text: string) {
-		if (!isNullOrUndefined(text))
-			return text.replace(/[^\d]/g, '');
+	onlyNumbers(text: string, exceptions: string[] = null) {
+		if (!isNullOrUndefined(text)) {
+			let expression = (exceptions && exceptions.length) ? ('[^\\d|' + exceptions.join('|') + ']') : '[^\\d]';
+			return text.replace(new RegExp(expression, 'g'), '');
+		}
 		return '';
 	}
 
@@ -48,8 +50,8 @@ export class Helper {
 		return text ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
 	}
 
-	dateIsValid(date: string | Date): boolean {
-		return !isNullOrUndefined(this.strToDate(date));
+	dateIsValid(date: string | Date, dateFormat?: string): boolean {
+		return !isNullOrUndefined(this.strToDate(date, dateFormat));
 	}
 
 	toAmericanDate(date: string | Date, separator: string = '-'): string {
@@ -74,18 +76,45 @@ export class Helper {
 		return date as string;
 	}
 
-	strToDate(date: string | Date): Date {
-		if (typeof date === 'string' && date.length >= 8) {
+	strToDate(date: string | Date, dateFormat?: string): Date {
+		if (typeof date === 'string' && (date.length >= 8 || dateFormat)) {
 			let dateStr = (date as string);
 			if (dateStr && (dateStr.includes('-') || dateStr.includes('/'))) {
-				if (dateStr.includes('/')) dateStr = dateStr.replace(/\//g, '-');
+				if (dateStr.includes('/'))
+					dateStr = dateStr.replace(/\//g, '-');
 				dateStr = dateStr.substr(0, 10);
 
+				if (dateFormat)
+					dateFormat = dateFormat.replace(/\//g, '-');
+
 				const dateSplited = dateStr.split('-');
-				if (dateSplited.length >= 3) {
-					const year = parseInt((dateSplited[0].length === 4) ? dateSplited[0] : dateSplited[2]);
-					const month = parseInt(dateSplited[1]);
-					const day = parseInt((dateSplited[0].length === 4) ? dateSplited[2] : dateSplited[0]);
+				const length = dateSplited.length;
+				if (length >= 1) {
+					let year = 1111;
+					let month = 11;
+					let day = 11;
+
+					if (length >= 3) {
+						year = parseInt((dateSplited[0].length === 4) ? dateSplited[0] : dateSplited[2]);
+						month = parseInt(dateSplited[1]);
+						day = parseInt((dateSplited[0].length === 4) ? dateSplited[2] : dateSplited[0]);
+					}
+					else if (dateFormat) {
+						let i = 0;
+						for(let format of dateFormat.split('-')) {
+							try {
+								if (format.toLowerCase().startsWith('y'))
+									year = parseInt(dateSplited[i]);
+								else if (format.toLowerCase().startsWith('m'))
+									month = parseInt(dateSplited[i]);
+								else if (format.toLowerCase().startsWith('d'))
+									day = parseInt(dateSplited[i]);
+							}
+							catch {}
+
+							i++;
+						}
+					}
 
 					const arrayDate = [year, (month > 9 ? month : ('0' + month)), (day > 9 ? day : ('0' + day))];
 					dateStr = arrayDate.join('-');
@@ -161,7 +190,6 @@ export class Helper {
 	}
 
 	dateFormat(date: Date | string, format: string = 'dd/MM/yyyy'): string {
-
 		date = this.strToDate(date);
 
 		if (date) return this.datePipe.transform(date, format);

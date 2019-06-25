@@ -19,6 +19,7 @@ import { EnumAgTableFilterModeComponent } from './components/pages/api/enums/enu
 import { EnumAgTableFilterTypeComponent } from './components/pages/api/enums/enum-ag-table-filter-type/enum-ag-table-filter-type.component';
 import { OthersCustomFilterComponent } from './components/pages/demo/others/others-custom-filter/others-custom-filter.component';
 import { OthersDataRenderEventComponent } from './components/pages/demo/others/others-data-render-event/others-data-render-event.component';
+import { OthersUnequealRowHeightComponent } from './components/pages/demo/others/others-unequal-row-height/others-unequal-row-height.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,6 +34,7 @@ const routes: Routes = [
                 children: [
                     { path: 'custom-filter', component: OthersCustomFilterComponent },
                     { path: 'using-data-render-event', component: OthersDataRenderEventComponent },
+                    { path: 'unequal-row-height', component: OthersUnequealRowHeightComponent },
                 ]
             },
         ]

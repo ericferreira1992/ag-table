@@ -25,13 +25,15 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input() public field: string = '';
     @Input() public mode: AgTableFilterMode = null;
     @Input() public placeholder = '';
-    @Input() public readOnly: boolean = false;
-    @Input() public minDate: Date;
-    @Input() public maxDate: Date;
-    @Input() public dateFormat: string = '';
-    @Input() public dateSeparator: string = '/';
-	@Input() public optionAllLabel: string = '';
+    @Input('date-format') public dateFormat: string = '';
+	@Input('option-all-label') public optionAllLabel: string = '';
 	@Input() public options: { text: string, value: any }[] | any[] = [];
+
+	/* DISABLED
+    @Input('ready-only') public readOnly: boolean = false;
+	@Input('min-date') public minDate: Date;
+    @Input('max-date') public maxDate: Date;
+    @Input('date-separator') public dateSeparator: string = '/'; */
 
 	@Input('no-sort') public noSort: boolean = false;
 	@Input('no-truncate') public noTruncate: boolean = false;
@@ -148,14 +150,11 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 				if (this.filter !== AgTableFilterType.NONE && !this.mode) {
 					switch (this.filter) {
 						case AgTableFilterType.TEXT:
-						// case AgTableFilterType.FEDERAL_ID:
-						// case AgTableFilterType.CARD_NUMBER:
-						// case AgTableFilterType.CURRENCY:
-						// case AgTableFilterType.CARD_MASK:
+						case AgTableFilterType.CURRENCY:
 							this.mode = AgTableFilterMode.CONTAINS;
 							break;
 						case AgTableFilterType.SELECT:
-						// case AgTableFilterType.DATE:
+						case AgTableFilterType.DATE:
 							this.mode = AgTableFilterMode.EQUALS;
 							break;
 						default:

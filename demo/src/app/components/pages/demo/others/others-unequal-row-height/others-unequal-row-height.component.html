@@ -2,10 +2,10 @@
 <div class="main-container-inner">
     <div class="row">
         <div class="col-12">
-            <h4>Client side</h4>
+            <h4>Using unequal row height</h4>
             <p class="about">
-                This is used when all the data is on the client side or when it already all been returned from the server. 
-                This way you can to paginate, sort and filter all data direct in client side.
+                This is an example of client-side data. As you may know, AgTable renders components via virtual-scroll technology, 
+                and in some other data-tables this does not work when have rows with different height, but in the case of AgTable this works perfectly.
             </p>
 
             <h5>Example</h5>
@@ -17,7 +17,7 @@
                     <ag-table-col filter field="name" placeholder="Set a name">
                         Name
                     </ag-table-col>
-                    <ag-table-col filter="date" field="dateRef" date-format="yyyy/MM" width="200px">
+                    <ag-table-col filter="date" field="dateRef" width="200px">
                         Date
                     </ag-table-col>
                     <ag-table-col filter="select" field="type" [options]="types" width="150px">
@@ -27,7 +27,7 @@
                 <ag-table-body>
                     <ag-table-row *ngFor="let item of table.items">
                         <ag-table-cell>{{item.id}}</ag-table-cell>
-                        <ag-table-cell>
+                        <ag-table-cell [style.height.px]="item.height">
                             {{item.name}}
                         </ag-table-cell>
                         <ag-table-cell>{{item.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>

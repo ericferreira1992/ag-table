@@ -19,7 +19,7 @@ export class OthersCustomFilterComponent implements OnInit {
 
     ngOnInit() {
         this.strHtml = '' +
-`<ag-table #table paginate="1000" [items]="dataItems" clickable height="500px" min-width="800px">
+`<ag-table #table paginate="1000" [items]="dataItems" height="500px" min-width="800px">
     <ag-table-header #header>
         <ag-table-col filter field="id" placeholder="Identifier" width="100px">
             ID
@@ -43,7 +43,7 @@ export class OthersCustomFilterComponent implements OnInit {
     <ag-table-body>
         <ag-table-row *ngFor="let item of table.items">
             <ag-table-cell>{{item.id}}</ag-table-cell>
-            <ag-table-cell [style.height.px]="item.height">
+            <ag-table-cell>
                 {{item.name}}
             </ag-table-cell>
             <ag-table-cell>{{item.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>

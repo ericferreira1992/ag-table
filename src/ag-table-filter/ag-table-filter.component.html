@@ -20,6 +20,14 @@
     [placeholder]="placeholder ? placeholder : ''"
 />
 
+<input *ngIf="type === 'date'"
+    class="ag-table-filter-input"
+    [control]="frmControl"
+    [date-format]="dateFormat"
+    type="text"
+    [placeholder]="placeholder ? placeholder : dateFormat.toUpperCase()"
+/>
+
 <input *ngIf="type === 'number'"
     class="ag-table-filter-input"
     [formControl]="frmControl"
