@@ -36,6 +36,14 @@ import { OthersDataRenderEventComponent } from './components/pages/demo/others/o
 import { ModalExampleClickComponent } from './components/pages/home/modal-example-click/modal-example-click.component';
 import { OthersUnequealRowHeightComponent } from './components/pages/demo/others/others-unequal-row-height/others-unequal-row-height.component';
 
+export function langHighlight() {
+    return [
+        { name: 'typescript', func: typescript },
+        { name: 'scss', func: scss },
+        { name: 'xml', func: xml }
+    ];
+}
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -68,11 +76,7 @@ import { OthersUnequealRowHeightComponent } from './components/pages/demo/others
         BrowserModule,
         BrowserAnimationsModule,
         HighlightModule.forRoot({
-            languages: () => [
-                { name: 'typescript', func: typescript },
-                { name: 'scss', func: scss },
-                { name: 'xml', func: xml }
-            ]
+            languages: langHighlight
         }),
         AppRoutingModule,
         CoreModule,
