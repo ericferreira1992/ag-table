@@ -341,8 +341,21 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 			}
 
 			if ('allItems' in changes) {
-				if (!this.serverSide)
-					this.currentPage = 1;
+
+				if (!this.infinity && this.currentPage !== 1) {
+					let maxPages = Math.floor(this.dataLength / this.paginate);
+					if ((this.dataLength % this.paginate) !== 0)
+						maxPages++;
+
+					if (this.currentPage > maxPages || !this.currentPage) {
+						this.currentPage = (this.currentPage > maxPages) ? maxPages : 1;
+
+						if (this.serverSide) {
+							this.onPageChange(this.currentPage);
+							return;
+						}
+					}
+				}
 
 				this.refreshRender();
 			}
