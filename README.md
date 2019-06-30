@@ -1,25 +1,25 @@
 # [AgTable](https://ericferreira1992.github.io/ag-table)
 
-The simple, clean and light DataTable component for Angular framework.
+A simple, clean and lightweight data table component for Angular.
 **Compatible**: Angular **8**+
 
-## Why use?
+## Why AgTable?
 
-**AgTable** is an excellent alternative for the developer who wants agility and practicality when developing.
-With it is possible to mount a data grid in a few seconds without effort. With a well elaborated structure, there is no need to create compronents for the columns or cells, as some other data-table components require.
+**AgTable** is an alternative for developers who need agility and efficiency while coding.
+With **AgTable** it is possible to create a fully functional data table with minimum effort. With an well elaborated structure, there is no need to create compronents for columns or cells, as some other data table components require.
 
-## Why he's cool?
+## Why is it so good?
 
-The reasons for using **AgTable** are diverse, some points make it stand out from other existing data-tables, see:
+The reasons for using **AgTable** are many, but some features make it stand out from other existing data-tables solutions:
 
-- Virtual scroll (with height other than lines)
-- Performance by displaying thousands of records
-- Filtering, sorting, and pagination on the client side
-- Allows you to view data obtained by the server (with optional inifity-scroll)
-- Server-side filtering, sorting, and paging support
+- Virtual scrolling
+- High performance while displaying thousand of records
+- Filtering, sorting and paginating are possible either on client or server side
+- Allows you to view data obtained from the server
+- Data pagination with infinity scroll or regular pagination
 - Does not force you to create components to customize columns and cells
-- Column measures are customizable
-- And much more;
+- Column sizes are customizable
+- Much more;
 
 ### [Get started](https://ericferreira1992.github.io/ag-table)
 
