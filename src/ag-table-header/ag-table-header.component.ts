@@ -35,15 +35,11 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 
 	public get filterCtrls(): { [key: string]: AbstractControl } { return (this.frmFilter && this.frmFilter.controls) ? this.frmFilter.controls : null; }
 
-	private lastBodyWidth: string = null;
-	private listenBodyWidth: any = null;
-
 	constructor(
 		public el: ElementRef<HTMLElement>,
 		private fb: FormBuilder
 	) {
 		this.frmFilter = this.fb.group({ none: [null] });
-		this.listenBodyWidth = setInterval(this.onBodyWidthChange.bind(this));
 	}
 
 	ngOnInit() {
@@ -120,6 +116,7 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 		this.parent = parent;
 		this.configureChildrens();
 		this.queryCols.changes.subscribe(this.configureChildrens.bind(this));
+		this.onBodyWidthChange(this.parent.lastBodyWidth);
 	}
 
 	public configureChildrens() {
@@ -192,22 +189,14 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 		return dataModel;
 	}
 
-	private onBodyWidthChange() {
-		if (this.el && this.el.nativeElement) {
-			let currentWidth = '100%';
-			if (this.parent && this.parent.body.itemsContainerEl && this.parent.body.itemsContainerEl.nativeElement)
-				currentWidth = this.parent.body.itemsContainerEl.nativeElement.clientWidth + 'px';
-
-			if (currentWidth !== this.lastBodyWidth) {
-				this.lastBodyWidth = currentWidth;
-				this.el.nativeElement.style.width = currentWidth;
-				if (this.cols.length)
-					this.cols.forEach(col => col.setWidth());
-			}
+	public onBodyWidthChange(currentWidth: string) {
+		if (currentWidth && this.el && this.el.nativeElement) {
+			this.el.nativeElement.style.width = currentWidth;
+			if (this.cols.length)
+				this.cols.forEach(col => col.setWidth());
 		}
 	}
 
 	ngOnDestroy() {
-		clearInterval(this.listenBodyWidth);
 	}
 }

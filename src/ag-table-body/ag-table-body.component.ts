@@ -141,7 +141,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 		}
 	}
 
-	public onScroll() {
+	public onScroll(ev?: any, forceChange: boolean = false) {
 		if (!this.parent.loading) {
 			if (this.dataTableInBottom()) {
 				if (!this.scrollInBottom) {
@@ -154,14 +154,14 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 		}
 
 		if (this.dataVirtualScrollService.canApplyVirtualScroll(this))
-			if (this.lastScrollTop !== this.virtualScroll.currentSrollTop) {
+			if (forceChange || this.lastScrollTop !== this.virtualScroll.currentSrollTop) {
 				this.lastScrollTop = this.virtualScroll.currentSrollTop;
 				this.dataVirtualScrollService.onScrollChange(this);
 			}
 	}
 
 	public backToTheTop() {
-		this.elRef.nativeElement.scrollTop = 0;
+		this.el.scrollTop = 0;
 	}
 
 	public getRowIndexBasedVirtual(virtualIndex: number) {

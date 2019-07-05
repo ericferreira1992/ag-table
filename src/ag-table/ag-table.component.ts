@@ -149,6 +149,9 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 	private intervalListenerWidth: any;
 
+	public lastBodyWidth: string = null;
+	public lastBodyHeight: string = null;
+
 	constructor(
 		public elRef: ElementRef<HTMLElement>,
 		private helper: Helper,
@@ -201,6 +204,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 		}
 		else
 			this.DOMisVisible = false;
+
+		this.onCheckBodyDimensions();
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -362,6 +367,35 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 		}, 100);
 	}
 
+	private onCheckBodyDimensions() {
+		this.checkBodyWidthChange();
+		this.checkBodyHeightChange();
+	}
+
+	private checkBodyWidthChange() {
+		if (this.el) {
+			let currentWidth = '100%';
+			if (this.body && this.body.itemsContainerEl && this.body.itemsContainerEl.nativeElement)
+				currentWidth = this.body.itemsContainerEl.nativeElement.clientWidth + 'px';
+
+			if (currentWidth !== this.lastBodyWidth) {
+				this.lastBodyWidth = currentWidth;
+				this.header.onBodyWidthChange(currentWidth);
+			}
+		}
+	}
+
+	private checkBodyHeightChange() {
+		if (this.el) {
+			let currentHeight = this.el.clientHeight + 'px';
+			if (currentHeight !== this.lastBodyHeight) {
+				this.lastBodyHeight = currentHeight;
+				this.refreshRender();
+			}
+		}
+	}
+
+
 	private definePaddingBottom() {
 		if (this.elRef && this.elRef.nativeElement) {
 			let padding = '0px';
@@ -425,14 +459,12 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	public checkMinWidthcanApply() {
 		if (this.minWidthIsValid()) {
 			if (this.el)
-			if (this.body && this.body.el)
 				this.body.el.style.minWidth = this.minWidth;
 
 			if (this.paginateComp && this.paginateComp.el)
 				this.paginateComp.el.style.minWidth = this.minWidth;
 		}
 		else {
-			if (this.el) 
 			if (this.body && this.body.el)
 				this.body.el.style.minWidth = '';
 

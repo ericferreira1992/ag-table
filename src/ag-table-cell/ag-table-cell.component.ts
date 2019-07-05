@@ -60,7 +60,7 @@ export class AgTableCellComponent implements OnInit, OnDestroy {
 		this.cellIndex = index;
 		this.parent = parent;
 
-		this.truncate = !this.parent.noTruncate
+		this.truncate = !this.parent.noTruncate;
 
 		this.setWidth();
 	}
