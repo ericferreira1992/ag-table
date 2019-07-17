@@ -23,6 +23,10 @@
                 transition: top .3s;
             }
         }
+
+        &.height-is-auto {
+            overflow: initial !important;
+        }
     
         &.clickable {
             .ag-table-row {

@@ -49,7 +49,7 @@ export class AgTableRowComponent implements OnInit, OnChanges, AfterViewInit, On
 				this.noTruncate = (typeof this.noTruncate === 'string' && (this.noTruncate === '' || this.noTruncate === 'true')) ? true : this.noTruncate;
 				if (this.cells.length)
 					this.cells.forEach(cell => {
-						cell.truncate = !this.noTruncate;
+						cell.truncate = !cell.noTruncate && !this.noTruncate;
 					});
 			}
 		}

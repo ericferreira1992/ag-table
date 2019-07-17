@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnDestroy, ElementRef, SimpleChanges, OnChanges } from '@angular/core';
 import { TRANSLATION } from './ag-table-cell.component.trans';
 import { AgTableRowComponent } from '../ag-table-row/ag-table-row.component';
 import { isNullOrUndefined } from 'util';
@@ -7,9 +7,11 @@ import { isNullOrUndefined } from 'util';
 	selector: 'ag-table-cell',
 	templateUrl: './ag-table-cell.component.html'
 })
-export class AgTableCellComponent implements OnInit, OnDestroy {
+export class AgTableCellComponent implements OnInit, OnChanges, OnDestroy {
 	@HostBinding('class.ag-table-cell') public class: boolean = true;
-	
+
+	@Input('no-truncate') public noTruncate: boolean = false;
+
 	public get truncate() { return this.el.classList.contains('text-truncate'); }
 	public set truncate(value: boolean) {
 		if (this.el) {
@@ -50,17 +52,26 @@ export class AgTableCellComponent implements OnInit, OnDestroy {
 		private elRef: ElementRef<HTMLElement>,
 		public detectorRef: ChangeDetectorRef
 	) {
-		this.truncate = true;
+		this.truncate = !this.noTruncate;
 	}
 
 	ngOnInit() {
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes) {
+			if ('noTruncate' in changes) {
+				this.noTruncate = (typeof this.noTruncate === 'string' && (this.noTruncate === '' || this.noTruncate === 'true')) ? true : this.noTruncate;
+				this.truncate = !this.noTruncate && (!this.parent || !this.parent.noTruncate);
+			}
+		}
 	}
 
 	public onRender(parent: AgTableRowComponent, index) {
 		this.cellIndex = index;
 		this.parent = parent;
 
-		this.truncate = !this.parent.noTruncate;
+		this.truncate = !this.noTruncate && (!this.parent || !this.parent.noTruncate);
 
 		this.setWidth();
 	}

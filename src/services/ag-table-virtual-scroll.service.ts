@@ -103,7 +103,7 @@ export class AgTableVirtualScrollService {
 	public canApplyVirtualScroll(body: AgTableBodyComponent) {
 		let vs = body.virtualScroll;
 
-		if (body.parent && body.parent.height !== 'auto')
+		if (body.parent && body.parent._height !== 'auto')
 			return true;
 		else {
 			let rowHeight = parseInt(this.helper.onlyNumbers(body.rowHeight));
@@ -119,6 +119,7 @@ export class AgTableVirtualScrollService {
 	public howManyCanAppear(body: AgTableBodyComponent) {
 		let vs = body.virtualScroll;
 		let rowHeight = parseInt(this.helper.onlyNumbers(body.rowHeight));
-		return Math.floor(vs.height / rowHeight) + 1;
+		let height = vs.height ? vs.height : parseInt(this.helper.onlyNumbers(body.parent._height));
+		return Math.floor((isNaN(height) ? 0 : height) / rowHeight) + 1;
 	}
 }

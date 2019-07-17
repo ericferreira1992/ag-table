@@ -16,6 +16,7 @@ import { AgTableLangService } from '../services/ag-table-lang.service';
 export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 	@HostBinding('class.ag-table-body') public class: boolean = true;
     @HostBinding('class.clickable') public clickable: boolean = false;
+    @HostBinding('class.height-is-auto') public get heightIsAuto() { return this.parent && this.parent.height === 'auto'; }
 
 	@ViewChild('itemsContainer') public itemsContainerEl: ElementRef<HTMLElement>;
 

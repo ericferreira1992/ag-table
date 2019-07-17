@@ -79,8 +79,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	private get paddingTop() { return this.elRef && this.elRef.nativeElement ? this.elRef.nativeElement.style.paddingTop : '0px'; }
 	private set paddingTop(value: string) { if (this.elRef && this.elRef.nativeElement) this.elRef.nativeElement.style.paddingTop = value; }
 
-	private set _height(value: string) {
-		this.elRef.nativeElement.style.height = value;
+	public set _height(value: string) {
+		this.el.style.height = value;
 
 		if (this.header) {
 			if (value === '0' || value === '0px')
@@ -91,7 +91,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 		this.definePaddingTop();
 	}
-	private get _height() { return this.elRef.nativeElement.style.height; }
+	public get _height() { return (this.el && this.el.style.height) ? this.el.style.height : 'auto'; }
 
 	public items: any[] = [];
 	public filteredItems: any[] = [];
@@ -100,21 +100,23 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	public get body() { return this.queryBody ? this.queryBody.first : null; }
 
 	public get topShadow() {
-		let body = (this.body && this.body.elRef && this.body.elRef.nativeElement) ? this.body.elRef.nativeElement : null;
-		let header = (this.header && this.header.el && this.header.el.nativeElement) ? this.header.el.nativeElement : null;
-		if (body && header)
-			return body.scrollTop >= (header.clientHeight / 2);
-		else
-			return false;
+		if (this.height !== 'auto') {
+			let body = (this.body && this.body.el) ? this.body.el : null;
+			let header = (this.header && this.header.el && this.header.el.nativeElement) ? this.header.el.nativeElement : null;
+			if (body && header)
+				return body.scrollTop >= (header.clientHeight / 2);
+		}
+		return false;
 	}
 
 	public get bottomShadow() {
-		let body = (this.body && this.body.elRef && this.body.elRef.nativeElement) ? this.body.elRef.nativeElement : null;
-		let header = (this.header && this.header.el && this.header.el.nativeElement) ? this.header.el.nativeElement : null;
-		if (body && header)
-			return (body.scrollTop + body.clientHeight) < body.scrollHeight;
-		else
-			return false;
+		if (this.height !== 'auto') {
+			let body = (this.body && this.body.el) ? this.body.el : null;
+			let header = (this.header && this.header.el && this.header.el.nativeElement) ? this.header.el.nativeElement : null;
+			if (body && header)
+				return (body.scrollTop + body.clientHeight) < body.scrollHeight;
+		}
+		return false;
 	}
 
 	public get isPaging() { return this.paginate; }
@@ -386,7 +388,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	}
 
 	private checkBodyHeightChange() {
-		if (this.el) {
+		if (this.el && this._height !== 'auto') {
 			let currentHeight = this.el.clientHeight + 'px';
 			if (currentHeight !== this.lastBodyHeight) {
 				this.lastBodyHeight = currentHeight;

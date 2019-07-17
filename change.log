@@ -1,6 +1,8 @@
 # Version 1.0.5
-- Try to stay on the same page if the data (items) changes.
+- Attempt of stay on the same page if the data (items) changes.
 - Change in table width and height monitoring algorithm.
+- Added no-truncate in ag-table-cell.
+- Fixed bugs. 
 
 # Version 1.0.4
 - Added date filter type on client-side mode.
