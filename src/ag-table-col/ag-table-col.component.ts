@@ -53,7 +53,7 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 	public get _width() { return (this.elRef && this.el) ? this.el.style.width : 'auto'; }
 	
-	private get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
+	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
 
 	public dictionary = TRANSLATION;
 

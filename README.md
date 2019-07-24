@@ -1,7 +1,7 @@
 # [AgTable](https://ericferreira1992.github.io/ag-table)
 
 A simple, clean and lightweight data table component for Angular.
-**Compatible**: Angular **8**+
+**Compatible**: Angular **7**
 
 ## Why AgTable?
 

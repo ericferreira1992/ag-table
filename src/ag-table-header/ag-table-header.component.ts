@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl, AbstractControl } from '@angular/f
 import { isNullOrUndefined } from 'util';
 import { AgTableFilterMode } from '../enums/ag-table-filter-mode.enum';
 import { AgTableColComponent } from '../ag-table-col/ag-table-col.component';
+import { Helper } from '../services/helper';
 
 @Component({
 	selector: 'ag-table-header',
@@ -39,6 +40,7 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 
 	constructor(
 		public elRef: ElementRef<HTMLElement>,
+		private helper: Helper,
 		private fb: FormBuilder
 	) {
 		this.frmFilter = this.fb.group({ none: [null] });
@@ -192,9 +194,23 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 	}
 
 	public onBodyWidthChange(currentWidth: string) {
-		if (currentWidth && this.elRef && this.el) {
-			if (this.cols.length)
+		if (currentWidth && this.el) {
+			let currentWidthNumber = this.helper.onlyNumberAndToFloat(currentWidth);
+			
+			if (this.cols.length > 0) {
 				this.cols.forEach(col => col.setWidth());
+
+				let lastCol = this.cols[this.cols.length - 1]
+
+				if (this.el.clientWidth > currentWidthNumber) {
+					this.el.style.paddingRight = (this.el.clientWidth - currentWidthNumber) + 'px';
+					lastCol.el.style.paddingRight = '0px';
+				}
+				else{
+					this.el.style.paddingRight = '';
+					lastCol.el.style.paddingRight = '';
+				}
+			}
 		}
 	}
 

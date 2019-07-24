@@ -58,7 +58,7 @@ export class ClientSideComponent implements OnInit {
         let type = 1;
         let date = new Date();
 
-        this.dataItems = Array.from({ length: 10000 }).map((x, i) => {
+        this.dataItems = Array.from({ length: 10005 }).map((x, i) => {
             let number = i + 1;
             if (type < 3)
                 type++;
