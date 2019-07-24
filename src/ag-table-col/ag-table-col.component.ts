@@ -42,12 +42,18 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 	@Input('filter-value') public filterValue: any = null;
 
 	public set _width(value: string) {
-		if (this.el && this.el.nativeElement){
-			this.el.nativeElement.style.maxWidth = value;
-			this.el.nativeElement.style.width = value;
+		if (this.el){
+			this.el.style.width = value;
+
+			if (value && value.endsWith('%'))
+				this.el.style.maxWidth = ((this.helper.onlyNumberAndToFloat(value) * this.parent.el.clientWidth) / 100) + 'px';
+			else
+				this.el.style.maxWidth = value;
 		}
 	}
-	public get _width() { return (this.el && this.el.nativeElement) ? this.el.nativeElement.style.width : 'auto'; }
+	public get _width() { return (this.elRef && this.el) ? this.el.style.width : 'auto'; }
+	
+	private get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
 
 	public dictionary = TRANSLATION;
 
@@ -70,7 +76,7 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 		private helper: Helper,
         private langService: AgTableLangService,
 		private fb: FormBuilder,
-		private el: ElementRef<HTMLElement>
+		private elRef: ElementRef<HTMLElement>
 	) {
 	}
 
@@ -318,13 +324,14 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 				if (this.parent.cols.some((x, i) => x.getWidthUnit() !== ''))
 				unit = this.parent.cols.find((x, i) => x.getWidthUnit() !== '').getWidthUnit();
 
-				if (!unit || unit === 'px') {
+				if (unit === 'px') {
 					let colsWithWidth = this.parent.cols.filter((x, i) => i !== this.colIndex && x.widthIsValid());
 					let widthDiff = colsWithWidth.reduce((prev, curr) => prev + parseFloat(this.helper.onlyNumbers(curr.width)), 0);
-					let containerWidth = this.parent.parent.body.itemsContainerEl.nativeElement.clientWidth;
+					let containerWidth = this.parent.el.clientWidth;
 					this._width = (containerWidth - widthDiff) / Math.abs(this.parent.cols.length - colsWithWidth.length) + 'px';
 				}
 				else {
+					if (!unit) unit = '%';
 					let colsWithWidth = this.parent.cols.filter((x, i) => i !== this.colIndex && x.widthIsValid());
 					let widthDiff = colsWithWidth.reduce((prev, curr) => prev + parseFloat(this.helper.onlyNumbers(curr.width)), 0);
 					this._width = (100 - widthDiff) / Math.abs(this.parent.cols.length - colsWithWidth.length) + unit;

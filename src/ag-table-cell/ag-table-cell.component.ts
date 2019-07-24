@@ -2,6 +2,7 @@ import { Component, OnInit, HostBinding, Input, AfterViewInit, ChangeDetectorRef
 import { TRANSLATION } from './ag-table-cell.component.trans';
 import { AgTableRowComponent } from '../ag-table-row/ag-table-row.component';
 import { isNullOrUndefined } from 'util';
+import { Helper } from '../services/helper';
 
 @Component({
 	selector: 'ag-table-cell',
@@ -50,6 +51,7 @@ export class AgTableCellComponent implements OnInit, OnChanges, OnDestroy {
 
 	constructor(
 		private elRef: ElementRef<HTMLElement>,
+		private helper: Helper,
 		public detectorRef: ChangeDetectorRef
 	) {
 		this.truncate = !this.noTruncate;
@@ -77,11 +79,16 @@ export class AgTableCellComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	public setWidth() {
-		if (this.el) {
+		if (this.elRef && this.el) {
 			let newWidth = this.col ? this.col._width : 'auto';
-			if (newWidth !== this.el.style.width) {
+			let newMaxWidth = newWidth;
+
+			if (newWidth && newWidth.endsWith('%'))
+				newMaxWidth = ((this.helper.onlyNumberAndToFloat(newWidth) * this.parent.parent.el.clientWidth) / 100) + 'px';
+
+			if (newWidth !== this.el.style.width || newMaxWidth !== this.el.style.maxWidth) {
 				this.el.style.width = newWidth;
-				this.el.style.maxWidth = newWidth;
+				this.el.style.maxWidth = newMaxWidth;
 			}
 		}
 	}

@@ -46,6 +46,16 @@ export class Helper {
 		return '';
 	}
 
+	onlyNumberAndToFloat(text: string) {
+		if (text) {
+			let strNumber = text.replace(/[^\d.\d]/g, '');
+			let number = parseFloat(strNumber);
+			if (!isNaN(number))
+				return number;
+		}
+		return 0;
+	}
+
 	removeAccents(text: string) {
 		return text ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
 	}

@@ -24,13 +24,15 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     public showMobileScreenMenu: boolean = false;
 
     private eventsLineters: Function[] = [];
-    private get el() { return this.elRef && this.elRef.nativeElement ? this.elRef.nativeElement : null; }
+    private get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
 
     private subscriptionListenRoutes: Subscription;
     
     public get menuEl() { return this.menuElRef && this.menuElRef.nativeElement; }
     public get menuButtonEl() { return this.menuButtonElRef && this.menuButtonElRef.nativeElement; }
     public get mainSectionEl() { return this.mainSectionElRef && this.mainSectionElRef.nativeElement; }
+
+    public version: string = '1.0.6';
 
     constructor(
         private renderer: Renderer2,

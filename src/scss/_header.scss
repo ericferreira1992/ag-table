@@ -1,12 +1,17 @@
 @mixin header($color) {
     .ag-table-header {
-        display: table;
+        display: block;
         width: 100%;
-        min-height: 37px;
         height: auto;
         position: absolute;
+        min-height: 37px;
         top: 0;
-        z-index: 2;
+
+        > form {
+            display: table;
+            width: 100%;
+            min-height: 37px;
+        }
     
         &[align="top"] {
             .ag-table  { vertical-align: top; }

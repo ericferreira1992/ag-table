@@ -27,6 +27,14 @@
                 height: 40px;
                 animation-delay: 200ms;
             }
+            
+            > .version {
+                position: absolute;
+                top: 50px;
+                left: calc(50% + 43px);
+                transform: translateX(-50%);
+                font-size: 11px;
+            }
         }
 
 
@@ -90,6 +98,7 @@
                 }
 
                 .logo {
+                    position: relative;
                     cursor: pointer;
                     display: inline-block;
                     vertical-align: middle;
@@ -97,11 +106,21 @@
                     margin-right: 0;
                     transition-duration: 500ms;
                     overflow: hidden;
+                    padding: 11px 0;
 
                     > img {
                         width: inherit;
                         height: auto;
                         animation-delay: 200ms;
+                    }
+
+                    .version {
+                        position: absolute;
+                        bottom: 2px;
+                        left: calc(50% + 25px);
+                        transform: translateX(-50%);
+                        font-size: 11px;
+                        width: 100%;
                     }
 
                     &.expand-logo {
@@ -168,6 +187,13 @@
                         top: 50%;
                         left: 50%;
                         transform: translate(-50%, -50%);
+
+                        &.expand-logo {
+                            .version {
+                                bottom: 3px;
+                                left: calc(50% + 49px);
+                            }
+                        }
                     }
 
                     > ul {

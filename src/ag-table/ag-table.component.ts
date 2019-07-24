@@ -101,8 +101,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 	public get topShadow() {
 		if (this.height !== 'auto') {
-			let body = (this.body && this.body.el) ? this.body.el : null;
-			let header = (this.header && this.header.el && this.header.el.nativeElement) ? this.header.el.nativeElement : null;
+			let body = (this.body) ? this.body.el : null;
+			let header = (this.header) ? this.header.el : null;
 			if (body && header)
 				return body.scrollTop >= (header.clientHeight / 2);
 		}
@@ -111,8 +111,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 	public get bottomShadow() {
 		if (this.height !== 'auto') {
-			let body = (this.body && this.body.el) ? this.body.el : null;
-			let header = (this.header && this.header.el && this.header.el.nativeElement) ? this.header.el.nativeElement : null;
+			let body = (this.body) ? this.body.el : null;
+			let header = (this.header) ? this.header.el : null;
 			if (body && header)
 				return (body.scrollTop + body.clientHeight) < body.scrollHeight;
 		}
@@ -167,6 +167,11 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 	ngAfterViewInit() {
 		setTimeout(() => {
+			if (this.body.el) {
+				this.lastBodyWidth = this.body.el.clientWidth + 'px';
+				this.lastBodyHeight = this.body.el.clientHeight + 'px';
+			}
+
 			this.body.onRender(this);
 			this.header.onRender(this);
 			if (this.paginateComp) this.paginateComp.onRender(this);
@@ -383,6 +388,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 			if (currentWidth !== this.lastBodyWidth) {
 				this.lastBodyWidth = currentWidth;
 				this.header.onBodyWidthChange(currentWidth);
+				this.body.onBodyWidthChange(currentWidth);
 			}
 		}
 	}
@@ -399,22 +405,21 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 
 	private definePaddingBottom() {
-		if (this.elRef && this.elRef.nativeElement) {
+		if (this.el) {
 			let padding = '0px';
-			if (!this.infinity)
+			if (!this.infinity && this.paginate !== null)
 				padding = '46px';
 
 			if (padding !== this.elRef.nativeElement.style.paddingBottom)
-				this.elRef.nativeElement.style.paddingBottom = padding;
+				this.el.style.paddingBottom = padding;
 		}
 	}
 
 	public definePaddingTop(forceDefine: boolean = false) {
-		if (this.elRef && this.elRef.nativeElement && this.header) {
+		if (this.el && this.header) {
 			let padding = '0px';
-			if (this.header && this.header.el && this.header.el.nativeElement)
-				if (this.header.visible)
-					padding = this.header.height;
+			if (this.header && this.header.el && this.header.visible)
+				padding = this.header.height;
 
 			if (forceDefine || padding !== this.elRef.nativeElement.style.paddingTop) {
 				this.paddingTop = padding;

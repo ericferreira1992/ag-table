@@ -1,8 +1,6 @@
 <div #headerShadowEl class="top-shadow animated fadeIn" [ngClass]="{'to-drop': topShadow}"></div>
 
-<ng-content></ng-content>
-
-<ag-table-paginate
+<ag-table-paginate *ngIf="!infinity && paginate !== null"
     class="animated fadeIn"
     [ngClass]="{ 'to-drop': bottomShadow, 'on-infinity': infinity }"
     [length]="(isPaging && numPages) ? numPages : 1"
@@ -12,6 +10,8 @@
     [disabled]="loading"
     (change)="onPageChange($event)">
 </ag-table-paginate>
+
+<ng-content></ng-content>
 
 <div *ngIf="loading && (!infinity || currentPage === 1)" class="ag-table-loading animated fadeIn">
     <ag-table-spinner></ag-table-spinner>

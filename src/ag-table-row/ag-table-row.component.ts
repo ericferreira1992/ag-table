@@ -16,12 +16,12 @@ export class AgTableRowComponent implements OnInit, OnChanges, AfterViewInit, On
 	@Input('no-truncate') public noTruncate: boolean = false;
 
 	private set _height(value: string) {
-		if (this.el && this.el.nativeElement){
-			this.el.nativeElement.style.minHeight = value;
-			this.el.nativeElement.style.height = value;
+		if (this.el){
+			this.el.style.minHeight = value;
+			this.el.style.height = value;
 		}
 	}
-	private get _height() { return (this.el && this.el.nativeElement) ? this.el.nativeElement.style.minHeight : 'auto'; }
+	private get _height() { return (this.el) ? this.el.style.minHeight : 'auto'; }
 
 	public get cells() { return this.queryCells ? this.queryCells.toArray() : []; }
 
@@ -34,8 +34,10 @@ export class AgTableRowComponent implements OnInit, OnChanges, AfterViewInit, On
 
 	private subscription: Subscription;
 
+	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
+
 	constructor(
-		private el: ElementRef<HTMLElement>,
+		private elRef: ElementRef<HTMLElement>,
 		private viewContainer: ViewContainerRef,
 	) {
 	}
@@ -82,11 +84,11 @@ export class AgTableRowComponent implements OnInit, OnChanges, AfterViewInit, On
 			let currentClassName = 'ag-table-row-' + ((position % 2) === 0 ? 'even' : 'odd');
 			let previousClassName = 'ag-table-row-' + ((position % 2) === 0 ? 'odd' : 'even');
 
-			if  (!this.el.nativeElement.classList.contains(currentClassName))
-				this.el.nativeElement.classList.add(currentClassName);
+			if  (!this.el.classList.contains(currentClassName))
+				this.el.classList.add(currentClassName);
 
-			if  (this.el.nativeElement.classList.contains(previousClassName))
-				this.el.nativeElement.classList.remove(previousClassName);
+			if  (this.el.classList.contains(previousClassName))
+				this.el.classList.remove(previousClassName);
 		}
 	}
 

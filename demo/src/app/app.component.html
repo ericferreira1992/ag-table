@@ -1,6 +1,7 @@
 <header [ngClass]="{'hide-title': mobileScreen || hideTitleHeader, 'with-shadow': shadowHeader}">
     <h1>
         <img class="logo animated" src="assets/img/ag-table.svg" routerLink="/home" [ngClass]="{'fadeIn': !mobileScreen && !hideTitleHeader, 'fadeOut': mobileScreen || hideTitleHeader}"/>
+        <span class="version">v {{version}}</span>
 
         <div class="d-table f-right" [style.marginTop.px]="-5">
             <div class="d-table-cell va-middle">
@@ -23,6 +24,7 @@
 
             <div class="logo" [ngClass]="{'expand-logo': mobileScreen || hideTitleHeader}">
                 <img class="animated" src="assets/img/ag-table.svg" routerLink="/home" [ngClass]="{'fadeIn': mobileScreen || hideTitleHeader, 'fadeOut': !mobileScreen && !hideTitleHeader}"/>
+                <span class="version">v {{version}}</span>
             </div>
 
             <div *ngIf="mobileScreen" class="d-table f-right" [style.marginTop.px]="4">

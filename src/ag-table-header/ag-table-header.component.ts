@@ -17,12 +17,12 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 
 	public get cols() { return this.queryCols ? this.queryCols.toArray() : []; }
 
-	public get height() { return (this.el && this.el.nativeElement) ? `${this.el.nativeElement.clientHeight}px` : '0px'; }
+	public get height() { return (this.el) ? `${this.el.children[0].clientHeight}px` : '0px'; }
 
-	public get visible() { return (this.el && this.el.nativeElement) ? this.el.nativeElement.style.visibility !== 'hidden' : false; }
+	public get visible() { return (this.elRef && this.el) ? this.el.style.visibility !== 'hidden' : false; }
 	public set visible(value: boolean) {
-		if ((this.el && this.el.nativeElement))
-			this.el.nativeElement.style.visibility = (value ? '' : 'hidden');
+		if ((this.elRef && this.el))
+			this.el.style.visibility = (value ? '' : 'hidden');
 	}
 
 	public parent: AgTableComponent;
@@ -34,9 +34,11 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 	public colSorting: { col: AgTableColComponent, asc: boolean } = null;
 
 	public get filterCtrls(): { [key: string]: AbstractControl } { return (this.frmFilter && this.frmFilter.controls) ? this.frmFilter.controls : null; }
+	
+	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
 
 	constructor(
-		public el: ElementRef<HTMLElement>,
+		public elRef: ElementRef<HTMLElement>,
 		private fb: FormBuilder
 	) {
 		this.frmFilter = this.fb.group({ none: [null] });
@@ -190,8 +192,7 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 	}
 
 	public onBodyWidthChange(currentWidth: string) {
-		if (currentWidth && this.el && this.el.nativeElement) {
-			this.el.nativeElement.style.width = currentWidth;
+		if (currentWidth && this.elRef && this.el) {
 			if (this.cols.length)
 				this.cols.forEach(col => col.setWidth());
 		}

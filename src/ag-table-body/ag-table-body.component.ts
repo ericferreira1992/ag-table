@@ -174,6 +174,15 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 			this.onScroll();
     }
 
+	public onBodyWidthChange(currentWidth: string) {
+		if (currentWidth && this.el) {
+			if (this.rows.length)
+				this.rows.forEach(row => {
+					row.cells.forEach(cell => cell.setWidth());
+				});
+		}
+	}
+
 	ngOnDestroy() {
 		if (this.subscription)
 			this.subscription.unsubscribe();
