@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     public get menuButtonEl() { return this.menuButtonElRef && this.menuButtonElRef.nativeElement; }
     public get mainSectionEl() { return this.mainSectionElRef && this.mainSectionElRef.nativeElement; }
 
-    public version: string = '1.0.8';
+    public version: string = '1.0.9';
 
     constructor(
         private renderer: Renderer2,

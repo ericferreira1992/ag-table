@@ -1,6 +1,6 @@
 {
     "name": "ag-table",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "scripts": {
         "ng": "ng",
         "start": "pushd demo && ng serve --port=4200 --host=0.0.0.0",

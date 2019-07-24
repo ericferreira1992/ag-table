@@ -196,6 +196,11 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 	public onBodyWidthChange(currentWidth: string) {
 		if (currentWidth && this.el) {
 			let currentWidthNumber = this.helper.onlyNumberAndToFloat(currentWidth);
+
+			if (this.parent && this.parent.minWidth)
+				this.el.style.width = currentWidth;
+			else
+				this.el.style.width = '';
 			
 			if (this.cols.length > 0) {
 				this.cols.forEach(col => col.setWidth());
