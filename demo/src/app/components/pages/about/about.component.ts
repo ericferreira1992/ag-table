@@ -66,7 +66,7 @@ export class AboutComponent implements OnInit {
                 github: 'ericferreira1992'
             },
             {
-                name: 'Pedro Victorino',
+                name: 'Pedro Vitorino',
                 github: 'pedrovsp'
             },
         ];
