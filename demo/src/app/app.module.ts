@@ -35,6 +35,7 @@ import { OthersCustomFilterComponent } from './components/pages/demo/others/othe
 import { OthersDataRenderEventComponent } from './components/pages/demo/others/others-data-render-event/others-data-render-event.component';
 import { ModalExampleClickComponent } from './components/pages/home/modal-example-click/modal-example-click.component';
 import { OthersUnequealRowHeightComponent } from './components/pages/demo/others/others-unequal-row-height/others-unequal-row-height.component';
+import { Page404Component } from './components/pages/page-404/page-404.component';
 
 export function langHighlight() {
     return [
@@ -51,6 +52,7 @@ export function langHighlight() {
         AboutComponent,
         ApiComponent,
         HomeComponent,
+        Page404Component,
         ClientSideComponent,
         ServerSideComponent,
         ServerSideInfinityComponent,

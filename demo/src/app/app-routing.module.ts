@@ -20,10 +20,11 @@ import { EnumAgTableFilterTypeComponent } from './components/pages/api/enums/enu
 import { OthersCustomFilterComponent } from './components/pages/demo/others/others-custom-filter/others-custom-filter.component';
 import { OthersDataRenderEventComponent } from './components/pages/demo/others/others-data-render-event/others-data-render-event.component';
 import { OthersUnequealRowHeightComponent } from './components/pages/demo/others/others-unequal-row-height/others-unequal-row-height.component';
+import { Page404Component } from './components/pages/page-404/page-404.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: '', component: HomeComponent },
+    { path: 'home', redirectTo: '/', pathMatch: 'full' },
     { path: 'demo', component: DemoComponent,
         children: [
             { path: '', redirectTo: 'client-side', pathMatch: 'prefix'},
@@ -69,7 +70,8 @@ const routes: Routes = [
             },
         ]
     },
-    { path: 'about', component: AboutComponent }
+    { path: 'about', component: AboutComponent },
+	{ path: '**', component: Page404Component }
 ];
 
 @NgModule({

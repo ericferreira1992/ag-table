@@ -196,19 +196,23 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 	public onBodyWidthChange(currentWidth: string) {
 		if (currentWidth && this.el) {
 			let currentWidthNumber = this.helper.onlyNumberAndToFloat(currentWidth);
+			let minWidthIsDefined = !!(this.parent && this.parent.minWidth);
+			let headerWidth = this.el.clientWidth;
 
-			if (this.parent && this.parent.minWidth)
+			if (minWidthIsDefined) {
 				this.el.style.width = currentWidth;
+				headerWidth = this.parent.el.clientWidth;
+			}
 			else
 				this.el.style.width = '';
-			
+
 			if (this.cols.length > 0) {
 				this.cols.forEach(col => col.setWidth());
 
-				let lastCol = this.cols[this.cols.length - 1]
+				let lastCol = this.cols[this.cols.length - 1];
 
-				if (this.el.clientWidth > currentWidthNumber) {
-					this.el.style.paddingRight = (this.el.clientWidth - currentWidthNumber) + 'px';
+				if (headerWidth > currentWidthNumber) {
+					this.el.style.paddingRight = minWidthIsDefined ? '' : ((headerWidth - currentWidthNumber) + 'px');
 					lastCol.el.style.paddingRight = '0px';
 				}
 				else{
