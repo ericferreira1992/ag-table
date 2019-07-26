@@ -31,7 +31,7 @@
                     <a *ngFor="let contrib of contributors; let index = index" [href]="'https://github.com/' + contrib.github" target="_blank">
                         <li >
                             <div>
-                                <img [src]="'/assets/img/contributors/' + contrib.github + '.jpg'">
+                                <img [src]="'assets/img/contributors/' + contrib.github + '.jpg'">
                             </div>
                             <div>
                                 <h5 class="m-0">{{ contrib.name }}</h5>
