@@ -247,10 +247,10 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 		if (this.parent && this.parent.parent) {
 			if (this.parent) {
 				if (this.field)
-					this.filterActive = (this.parent.filterCtrls[this.field] && this.parent.filterCtrls[this.field].value !== null);
+					this.filterActive = (this.parent.filterCtrls[this.field] && this.parent.filterCtrls[this.field].value !== null && this.parent.filterCtrls[this.field].value !== '');
 				else if (this.customFilter)
 					this.filterActive = (this.customFilter as { field: string, mode?: AgTableFilterMode, value?: any }[]).some((custom) => {
-						return this.parent.filterCtrls[custom.field] && this.parent.filterCtrls[custom.field].value !== null;
+						return this.parent.filterCtrls[custom.field] && this.parent.filterCtrls[custom.field].value !== null && this.parent.filterCtrls[custom.field].value !== '';
 					});
 			}
 			else
