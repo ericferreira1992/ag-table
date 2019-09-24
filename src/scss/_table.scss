@@ -2,6 +2,7 @@
     .ag-table {
         display: block;
         position: relative;
+        box-sizing: border-box;
 
         * {
             box-sizing: border-box;

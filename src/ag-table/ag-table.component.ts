@@ -25,7 +25,6 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	@ViewChild(AgTablePaginateComponent) private paginateComp: AgTablePaginateComponent;
 
 	@ViewChild('headerShadowEl') private headerShadowEl: ElementRef<HTMLElement>;
-	@ViewChild('headerShadowEl') private loadingEl: ElementRef<HTMLElement>;
 
 	/** THAT WILL DEFINE THE DATA TABLE HEIGHT, AND IT WILL HAS SCROLL BAR IN CASE OF OVERFLOW.*/
 	@Input() public height: string = 'auto';
@@ -54,13 +53,16 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	/** SET THE CURRENT PAGE WHEN USE PAGINATION */
 	@Input('current-page') public currentPage: number = 1;
 
-	/** Notifies that the data is gone (infinite-scroll only). */
+	/** NOTIFIES THAT THE DATA IS GONE (INFINITE-SCROLL ONLY). */
 	@Input('data-are-over') public dataAreOver: boolean = false;
 
-	/** Sets whether to display empty-view or not. */
+	/** SETS WHETHER TO DISPLAY EMPTY-VIEW OR NOT. */
 	@Input('no-empty-view') public noEmptyView: boolean = false;
 
-	/** Sets a minimum width in ag-table. When the minimum width is reached, the side table will scroll horizontally. */
+	/** SETS A MINIMUM HEIGHT IN AG-TABLE. */
+	@Input('min-height') public minHeight: string = '';
+
+	/** SETS A MINIMUM WIDTH IN AG-TABLE. WHEN THE MINIMUM WIDTH IS REACHED, THE SIDE TABLE WILL SCROLL HORIZONTALLY. */
 	@Input('min-width') public minWidth: string = '';
 
 	@Input('items') allItems: any[] = [];
@@ -92,6 +94,12 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 		this.definePaddingTop();
 	}
 	public get _height() { return (this.el && this.el.style.height) ? this.el.style.height : 'auto'; }
+
+	public set _minHeight(value: string) {
+		this.el.style.minHeight = value;
+		this.definePaddingTop();
+	}
+	public get _minHeight() { return (this.el && this.el.style.minHeight) ? this.el.style.minHeight : ''; }
 
 	public items: any[] = [];
 	public filteredItems: any[] = [];
@@ -236,6 +244,20 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 				}
 
 				this._height = this.height;
+
+				this.prepareItemsPagingAndFilter();
+
+				if (!this.infinity && this.body)
+					this.body.backToTheTop();
+			}
+
+			if ('minHeight' in changes) {
+				if (this.minHeight !== 'auto' && !this.minHeightIsValid()) {
+					console.warn(`The minHeight of table is invalid.`);
+					this.minHeight = '';
+				}
+
+				this._minHeight = this.minHeight;
 
 				this.prepareItemsPagingAndFilter();
 
@@ -432,6 +454,10 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 	private heightIsValid() {
 		return !isNullOrUndefined(this.height) && (typeof this.height === 'string') && this.height !== '' && this.height !== 'auto';
+	}
+
+	public minHeightIsValid() {
+		return !isNullOrUndefined(this.minHeight) && (typeof this.minHeight === 'string') && this.minHeight !== '' && this.minHeight !== 'auto';
 	}
 
 	private minWidthIsValid() {

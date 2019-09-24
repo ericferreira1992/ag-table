@@ -4,7 +4,7 @@
 
 <ul #menuElRef *ngIf="menuItems && (!mobile || showMobileMenu)" class="animated fadeIn">
     <li *ngFor="let menu of menuItems">
-        <a [routerLink]="menu.route ? (menu.route) : null" [routerLinkActive]="(menu.route) ? 'active-link' : ''" [ngClass]="{'active-link': menu.submenu?.visible}" (click)="onMenuClick(menu)">
+        <a [routerLink]="menu.route ? menu.route : null" [routerLinkActive]="menu.route ? 'active-link' : ''" [ngClass]="{'active-link': menu.submenu?.visible}" (click)="onMenuClick(menu)">
             {{ menu.title }}
         </a>
         <ul *ngIf="menu.submenu?.items?.length" [style.height.px]="menu.submenu?.visible ? (menu.submenu?.items?.length * 30) : 0">

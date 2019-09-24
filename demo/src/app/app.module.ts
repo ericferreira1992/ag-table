@@ -36,6 +36,7 @@ import { OthersDataRenderEventComponent } from './components/pages/demo/others/o
 import { ModalExampleClickComponent } from './components/pages/home/modal-example-click/modal-example-click.component';
 import { OthersUnequealRowHeightComponent } from './components/pages/demo/others/others-unequal-row-height/others-unequal-row-height.component';
 import { Page404Component } from './components/pages/page-404/page-404.component';
+import { ConfigurationComponent } from './components/pages/api/configuration/configuration.component';
 
 export function langHighlight() {
     return [
@@ -62,6 +63,7 @@ export function langHighlight() {
         StructureAgTableColComponent,
         StructureAgTableRowComponent,
         StructureAgTableCellComponent,
+        ConfigurationComponent,
         EnumAgTableFilterModeComponent,
         EnumAgTableFilterTypeComponent,
         EventAgTableComponent,

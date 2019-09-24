@@ -1,5 +1,6 @@
 export * from './ag-table.module';
-export * from './ag-table-custom.settings';
+export * from './settings/ag-table-settings.abstract';
+export * from './settings/ag-table-custom.settings';
 export * from './enums/ag-table-filter-mode.enum';
 export * from './enums/ag-table-filter-type.enum';
 export * from './events/ag-table-event.event';

@@ -42,7 +42,7 @@
 
             <ul #menuElRef *ngIf="!mobileScreen || showMobileScreenMenu" class="animated fadeIn">
                 <li>
-                    <a routerLink="/" routerLinkActive="active-link">Home</a>
+                    <a routerLink="/" [ngClass]="{'active-link': router.url === '/'}">Home</a>
                 </li>
                 <li>
                     <a routerLink="/demo" routerLinkActive="active-link">Demo</a>

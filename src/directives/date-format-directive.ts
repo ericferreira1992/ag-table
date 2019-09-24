@@ -1,7 +1,7 @@
-import { Directive, HostListener, Input, OnInit } from '@angular/core';
+import { Directive, HostListener, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Helper } from '../services/helper';
-import { AgTableSettings } from '../ag-table.settings';
+import { AgTableSettings } from '../settings/ag-table.settings';
 import { AbstractControl } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
 
@@ -9,7 +9,7 @@ import { isNullOrUndefined } from 'util';
     selector: '[date-format]'
 })
 
-export class DateFormatDirective implements OnInit {
+export class DateFormatDirective implements OnChanges {
     private regex: RegExp;
     private keyCodesAccepts: number[] = [8, 9, 37, 38, 39, 40];
 
@@ -30,43 +30,44 @@ export class DateFormatDirective implements OnInit {
         this.datePipe = new DatePipe(settings.lang);
     }
 
-    ngOnInit() {
-        let regexStr = '^\\d';
-        if (this.dateFormat) {
-            if (!this.dateFormat.includes('-') && !this.dateFormat.includes('/')) {
-                if (this.dateFormat.toLowerCase() === 'dd')
-                    regexStr += '(0[1-9]|[12][0-9]|3[01])$';
-                else if (this.dateFormat.toLowerCase() === 'mm')
-                    regexStr += '(0[1-9]|1[012])$';
-                else if (this.dateFormat.toLowerCase() === 'yyyy')
-                    regexStr += '{4}$';
-            }
-            else if (this.dateFormat.includes('-') || this.dateFormat.includes('/')) {
-                this.dateSeparator = this.dateFormat.includes('-') ? '-' : '/';
-                let splitted = this.dateFormat.split(this.dateSeparator);
-                splitted.forEach((division, i) => {
-                    let divisionRegex = '';
-                    if (division.toLowerCase() === 'dd')
-                        divisionRegex = '(0[1-9]|[12][0-9]|3[01])';
-                    else if (division.toLowerCase() === 'mm')
-                        divisionRegex = '(0[1-9]|1[012])';
-                    else if (division.toLowerCase() === 'yyyy')
-                        divisionRegex = '{4}';
-    
-                    if (divisionRegex)
-                        regexStr += (regexStr !== '^\\d' ? this.dateSeparator : '') + divisionRegex;
-                });
-                regexStr += '$';
-            }
-        }
+    ngOnChanges(changes: SimpleChanges) {
+        if ('dateFormat' in changes) {
+            let regexStr = '';
+            if (this.dateFormat) {
+                if (!this.dateFormat.includes('-') && !this.dateFormat.includes('/')) {
+                    if (this.dateFormat.toLowerCase() === 'dd')
+                        regexStr += '([0-2]\\d{1}|3[0-1])';
+                    else if (this.dateFormat.toLowerCase() === 'mm')
+                        regexStr += '(0\\d{1}|1[0-2])';
+                    else if (this.dateFormat.toLowerCase() === 'yyyy')
+                        regexStr += '\\d{4}';
+                }
+                else if (this.dateFormat.includes('-') || this.dateFormat.includes('/')) {
+                    this.dateSeparator = this.dateFormat.includes('-') ? '-' : '/';
+                    let splitted = this.dateFormat.split(this.dateSeparator);
+                    splitted.forEach((division) => {
+                        let divisionRegex = '';
+                        if (division.toLowerCase() === 'dd')
+                            divisionRegex = '([0-2]\\d{1}|3[0-1])';
+                        else if (division.toLowerCase() === 'mm')
+                            divisionRegex = '(0\\d{1}|1[0-2])';
+                        else if (division.toLowerCase() === 'yyyy')
+                            divisionRegex = '\\d{4}';
         
-        if (regexStr === '^\\d') {
-            this.dateSeparator = '/';
-            this.dateFormat = 'dd/MM/yyyy';
-            regexStr = '^\\d{4}/(0[1-9]|1[012])/(0[1-9]|[12][0-9]|3[01])$';
+                        if (divisionRegex)
+                            regexStr += (regexStr !== '' ? this.dateSeparator : '') + divisionRegex;
+                    });
+                }
+            }
+            
+            if (regexStr === '') {
+                this.dateSeparator = '/';
+                this.dateFormat = 'dd/MM/yyyy';
+                regexStr = '([0-2]\\d{1}|3[0-1])/(0\d{1}|1[0-2])/\\d{4}';
+            }
+            
+            this.regex = new RegExp(regexStr, 'g');
         }
-
-        this.regex = new RegExp(regexStr, 'g');
     }
 
     @HostListener('keydown', ['$event'])

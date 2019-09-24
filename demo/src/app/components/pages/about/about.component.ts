@@ -18,6 +18,13 @@ export class AboutComponent implements OnInit {
     private buildChangeLogs() {
         this.changeLogs = [
             {
+                version: '1.1.1',
+                descriptions: [
+                    'Added the <strong>filterDebounceTime</strong> property in <strong>AgTableCustomSettings</strong>.',
+                    'Bug fix in <strong>date-format</strong> @Input on <strong>ag-table-col</strong>.',
+                ]
+            },
+            {
                 version: '1.1.0',
                 descriptions: [ 'The <strong>min-width</strong> directive was not working correctly.' ]
             },

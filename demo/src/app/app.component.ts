@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     public get menuButtonEl() { return this.menuButtonElRef && this.menuButtonElRef.nativeElement; }
     public get mainSectionEl() { return this.mainSectionElRef && this.mainSectionElRef.nativeElement; }
 
-    public version: string = '1.1.0';
+    public version: string = '1.1.1';
 
     constructor(
         private renderer: Renderer2,
@@ -85,6 +85,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         if (mobileScreen !== this.mobileScreen) {
             this.mobileScreen = window.innerWidth <= 800;
             this.showMobileScreenMenu = !this.mobileScreen;
+            this.hideTitleHeader = !this.showMobileScreenMenu;
         }
     }
 
@@ -110,11 +111,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private executeEventListeners() {
         if (this.el) {
             this.clearEventListeners();
-            this.eventsLineters.push(this.renderer.listen(this.el, 'mousewheel', this.onMouseWheel.bind(this)));
-            this.eventsLineters.push(this.renderer.listen(this.el, 'DOMMouseScroll', this.onMouseWheel.bind(this)));
-            this.eventsLineters.push(this.renderer.listen(window, 'resize', this.onScreenResize.bind(this)));
+            /* this.eventsLineters.push(this.renderer.listen(this.el, 'mousewheel', this.onMouseWheel.bind(this)));
+            this.eventsLineters.push(this.renderer.listen(this.el, 'DOMMouseScroll', this.onMouseWheel.bind(this))); */
 
             setTimeout(() => this.eventsLineters.push(this.renderer.listen(this.getMainContainerEl(), 'scroll', this.onMainContainerScroll.bind(this))));
+            this.eventsLineters.push(this.renderer.listen(window, 'resize', this.onScreenResize.bind(this)));
         }
     }
 

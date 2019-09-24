@@ -57,6 +57,7 @@ export class ApiComponent implements OnInit {
                     ]
                 }
             },
+            { title: 'Custom configuration', route: '/api/configuration' },
             {
                 title: 'Events',
                 routePrefix: '/api/events',

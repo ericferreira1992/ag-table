@@ -15,8 +15,8 @@ import { AgTableVirtualScrollService } from './services/ag-table-virtual-scroll.
 import { Helper } from './services/helper';
 import { AgTableSpinnerComponent } from './ag-table-spinner/ag-table-spinner.component';
 import { AgTableLangService } from './services/ag-table-lang.service';
-import { AgTableSettings } from './ag-table.settings';
-import { AgTableCustomSettings } from './ag-table-custom.settings';
+import { AgTableSettings } from './settings/ag-table.settings';
+import { AgTableCustomSettings } from './settings/ag-table-custom.settings';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { DateFormatDirective } from './directives/date-format-directive';
 

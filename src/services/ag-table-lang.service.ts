@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subscriber } from 'rxjs';
-import { AgTableSettings } from '../ag-table.settings';
+import { AgTableSettings } from '../settings/ag-table.settings';
 
 @Injectable({
     providedIn: 'root'

@@ -8,6 +8,7 @@ import { FILTER_TYPES } from '../constants/filter-types.const';
 import { Helper } from '../services/helper';
 import { TRANSLATION } from './ag-table-filter.component.trans';
 import { AgTableLangService } from '../services/ag-table-lang.service';
+import { AgTableSettings } from '../settings/ag-table.settings';
 
 @Component({
     selector: 'ag-table-filter',
@@ -41,14 +42,15 @@ export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
         if (this.type === 'date' || this.type === 'select')
             return 0;
         else
-            return 500;
+            return this.settings.filterDebounceTime;
     }
 
 	public dictionary = TRANSLATION;
 
     constructor(
         private helper: Helper,
-        private langService: AgTableLangService
+        private langService: AgTableLangService,
+        private settings: AgTableSettings,
     ) {
     }
 

@@ -318,7 +318,7 @@
             &:not(.mobile) ~ .main-container {
                 display: block;
                 float: left;
-                width: calc(100% - 250px);
+                width: calc(100vw - 250px);
                 position: initial;
     
                 .main-container-inner {

@@ -21,6 +21,7 @@ import { OthersCustomFilterComponent } from './components/pages/demo/others/othe
 import { OthersDataRenderEventComponent } from './components/pages/demo/others/others-data-render-event/others-data-render-event.component';
 import { OthersUnequealRowHeightComponent } from './components/pages/demo/others/others-unequal-row-height/others-unequal-row-height.component';
 import { Page404Component } from './components/pages/page-404/page-404.component';
+import { ConfigurationComponent } from './components/pages/api/configuration/configuration.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -54,6 +55,7 @@ const routes: Routes = [
                     { path: 'ag-table-cell', component: StructureAgTableCellComponent }
                 ]
             },
+            { path: 'configuration', component: ConfigurationComponent },
             { path: 'events',
                 children: [
                     { path: '', redirectTo: 'ag-table', pathMatch: 'prefix'},
