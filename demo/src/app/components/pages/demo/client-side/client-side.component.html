@@ -17,11 +17,14 @@
                     <ag-table-col filter field="name" placeholder="Set a name">
                         Name
                     </ag-table-col>
-                    <ag-table-col filter="date" field="dateRef" date-format="yyyy/MM" width="200px">
+                    <ag-table-col filter="date" field="dateRef" date-format="yyyy/MM" width="120px">
                         Date
                     </ag-table-col>
-                    <ag-table-col filter="select" field="type" [options]="types" width="150px">
+                    <ag-table-col filter="select" field="type" [options]="types" width="140px">
                         Type
+                    </ag-table-col>
+                    <ag-table-col filter="select" field="active" [options]="activeTypes" width="120px">
+                        Status
                     </ag-table-col>
                 </ag-table-header>
                 <ag-table-body>
@@ -32,6 +35,7 @@
                         </ag-table-cell>
                         <ag-table-cell>{{item.dateRef | date:'yyyy/MM/dd'}}</ag-table-cell>
                         <ag-table-cell>{{item.type}}</ag-table-cell>
+                        <ag-table-cell>{{item.active ? 'Active' : 'Inactive'}}</ag-table-cell>
                     </ag-table-row>
                 </ag-table-body>
             </ag-table>

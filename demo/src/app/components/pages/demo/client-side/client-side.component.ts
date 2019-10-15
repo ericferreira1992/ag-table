@@ -16,6 +16,11 @@ export class ClientSideComponent implements OnInit {
         'Type 3',
     ];
 
+    public activeTypes = [
+        { text: 'Active', value: true },
+        { text: 'Inactive', value: false }
+    ];
+
     public strHtml: string;
     constructor(
         private helper: Helper
@@ -33,11 +38,14 @@ export class ClientSideComponent implements OnInit {
         <ag-table-col filter field="name" placeholder="Set a name">
             Name
         </ag-table-col>
-        <ag-table-col filter="date" field="dateRef" date-format="yyyy/MM" width="200px">
+        <ag-table-col filter="date" field="dateRef" date-format="yyyy/MM" width="120px">
             Date
         </ag-table-col>
-        <ag-table-col filter="select" field="type" [options]="types" width="150px">
+        <ag-table-col filter="select" field="type" [options]="types" width="140px">
             Type
+        </ag-table-col>
+        <ag-table-col filter="select" field="active" [options]="activeTypes" width="120px">
+            Status
         </ag-table-col>
     </ag-table-header>
     <ag-table-body>
@@ -48,6 +56,7 @@ export class ClientSideComponent implements OnInit {
             </ag-table-cell>
             <ag-table-cell>{{item.dateRef | date:'dd/MM/yyyy'}}</ag-table-cell>
             <ag-table-cell>{{item.type}}</ag-table-cell>
+            <ag-table-cell>{{item.active ? 'Active' : 'Inactive'}}</ag-table-cell>
         </ag-table-row>
     </ag-table-body>
 </ag-table>
@@ -66,7 +75,15 @@ export class ClientSideComponent implements OnInit {
                 type = 1;
 
             date = this.helper.setDaysToDate(date, -1);
-            return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Type ${type}`, height: Math.floor(Math.random() * 100) };
+            let item = {
+                id: `${number}`,
+                name: `Teste ${number}`,
+                dateRef: this.helper.toAmericanDate(date),
+                type: `Type ${type}`,
+                height: Math.floor(Math.random() * 100),
+                active: (Math.floor(Math.random() * 99) % 2) === 0
+            };
+            return item;
         });
     }
 }

@@ -18,6 +18,12 @@ export class AboutComponent implements OnInit {
     private buildChangeLogs() {
         this.changeLogs = [
             {
+                version: '1.1.2',
+                descriptions: [
+                    'The <strong>options</strong> property of the <strong>ag-table-col</strong> filter did not work when values were boolean',
+                ]
+            },
+            {
                 version: '1.1.1',
                 descriptions: [
                     'Added the <strong>filterDebounceTime</strong> property in <strong>AgTableCustomSettings</strong>.',

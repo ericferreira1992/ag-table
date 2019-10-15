@@ -84,12 +84,12 @@ export class AgTablePrepareService {
 					filterValue = filterValue;
 				}
 				else {
-					if (filterValue || (typeof filterValue === 'number'))
+					if (filterValue || (typeof filterValue === 'number') || (typeof filterValue === 'boolean'))
 						filterValue = this.helper.removeAccents(filterValue.toString() as string).toUpperCase();
 					else
 						filterValue = '';
 
-					if ((value || (typeof value === 'number')))
+					if (value || (typeof value === 'number') || (typeof value === 'boolean'))
 						value = this.helper.removeAccents(value.toString() as string).toUpperCase();
 					else
 						value = '';
