@@ -22,9 +22,9 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	@ContentChildren(AgTableHeaderComponent) private queryHeader: QueryList<AgTableHeaderComponent>;
 	@ContentChildren(AgTableBodyComponent) private queryBody: QueryList<AgTableBodyComponent>;
 
-	@ViewChild(AgTablePaginateComponent) private paginateComp: AgTablePaginateComponent;
+	@ViewChild(AgTablePaginateComponent, { static: false }) private paginateComp: AgTablePaginateComponent;
 
-	@ViewChild('headerShadowEl') private headerShadowEl: ElementRef<HTMLElement>;
+	@ViewChild('headerShadowEl', { static: true }) private headerShadowEl: ElementRef<HTMLElement>;
 
 	/** THAT WILL DEFINE THE DATA TABLE HEIGHT, AND IT WILL HAS SCROLL BAR IN CASE OF OVERFLOW.*/
 	@Input() public height: string = 'auto';

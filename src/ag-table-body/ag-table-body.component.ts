@@ -18,7 +18,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
     @HostBinding('class.clickable') public clickable: boolean = false;
     @HostBinding('class.height-is-auto') public get heightIsAuto() { return this.parent && this.parent.height === 'auto'; }
 
-	@ViewChild('itemsContainer') public itemsContainerEl: ElementRef<HTMLElement>;
+	@ViewChild('itemsContainer', { static: true }) public itemsContainerEl: ElementRef<HTMLElement>;
 
     @ContentChildren(AgTableRowComponent) private queryRows: QueryList<AgTableRowComponent>;
 
