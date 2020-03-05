@@ -14,9 +14,9 @@ import { HtmlHelper } from './core/services/html.helper';
     }
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
-    @ViewChild('mainSectionElRef') public mainSectionElRef: ElementRef<HTMLElement>;
-    @ViewChild('menuElRef') public menuElRef: ElementRef<HTMLElement>;
-    @ViewChild('menuButtonElRef') public menuButtonElRef: ElementRef<HTMLElement>;
+    @ViewChild('mainSectionElRef', { static: false }) public mainSectionElRef: ElementRef<HTMLElement>;
+    @ViewChild('menuElRef', { static: false }) public menuElRef: ElementRef<HTMLElement>;
+    @ViewChild('menuButtonElRef', { static: false }) public menuButtonElRef: ElementRef<HTMLElement>;
 
     public hideTitleHeader: boolean = false;
     public shadowHeader: boolean = true;

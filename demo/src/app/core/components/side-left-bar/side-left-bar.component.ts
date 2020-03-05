@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
     }
 })
 export class SideLeftBarComponent implements OnInit, OnChanges {
-    @ViewChild('menuButtonElRef') private menuButtonElRef: ElementRef<HTMLElement>;
-    @ViewChild('menuElRef') private menuElRef: ElementRef<HTMLElement>;
+    @ViewChild('menuButtonElRef', { static: false }) private menuButtonElRef: ElementRef<HTMLElement>;
+    @ViewChild('menuElRef', { static: false }) private menuElRef: ElementRef<HTMLElement>;
 
     @HostBinding('class.side-left-bar') public class: boolean = true;
     @HostBinding('class.mobile') public mobile: boolean = true;
