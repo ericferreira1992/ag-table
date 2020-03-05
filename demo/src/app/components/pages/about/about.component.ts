@@ -18,6 +18,12 @@ export class AboutComponent implements OnInit {
     private buildChangeLogs() {
         this.changeLogs = [
             {
+                version: '1.2.0',
+                descriptions: [
+                    'Migrated <strong>AgTable</strong> to Angular version 9.',
+                ]
+            },
+            {
                 version: '1.1.2',
                 descriptions: [
                     'The <strong>options</strong> property of the <strong>ag-table-col</strong> filter did not work when values were boolean',

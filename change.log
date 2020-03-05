@@ -1,5 +1,15 @@
-# Versions 1.1.0
+# Versions 1.2.0
 - Updated from Angular 7 to Angular 9
+
+# Versions 1.1.2
+- The options property of the ag-table-col filter did not work when values were boolean
+
+# Versions 1.1.1
+- Added the filterDebounceTime property in AgTableCustomSettings.
+- Bug fix in date-format @Input on ag-table-col.
+
+# Versions 1.1.0
+- The min-width directive was not working correctly.
 
 # Versions 1.0.9
 - The min-width directive was not working correctly.
