@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ContentChildren, QueryList, AfterViewInit, Input, ElementRef, OnDestroy, Renderer, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, HostBinding, ContentChildren, QueryList, AfterViewInit, Input, ElementRef, OnDestroy, Renderer2, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { TRANSLATION } from './ag-table-body.component.trans';
 import { AgTableRowComponent } from '../ag-table-row/ag-table-row.component';
 import { AgTableComponent } from '../ag-table/ag-table.component';
@@ -18,7 +18,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
     @HostBinding('class.clickable') public clickable: boolean = false;
     @HostBinding('class.height-is-auto') public get heightIsAuto() { return this.parent && this.parent.height === 'auto'; }
 
-	@ViewChild('itemsContainer') public itemsContainerEl: ElementRef<HTMLElement>;
+	@ViewChild('itemsContainer', { static: true }) public itemsContainerEl: ElementRef<HTMLElement>;
 
     @ContentChildren(AgTableRowComponent) private queryRows: QueryList<AgTableRowComponent>;
 
@@ -48,7 +48,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 
 	constructor(
 		private langService: AgTableLangService,
-		private renderer: Renderer,
+		private renderer: Renderer2,
 		private helper: Helper,
 		public elRef: ElementRef<HTMLElement>,
 		private dataVirtualScrollService: AgTableVirtualScrollService
