@@ -12,7 +12,7 @@ import { ModalExampleClickComponent } from './modal-example-click/modal-example-
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-    @ViewChild('mainContainer', { static: false }) private mainContainerElRef: ElementRef<HTMLElement>;
+    @ViewChild('mainContainer') private mainContainerElRef: ElementRef<HTMLElement>;
 
     private get mainContainerEl() { return this.mainContainerElRef && this.mainContainerElRef.nativeElement; }
 
