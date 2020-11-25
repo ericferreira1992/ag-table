@@ -29,7 +29,7 @@
     "express": "^4.16.3",
     "fast-deep-equal": "^2.0.1",
     "gh-pages": "^2.2.0",
-    "highlight.js": "^9.18.1",
+    "highlight.js": "^10.1.2",
     "ngx-highlightjs": "^3.0.3",
     "path": "^0.12.7",
     "rxjs": "~6.5.4",
