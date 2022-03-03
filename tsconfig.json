@@ -1,26 +1,8 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "baseUrl": "./",
-    "downlevelIteration": true,
-        "outDir": "./../dist",
-        "sourceMap": true,
-        "declaration": false,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "importHelpers": true,
-        "target": "es2015",
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "lib": [
-            "es2018",
-            "dom"
-        ],
-        "paths": {
-            "@angular/*": ["node_modules/@angular/*"]
-        }
-    }
+	"compilerOptions": {
+		"experimentalDecorators": true,
+	},
+	"files": [],
+	"references": [
+	]
 }
