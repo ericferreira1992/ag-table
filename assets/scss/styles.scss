@@ -1,6 +1,6 @@
 @import 'variables';
 
-@import '../../../../src/scss/style.scss';
+@import '../../../../lib/scss/style.scss';
 @include ag-table-core($colorPrimary);
 
 @import '~animate.css/animate.min.css';
