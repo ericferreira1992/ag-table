@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 
 // Material Pallets
 $mat-oliverablue: (
@@ -70,14 +70,14 @@ $mat-blackdefault: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$candy-app-primary: mat-palette($mat-oliverablue);
-$candy-app-accent:  mat-palette($mat-blackdefault, A200, A100, A400);
+$candy-app-primary: mat.define-palette($mat-oliverablue);
+$candy-app-accent:  mat.define-palette($mat-blackdefault, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$candy-app-warn:    mat-palette($mat-red);
+$candy-app-warn:    mat.define-palette(mat.$red-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+$candy-app-theme: mat.define-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
 
-@include mat-core();
-@include angular-material-theme($candy-app-theme);
+@include mat.core();
+@include mat.all-component-themes($candy-app-theme);
