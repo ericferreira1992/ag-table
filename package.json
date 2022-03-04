@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=4200",
-    "build": "ng build --aot --prod",
-    "deploy-git-pages": "ng build --aot --prod --base-href=/ag-table/ && node ./node_modules/gh-pages/bin/gh-pages -d dist",
+    "build": "ng build --aot --configuration production",
+    "deploy-git-pages": "ng build --aot --configuration production --base-href=/ag-table/ && node ./node_modules/gh-pages/bin/gh-pages -d dist",
     "build-publish": "npm run build-pkg && npm run publish-pkg",
     "build-pkg": "rimraf dist && npm run packagr && node copy && cd dist && npm pack",
     "publish-pkg": "pushd dist && npm publish",
@@ -13,16 +13,16 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^11.2.14",
+    "@angular/animations": "^12.2.16",
     "@angular/cdk": "^11.2.13",
-    "@angular/common": "~11.2.14",
-    "@angular/compiler": "~11.2.14",
-    "@angular/core": "~11.2.14",
-    "@angular/forms": "~11.2.14",
+    "@angular/common": "~12.2.16",
+    "@angular/compiler": "~12.2.16",
+    "@angular/core": "~12.2.16",
+    "@angular/forms": "~12.2.16",
     "@angular/material": "^11.2.13",
-    "@angular/platform-browser": "~11.2.14",
-    "@angular/platform-browser-dynamic": "~11.2.14",
-    "@angular/router": "~11.2.14",
+    "@angular/platform-browser": "~12.2.16",
+    "@angular/platform-browser-dynamic": "~12.2.16",
+    "@angular/router": "~12.2.16",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.3.1",
     "chance": "^1.1.8",
@@ -30,13 +30,13 @@
     "ngx-highlightjs": "^3.0.3",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.18",
-    "@angular/cli": "~11.2.18",
-    "@angular/compiler-cli": "~11.2.14",
-    "@angular/language-service": "~11.2.14",
+    "@angular-devkit/build-angular": "~12.2.16",
+    "@angular/cli": "~12.2.16",
+    "@angular/compiler-cli": "~12.2.16",
+    "@angular/language-service": "~12.2.16",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
@@ -50,10 +50,10 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "ng-packagr": "^11.2.4",
+    "ng-packagr": "^12.2.7",
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.8"
+    "typescript": "~4.3.5"
   }
 }
