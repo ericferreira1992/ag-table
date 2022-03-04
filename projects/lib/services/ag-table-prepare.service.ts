@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AgTableComponent } from '../ag-table/ag-table.component';
-import { isNullOrUndefined, isArray, isObject } from 'util';
 import { AgTableFilterMode } from '../enums/ag-table-filter-mode.enum';
 import { AgTableChangeAction } from '../enums/ag-table-change-action.enum';
-import { Helper } from './helper';
+import { Helper, isNullOrUndefined, isObject } from './helper';
 import { AgTableFilterType } from '../enums/ag-table-filter-type.enum';
 
 @Injectable()
@@ -13,7 +12,7 @@ export class AgTablePrepareService {
 	}
 
 	public apply(data: any[], AgTable: AgTableComponent) {
-		if (data && isArray(data) && data.length) {
+		if (data && Array.isArray(data) && data.length) {
 			if (!AgTable.serverSide) {
 				let _data: any[];
 

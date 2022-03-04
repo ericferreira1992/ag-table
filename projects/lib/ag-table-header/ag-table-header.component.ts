@@ -2,10 +2,9 @@ import { Component, OnInit, HostBinding, QueryList, ContentChildren, AfterViewIn
 import { TRANSLATION } from './ag-table-header.component.trans';
 import { AgTableComponent } from '../ag-table/ag-table.component';
 import { FormBuilder, FormGroup, FormControl, AbstractControl } from '@angular/forms';
-import { isNullOrUndefined } from 'util';
 import { AgTableFilterMode } from '../enums/ag-table-filter-mode.enum';
 import { AgTableColComponent } from '../ag-table-col/ag-table-col.component';
-import { Helper } from '../services/helper';
+import { Helper, isNullOrUndefined } from '../services/helper';
 
 @Component({
 	selector: 'ag-table-header',

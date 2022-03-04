@@ -1,11 +1,10 @@
 import { Component, OnInit, HostBinding, Input, OnChanges, SimpleChanges, ElementRef, AfterViewInit } from '@angular/core';
 import { TRANSLATION } from './ag-table-col.component.trans';
 import { AgTableHeaderComponent } from '../ag-table-header/ag-table-header.component';
-import { isNullOrUndefined, isObject, isArray } from 'util';
 import { FormBuilder } from '@angular/forms';
 import { AgTableFilterMode } from '../enums/ag-table-filter-mode.enum';
 import { AgTableFilterType } from '../enums/ag-table-filter-type.enum';
-import { Helper } from './../services/helper';
+import { Helper, isNullOrUndefined, isObject } from './../services/helper';
 import { AgTableLangService } from '../services/ag-table-lang.service';
 
 @Component({
@@ -204,14 +203,14 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 				}
 				else {
 					if (this.customFilter && (isObject(this.customFilter) || typeof this.customFilter === 'string')) {
-						if (isObject(this.customFilter) && !isArray(this.customFilter))
+						if (isObject(this.customFilter) && !Array.isArray(this.customFilter))
 							this.customFilter = [(this.customFilter as any)];
-						else if (isArray(this.customFilter) && ((this.customFilter as any[]).length > 0 && typeof this.customFilter[0] === 'string'))
+						else if (Array.isArray(this.customFilter) && ((this.customFilter as any[]).length > 0 && typeof this.customFilter[0] === 'string'))
 							this.customFilter = (this.customFilter as string[]).map(field => ({ field }));
 						else if (!isObject(this.customFilter))
 							this.customFilter = [{ field: this.customFilter}] as any[];
 
-						if (!isArray(this.customFilter) || !(this.customFilter as any[]).every(x => (isObject(x) && x.field) ? true : false)){
+						if (!Array.isArray(this.customFilter) || !(this.customFilter as any[]).every(x => (isObject(x) && x.field) ? true : false)){
 							console.warn(`The [custom-filter] will not applied because field has not been informed or is invalid. The value should look like this: { field: string, mode?: string }`);
 							this.customFilter = null;
 						}

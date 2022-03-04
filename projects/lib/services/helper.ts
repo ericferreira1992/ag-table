@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { isNullOrUndefined } from 'util';
 import { DatePipe } from '@angular/common';
 
 @Injectable()
@@ -256,4 +255,13 @@ export class Helper {
 	public stringReplace(source, str, strToRep){
 		return source.replace(str, strToRep).toString();
 	}
+}
+
+export function isObject(val: any) {
+	if (val === null) { return false;}
+    return ( (typeof val === 'function') || (typeof val === 'object') );
+}
+
+export function isNullOrUndefined(val: any) {
+	return val === null || typeof val === 'undefined'
 }

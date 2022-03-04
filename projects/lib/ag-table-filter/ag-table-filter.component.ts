@@ -1,11 +1,10 @@
 import { Component, Input, EventEmitter, Output, OnInit, OnChanges, SimpleChanges, OnDestroy, HostBinding, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { isArray, isNullOrUndefined, isObject } from 'util';
 import { debounceTime, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { AgTableFilterType } from '../enums/ag-table-filter-type.enum';
 import { FILTER_TYPES } from '../constants/filter-types.const';
-import { Helper } from '../services/helper';
+import { Helper, isNullOrUndefined, isObject } from '../services/helper';
 import { TRANSLATION } from './ag-table-filter.component.trans';
 import { AgTableLangService } from '../services/ag-table-lang.service';
 import { AgTableSettings } from '../settings/ag-table.settings';
@@ -63,7 +62,7 @@ export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
     ngOnChanges(changes: SimpleChanges) {
 
         if ('options' in changes) {
-            if (!isArray(this.options)) {
+            if (!Array.isArray(this.options)) {
                 console.warn('The options of a filter of type "select" was set invalid.');
                 this.options = [];
             }

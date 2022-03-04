@@ -5,10 +5,9 @@ import { AgTableBodyComponent } from '../ag-table-body/ag-table-body.component';
 import { AgTableChangeAction } from '../enums/ag-table-change-action.enum';
 import { AgTableEvent } from '../events/ag-table-event.event';
 import { AgTablePrepareService } from '../services/ag-table-prepare.service';
-import { isNullOrUndefined } from 'util';
 import { AgTableVirtualScrollService } from '../services/ag-table-virtual-scroll.service';
 import { AgTableDataRenderEvent } from '../events/ag-table-data-render.event';
-import { Helper } from '../services/helper';
+import { Helper, isNullOrUndefined } from '../services/helper';
 import { AgTablePaginateComponent } from '../ag-table-paginate/ag-table-paginate.component';
 
 @Component({

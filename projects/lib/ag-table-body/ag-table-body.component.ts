@@ -3,10 +3,9 @@ import { TRANSLATION } from './ag-table-body.component.trans';
 import { AgTableRowComponent } from '../ag-table-row/ag-table-row.component';
 import { AgTableComponent } from '../ag-table/ag-table.component';
 import { Subscription } from 'rxjs';
-import { isNullOrUndefined } from 'util';
 import { AgTableVirtualScrollModel } from '../models/ag-table-virtual-scroll.model';
 import { AgTableVirtualScrollService } from '../services/ag-table-virtual-scroll.service';
-import { Helper } from './../services/helper';
+import { Helper, isNullOrUndefined } from './../services/helper';
 import { AgTableLangService } from '../services/ag-table-lang.service';
 
 @Component({

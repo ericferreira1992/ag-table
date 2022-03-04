@@ -1,8 +1,7 @@
 import { Component, OnInit, HostBinding, Input, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnDestroy, ElementRef, SimpleChanges, OnChanges } from '@angular/core';
 import { TRANSLATION } from './ag-table-cell.component.trans';
 import { AgTableRowComponent } from '../ag-table-row/ag-table-row.component';
-import { isNullOrUndefined } from 'util';
-import { Helper } from '../services/helper';
+import { Helper, isNullOrUndefined } from '../services/helper';
 
 @Component({
 	selector: 'ag-table-cell',
