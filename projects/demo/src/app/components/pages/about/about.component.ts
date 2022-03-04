@@ -18,7 +18,7 @@ export class AboutComponent implements OnInit {
     private buildChangeLogs() {
         this.changeLogs = [
             {
-                version: '1.3.0',
+                version: '1.3.1',
                 descriptions: [
                     'Migrated <strong>AgTable</strong> to Angular version 13.',
                 ]
