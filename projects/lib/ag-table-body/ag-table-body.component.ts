@@ -1,7 +1,6 @@
 import { Component, OnInit, HostBinding, ContentChildren, QueryList, AfterViewInit, Input, ElementRef, OnDestroy, Renderer2, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { TRANSLATION } from './ag-table-body.component.trans';
 import { AgTableRowComponent } from '../ag-table-row/ag-table-row.component';
-import { AgTableComponent } from '../ag-table/ag-table.component';
 import { Subscription } from 'rxjs';
 import { AgTableVirtualScrollModel } from '../models/ag-table-virtual-scroll.model';
 import { AgTableVirtualScrollService } from '../services/ag-table-virtual-scroll.service';
@@ -30,7 +29,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 
 	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
 
-	public parent: AgTableComponent;
+	public parent: any;
 
 	public dictionary = TRANSLATION;
 
@@ -94,7 +93,7 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
         }
 	}
 
-	public onRender(parent: AgTableComponent) {
+	public onRender(parent: any) {
 		this.parent = parent;
 		this.configureChildrens();
 		this.applyListeners();

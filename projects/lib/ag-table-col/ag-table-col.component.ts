@@ -7,6 +7,7 @@ import { AgTableFilterType } from '../enums/ag-table-filter-type.enum';
 import { Helper, isNullOrUndefined, isObject } from './../services/helper';
 import { AgTableLangService } from '../services/ag-table-lang.service';
 
+//@dynamic
 @Component({
 	selector: 'ag-table-col',
 	templateUrl: './ag-table-col.component.html'

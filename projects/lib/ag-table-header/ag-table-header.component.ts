@@ -1,6 +1,5 @@
 import { Component, OnInit, HostBinding, QueryList, ContentChildren, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { TRANSLATION } from './ag-table-header.component.trans';
-import { AgTableComponent } from '../ag-table/ag-table.component';
 import { FormBuilder, FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { AgTableFilterMode } from '../enums/ag-table-filter-mode.enum';
 import { AgTableColComponent } from '../ag-table-col/ag-table-col.component';
@@ -25,7 +24,7 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 			this.el.style.visibility = (value ? '' : 'hidden');
 	}
 
-	public parent: AgTableComponent;
+	public parent: any;
 
 	public dictionary = TRANSLATION;
 
@@ -33,7 +32,9 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 
 	public colSorting: { col: AgTableColComponent, asc: boolean } = null;
 
-	public get filterCtrls(): { [key: string]: AbstractControl } { return (this.frmFilter && this.frmFilter.controls) ? this.frmFilter.controls : null; }
+	public get filterCtrls(): { [key: string]: FormControl } {
+		return ((this.frmFilter && this.frmFilter.controls) ? this.frmFilter.controls : null) as { [key: string]: FormControl };
+	}
 	
 	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
 
@@ -115,7 +116,7 @@ export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit 
 			control.setValue(col.filterValue);
 	}
 
-	public onRender(parent: AgTableComponent) {
+	public onRender(parent: any) {
 		this.parent = parent;
 		this.configureChildrens();
 		this.queryCols.changes.subscribe(this.configureChildrens.bind(this));

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, HostBinding, ElementRef } from '@angular/core';
 import { TRANSLATION } from './ag-table-paginate.component.trans';
-import { AgTableComponent } from '../ag-table/ag-table.component';
 
 @Component({
     selector: 'ag-table-paginate',
@@ -18,7 +17,7 @@ export class AgTablePaginateComponent implements OnInit, OnChanges {
 
     public dictionary = TRANSLATION;
     
-	public parent: AgTableComponent;
+	public parent: any;
 
     caption: string;
     public pages: any[] = [];
@@ -33,7 +32,7 @@ export class AgTablePaginateComponent implements OnInit, OnChanges {
     ngOnInit() {
     }
 
-	public onRender(parent: AgTableComponent) {
+	public onRender(parent: any) {
         this.parent = parent;
 		this.parent.checkMinWidthcanApply();
     }

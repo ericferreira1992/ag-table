@@ -10,6 +10,7 @@ import { AgTableDataRenderEvent } from '../events/ag-table-data-render.event';
 import { Helper, isNullOrUndefined } from '../services/helper';
 import { AgTablePaginateComponent } from '../ag-table-paginate/ag-table-paginate.component';
 
+//@dynamic
 @Component({
 	selector: 'ag-table',
 	templateUrl: './ag-table.component.html'

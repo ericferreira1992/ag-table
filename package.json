@@ -9,7 +9,7 @@
     "build-publish": "npm run build-pkg && npm run publish-pkg",
     "build-pkg": "rimraf dist && npm run packagr && node copy && cd dist && npm pack",
     "publish-pkg": "pushd dist && npm publish",
-    "packagr": "ng-packagr -p projects/lib/package.json"
+    "packagr": "ng-packagr -p projects/lib/ng-package.json"
   },
   "private": true,
   "dependencies": {

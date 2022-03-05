@@ -11,30 +11,30 @@ export class AgTablePrepareService {
 	constructor(private helper: Helper) {
 	}
 
-	public apply(data: any[], AgTable: AgTableComponent) {
+	public apply(data: any[], agTableComp: any) {
 		if (data && Array.isArray(data) && data.length) {
-			if (!AgTable.serverSide) {
+			if (!agTableComp.serverSide) {
 				let _data: any[];
 
 				let length = data.length;
 				let lengthPaginated = data.length;
 
-				if (AgTable.isFiltering) {
-					_data = this.applyFilter(data, AgTable);
+				if (agTableComp.isFiltering) {
+					_data = this.applyFilter(data, agTableComp);
 					length = _data.length;
 				}
 
-				if (AgTable.isSorting) {
-					_data = this.applySort(_data ? _data : data, AgTable);
+				if (agTableComp.isSorting) {
+					_data = this.applySort(_data ? _data : data, agTableComp);
 					length = _data.length;
 				}
 
-				if (AgTable.isPaging) {
-					_data = this.applyPaginate(_data ? _data : data, AgTable);
+				if (agTableComp.isPaging) {
+					_data = this.applyPaginate(_data ? _data : data, agTableComp);
 					lengthPaginated = _data.length;
 				}
 
-				AgTable.setDataLength(length, lengthPaginated);
+				agTableComp.setDataLength(length, lengthPaginated);
 
 				return _data ? _data : data;
 			}
@@ -42,14 +42,14 @@ export class AgTablePrepareService {
 			return data;
 		}
 		else {
-			if (!AgTable.serverSide)
-				AgTable.setDataLength(0, 0);
+			if (!agTableComp.serverSide)
+				agTableComp.setDataLength(0, 0);
 
 			return [];
 		}
 	}
 
-	private applyFilter(data: any[], table: AgTableComponent) {
+	private applyFilter(data: any[], table: any) {
 		let header = table.header;
 		let frm = header.frmFilter;
 
@@ -121,7 +121,7 @@ export class AgTablePrepareService {
 		return _data;
 	}
 
-	private applySort(data: any[], table: AgTableComponent) {
+	private applySort(data: any[], table: any) {
 		if (table.actionChange === AgTableChangeAction.ORDER)
 			table.setCurrentPage(1);
 
@@ -165,7 +165,7 @@ export class AgTablePrepareService {
 		return data;
 	}
 
-	private applyPaginate(data: any[], table: AgTableComponent) {
+	private applyPaginate(data: any[], table: any) {
 		let currentPage = table.currentPage;
 		let size = table.paginate;
 

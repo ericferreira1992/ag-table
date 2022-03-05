@@ -45,7 +45,7 @@
     }
     @for $i from 0 through 9 {
         &-#{$i}{
-            opacity: #{$i / 10};
+            opacity: #{calc($i / 10)};
         }
     }
 }

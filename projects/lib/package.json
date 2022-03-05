@@ -1,6 +1,6 @@
 {
     "name": "ag-table",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "repository": "https://github.com/ericferreira1992/ag-table",
     "keywords": [
         "angular",
@@ -11,6 +11,10 @@
         "angular7",
         "angular8",
         "angular9",
+        "angular10",
+        "angular11",
+        "angular12",
+        "angular13",
         "grid",
         "table",
         "ng-table",
@@ -31,16 +35,9 @@
     "license": "MIT",
     "private": false,
     "peerDependencies": {
-        "@angular/animations": "^9.0.5",
-        "@angular/common": "^9.0.5",
-        "@angular/compiler": "^9.0.5",
-        "@angular/core": "^9.0.5"
-    },
-    "ngPackage": {
-        "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-        "lib": {
-            "entryFile": "public_api.ts"
-        },
-        "dest": "../../dist"
+        "@angular/animations": "^13.2.5",
+        "@angular/common": "^13.2.5",
+        "@angular/compiler": "^13.2.5",
+        "@angular/core": "^13.2.5"
     }
 }
