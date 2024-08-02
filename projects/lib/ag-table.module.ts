@@ -21,49 +21,44 @@ import { TranslatePipe } from './pipes/translate.pipe';
 import { DateFormatDirective } from './directives/date-format-directive';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		RouterModule,
-		FormsModule,
-		ReactiveFormsModule,
-	],
-	declarations: [
-		AgTableComponent,
-		AgTableHeaderComponent,
-		AgTableBodyComponent,
-		AgTableRowComponent,
-		AgTableCellComponent,
-		AgTableColComponent,
-		AgTableFilterComponent,
-		AgTablePaginateComponent,
-		AgTableSpinnerComponent,
-
-		// Pipes
-		TranslatePipe,
-
-		// Directives
-		DateFormatDirective
-	],
-	exports: [
-		AgTableComponent,
-		AgTableHeaderComponent,
-		AgTableBodyComponent,
-		AgTableRowComponent,
-		AgTableCellComponent,
-		AgTableColComponent
-	],
-	bootstrap: [
-	],
-	providers: [
-		AgTablePrepareService,
-		AgTableVirtualScrollService,
-		AgTableCustomSettings,
-		AgTableSettings,
-		AgTableLangService,
-		Helper
-	],
-	entryComponents: [
-	]
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
+    declarations: [
+        AgTableComponent,
+        AgTableHeaderComponent,
+        AgTableBodyComponent,
+        AgTableRowComponent,
+        AgTableCellComponent,
+        AgTableColComponent,
+        AgTableFilterComponent,
+        AgTablePaginateComponent,
+        AgTableSpinnerComponent,
+        // Pipes
+        TranslatePipe,
+        // Directives
+        DateFormatDirective
+    ],
+    exports: [
+        AgTableComponent,
+        AgTableHeaderComponent,
+        AgTableBodyComponent,
+        AgTableRowComponent,
+        AgTableCellComponent,
+        AgTableColComponent
+    ],
+    bootstrap: [],
+    providers: [
+        AgTablePrepareService,
+        AgTableVirtualScrollService,
+        AgTableCustomSettings,
+        AgTableSettings,
+        AgTableLangService,
+        Helper
+    ]
 })
 
 @Injectable()

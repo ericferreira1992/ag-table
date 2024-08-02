@@ -73,9 +73,6 @@ export function langHighlight() {
         OthersUnequealRowHeightComponent,
         ModalExampleClickComponent
     ],
-    entryComponents: [
-        ModalExampleClickComponent
-    ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -89,7 +86,7 @@ export function langHighlight() {
         AgTableModule,
     ],
     providers: [
-        // { provide: AgTableCustomSettings, useValue: { lang: 'pt-BR' } }
+    // { provide: AgTableCustomSettings, useValue: { lang: 'pt-BR' } }
     ],
     bootstrap: [AppComponent]
 })

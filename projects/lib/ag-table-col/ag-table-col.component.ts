@@ -74,7 +74,7 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 
 	constructor(
 		private helper: Helper,
-        private langService: AgTableLangService,
+			private langService: AgTableLangService,
 		private fb: FormBuilder,
 		private elRef: ElementRef<HTMLElement>
 	) {
