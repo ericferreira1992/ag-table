@@ -60,6 +60,4 @@ import { DateFormatDirective } from './directives/date-format-directive';
         Helper
     ]
 })
-
-@Injectable()
 export class AgTableModule { }

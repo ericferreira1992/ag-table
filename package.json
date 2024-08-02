@@ -27,8 +27,8 @@
     "bootstrap": "^4.3.1",
     "chance": "^1.1.8",
     "core-js": "^2.5.4",
-    "ngx-highlightjs": "^3.0.3",
-    "rxjs": "~6.5.4",
+    "ngx-highlightjs": "^11.0.0",
+    "rxjs": "~7.5.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.14.8"
   },
@@ -40,7 +40,6 @@
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
     "cpx": "^1.5.0",
     "gh-pages": "^2.2.0",
     "jasmine-core": "~3.5.0",

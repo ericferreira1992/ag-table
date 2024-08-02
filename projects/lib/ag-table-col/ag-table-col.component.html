@@ -1,6 +1,6 @@
-<span *ngIf="!noSort" class="ag-table-col-sort" (click)="toggleSort()" [ngClass]="{ 'sort-none': !isSorting, 'sort-asc': isSorting && isSortAsc, 'sort-desc': isSorting && !isSortAsc }"></span>
+<span *ngIf="!noSort" class="ag-table-col-sort" (click)="toggleSort()" [class.sort-none]="!isSorting" [class.sort-asc]="isSorting && isSortAsc" [class.sort-desc]="isSorting && !isSortAsc"></span>
 
-<div class="w-auto" [ngClass]="{ 'text-truncate': !noTruncate && !customFilter }">
+<div class="w-auto" [class.text-truncate]="!noTruncate && !customFilter">
     <ng-content></ng-content>
 </div>
 

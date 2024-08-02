@@ -1,5 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTabsModule } from '@angular/material/tabs';
@@ -16,11 +14,8 @@ import { ClientSideComponent } from './components/pages/demo/client-side/client-
 import { ServerSideComponent } from './components/pages/demo/server-side/server-side.component';
 import { ServerSideInfinityComponent } from './components/pages/demo/server-side-infinity/server-side-infinity.component';
 
-import { HighlightModule } from 'ngx-highlightjs';
+import { HighlightModule, provideHighlightOptions } from 'ngx-highlightjs';
 
-import xml from 'highlight.js/lib/languages/xml';
-import scss from 'highlight.js/lib/languages/scss';
-import typescript from 'highlight.js/lib/languages/typescript';
 import { StructureAgTableComponent } from './components/pages/api/structure/structure-ag-table/structure-ag-table.component';
 import { StructureAgTableBodyComponent } from './components/pages/api/structure/structure-ag-table-body/structure-ag-table-body.component';
 import { StructureAgTableHeaderComponent } from './components/pages/api/structure/structure-ag-table-header/structure-ag-table-header.component';
@@ -37,16 +32,22 @@ import { ModalExampleClickComponent } from './components/pages/home/modal-exampl
 import { OthersUnequealRowHeightComponent } from './components/pages/demo/others/others-unequal-row-height/others-unequal-row-height.component';
 import { Page404Component } from './components/pages/page-404/page-404.component';
 import { ConfigurationComponent } from './components/pages/api/configuration/configuration.component';
-
-export function langHighlight() {
-    return [
-        { name: 'typescript', func: typescript },
-        { name: 'scss', func: scss },
-        { name: 'xml', func: xml }
-    ];
-}
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 @NgModule({
+    imports: [
+        CommonModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        HighlightModule,
+        AppRoutingModule,
+        CoreModule,
+        MatTabsModule,
+        MatDialogModule,
+        AgTableModule,
+    ],
     declarations: [
         AppComponent,
         DemoComponent,
@@ -71,22 +72,20 @@ export function langHighlight() {
         OthersCustomFilterComponent,
         OthersDataRenderEventComponent,
         OthersUnequealRowHeightComponent,
-        ModalExampleClickComponent
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HighlightModule.forRoot({
-            languages: langHighlight
-        }),
-        AppRoutingModule,
-        CoreModule,
-        MatTabsModule,
-        MatDialogModule,
-        AgTableModule,
+        ModalExampleClickComponent,
     ],
     providers: [
-    // { provide: AgTableCustomSettings, useValue: { lang: 'pt-BR' } }
+        // { provide: AgTableCustomSettings, useValue: { lang: 'pt-BR' } }
+        provideHighlightOptions({
+            coreLibraryLoader: () => import('highlight.js/lib/core'),
+            lineNumbersLoader: () => import('ngx-highlightjs/line-numbers'),
+            languages: {
+                typescript: () => import('highlight.js/lib/languages/typescript'),
+                scss: () => import('highlight.js/lib/languages/scss'),
+                xml: () => import('highlight.js/lib/languages/xml'),
+                bash: () => import('highlight.js/lib/languages/bash')
+            },
+        })
     ],
     bootstrap: [AppComponent]
 })

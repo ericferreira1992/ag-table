@@ -2,7 +2,7 @@
 <section [style.height]="parent?.items.length ? '100%' : 'auto'">
     <div class="total-padding" [style.height.px]="virtualScroll.totalHeightContent"></div>
     <div #itemsContainer class="scrollable-content"
-        [ngClass]="{ 'p-relative': parent?.height === 'auto' }"
+        [class.p-relative]="parent?.height === 'auto'"
         [style.transform]="'translateY(' + virtualScroll.paddingScroll + 'px)'"
         [style.top.px]="(parent?.infinity && parent?.loading && parent?.currentPage > 1) ? -80 : 0"
     >
@@ -14,7 +14,7 @@
     <span [innerHTML]="emptyMsg"></span>   
 </div>
 
-<div *ngIf="parent?.infinity" class="ag-table-infinity" [ngClass]="{'ag-table-infinity-show': parent?.loading && parent?.currentPage > 1}" [style.width.px]="itemsContainer.clientWidth">
+<div *ngIf="parent?.infinity" class="ag-table-infinity" [class.ag-table-infinity-show]="parent?.loading && parent?.currentPage > 1" [style.width.px]="itemsContainer.clientWidth">
     <div>
         <ag-table-spinner></ag-table-spinner>
     </div>

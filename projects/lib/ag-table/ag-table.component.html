@@ -1,10 +1,11 @@
-<div #headerShadowEl class="top-shadow animated fadeIn" [ngClass]="{'to-drop': topShadow}"></div>
+<div #headerShadowEl class="top-shadow animated fadeIn" [class.to-drop]="topShadow"></div>
 
 <ng-content></ng-content>
 
 <ag-table-paginate *ngIf="!infinity && paginate !== null"
     class="animated fadeIn"
-    [ngClass]="{ 'to-drop': bottomShadow, 'on-infinity': infinity }"
+    [class.to-drop]="bottomShadow"
+    [class.on-infinity]="infinity"
     [length]="(isPaging && numPages) ? numPages : 1"
     [current]="(isPaging && numPages) ? currentPage : 1"
     [objCaption]="(isPaging && numPages) ? paginateCaptionConfig : { start: 1, end: dataLength, total: 0 }"

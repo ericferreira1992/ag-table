@@ -43,7 +43,7 @@ export class AgTablePaginateComponent implements OnInit, OnChanges {
     }
 
     pageClick(page: number | string) {
-        if (!this.disabled && (typeof page) !== 'string' && page >= 1 && page <= this.length && page !== this.current) {
+        if (!this.disabled && (typeof page) !== 'string' && (page as number) >= 1 && (page as number) <= this.length && page !== this.current) {
             this.current = page as number;
             this.change.emit(this.current);
             this.generate();

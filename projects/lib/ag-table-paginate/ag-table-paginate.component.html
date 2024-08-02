@@ -1,20 +1,20 @@
-<span *ngIf="objCaption && !loading" class="caption animated fadeIn" [ngClass]="{ 'p-b-7': (length <= 1 || pages.length === 0) }">
+<span *ngIf="objCaption && !loading" class="caption animated fadeIn" [class.p-b-7]="length <= 1 || pages.length === 0">
 	{{ (objCaption.total ? 'TOTAL_CAPTION' : 'WITHOUT_TOTAL_CAPTION') | translate:dictionary:objCaption }}
 </span>
 
 <ul *ngIf="length > 1 && pages.length > 0">
-	<li [ngClass]="{'disabled': current <= 1}" class="animated fadeIn">
+	<li [class.disabled]="current <= 1" class="animated fadeIn">
 		<button (click)="pageClick(current - 1)">
 			<i class="arrow-prev"></i>
 		</button>
 	</li>
 	<li *ngFor="let page of pages" class="animated fadeIn"
-		[ngClass]="{'actived': page === current, 'disabled': disabled, 'interval': page === '...'}">
+		[class.actived]="page === current" [class.disabled]="disabled" [class.interval]="page === '...'">
 		<button (click)="pageClick(page)">
 			<span>{{page}}</span>
 		</button>
 	</li>
-	<li [ngClass]="{'disabled': current >= length}" class="animated fadeIn">
+	<li [class.disabled]="current >= length" class="animated fadeIn">
 		<button (click)="pageClick(current + 1)">
 			<i class="arrow-next"></i>
 		</button>
