@@ -3,8 +3,8 @@ import { Helper } from '../../../core/services/helper';
 import { HtmlHelper } from '../../../core/services/html.helper';
 import { AppComponent } from 'src/app/app.component';
 import { DataFactory } from 'src/app/core/services/data.factory';
-import { MatDialog } from '@angular/material/dialog';
 import { ModalExampleClickComponent } from './modal-example-click/modal-example-click.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
 	selector: 'app-home',
