@@ -18,6 +18,12 @@ export class AboutComponent implements OnInit {
     private buildChangeLogs() {
         this.changeLogs = [
             {
+                version: '1.5.0',
+                descriptions: [
+                    'Migrated <strong>AgTable</strong> to Angular version 18.',
+                ]
+            },
+            {
                 version: '1.4.0',
                 descriptions: [
                     'Migrated <strong>AgTable</strong> to Angular version 17.',

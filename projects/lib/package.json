@@ -1,6 +1,6 @@
 {
     "name": "ag-table",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "repository": "https://github.com/ericferreira1992/ag-table",
     "keywords": [
         "angular",
@@ -40,9 +40,9 @@
     "license": "MIT",
     "private": false,
     "peerDependencies": {
-        "@angular/animations": "^17.3.12",
-        "@angular/common": "^17.3.12",
-        "@angular/compiler": "^17.3.12",
-        "@angular/core": "^17.3.12"
+        "@angular/animations": "^18.1.3",
+        "@angular/common": "^18.1.3",
+        "@angular/compiler": "^18.1.3",
+        "@angular/core": "^18.1.3"
     }
 }
