@@ -1,4 +1,4 @@
-# [AgTable](https://ericferreira1992.github.io/ag-table) (for Angular 13+)
+# [AgTable](https://ericferreira1992.github.io/ag-table) (for Angular 22+)
 
 A simple, clean and lightweight data table component for Angular.
 **Compatible**: Angular **13**
@@ -28,8 +28,17 @@ The reasons for using **AgTable** are many, but some features make it stand out 
 ### [Documentation / API](https://ericferreira1992.github.io/ag-table/#/api)
 
 ### Preview
-![](preview.gif)
+![](https://raw.githubusercontent.com/ericferreira1992/ag-table/master/preview.gif)
 
+## Angular version compatibility
+**Angular** version		        | **AgTable** version      	                        
+----------------------------- | ----------------------------
+v22   			                  | v1.22.x
+v21   			                  | v1.21.x
+v20   			                  | v1.20.x
+v19   			                  | v1.19.x
+v18   			                  | v1.5.x
+v13   			                  | v1.3.x
 
 ### Contribuitors
 - @ericferreira1992
