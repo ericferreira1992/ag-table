@@ -1,6 +1,14 @@
 {
   "name": "ag-table",
   "version": "1.5.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericferreira1992/ag-table.git"
+  },
+  "homepage": "https://ericferreira1992.github.io/ag-table",
+  "bugs": {
+    "url": "https://github.com/ericferreira1992/ag-table/issues"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=4200",
