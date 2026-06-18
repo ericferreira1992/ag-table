@@ -5,8 +5,9 @@ import { AgTableCellComponent } from '../ag-table-cell/ag-table-cell.component';
 import { Subscription } from 'rxjs';
 
 @Component({
-	selector: 'ag-table-row',
-	templateUrl: './ag-table-row.component.html'
+    selector: 'ag-table-row',
+    templateUrl: './ag-table-row.component.html',
+    standalone: false
 })
 export class AgTableRowComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 	@HostBinding('class.ag-table-row') public class: boolean = true;

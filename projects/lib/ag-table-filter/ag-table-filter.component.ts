@@ -11,7 +11,8 @@ import { AgTableSettings } from '../settings/ag-table.settings';
 
 @Component({
     selector: 'ag-table-filter',
-    templateUrl: './ag-table-filter.component.html'
+    templateUrl: './ag-table-filter.component.html',
+    standalone: false
 })
 export class AgTableFilterComponent implements OnInit, OnChanges, OnDestroy {
     @HostBinding('class.ag-table-filter') public class: boolean = true;

@@ -12,8 +12,9 @@ import { AgTablePaginateComponent } from '../ag-table-paginate/ag-table-paginate
 
 //@dynamic
 @Component({
-	selector: 'ag-table',
-	templateUrl: './ag-table.component.html'
+    selector: 'ag-table',
+    templateUrl: './ag-table.component.html',
+    standalone: false
 })
 export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit, AfterContentChecked {
 	@HostBinding('class.ag-table') public class: boolean = true;

@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'app-enum-ag-table-filter-mode',
     templateUrl: './enum-ag-table-filter-mode.component.html',
-    styleUrls: ['./enum-ag-table-filter-mode.component.scss']
+    styleUrls: ['./enum-ag-table-filter-mode.component.scss'],
+    standalone: false
 })
 export class EnumAgTableFilterModeComponent implements OnInit {
 

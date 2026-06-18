@@ -5,7 +5,8 @@ import { AgTableDataRenderEvent } from 'ag-table';
 @Component({
     selector: 'app-others-data-render-event',
     templateUrl: './others-data-render-event.component.html',
-    styleUrls: ['./others-data-render-event.component.scss']
+    styleUrls: ['./others-data-render-event.component.scss'],
+    standalone: false
 })
 export class OthersDataRenderEventComponent implements OnInit {
 

@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
     host: {
         '(document:click)': 'onWindowClick($event)',
         '(document:keydown)': 'onWindowKeydown($event)'
-    }
+    },
+    standalone: false
 })
 export class SideLeftBarComponent implements OnInit, OnChanges {
     @ViewChild('menuButtonElRef') private menuButtonElRef: ElementRef<HTMLElement>;

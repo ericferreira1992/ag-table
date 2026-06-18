@@ -5,7 +5,8 @@ import { AgTableSettings } from '../settings/ag-table.settings';
 import { AbstractControl } from '@angular/forms';
 
 @Directive({
-    selector: '[date-format]'
+    selector: '[date-format]',
+    standalone: false
 })
 
 export class DateFormatDirective implements OnChanges {

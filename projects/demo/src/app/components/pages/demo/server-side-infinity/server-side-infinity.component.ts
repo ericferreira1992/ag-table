@@ -6,7 +6,8 @@ import { OrderByPipe } from '../../../../core/pipes/order-by.pipe';
 @Component({
     selector: 'app-server-side-infinity',
     templateUrl: './server-side-infinity.component.html',
-    styleUrls: ['./server-side-infinity.component.scss']
+    styleUrls: ['./server-side-infinity.component.scss'],
+    standalone: false
 })
 export class ServerSideInfinityComponent implements OnInit {
 

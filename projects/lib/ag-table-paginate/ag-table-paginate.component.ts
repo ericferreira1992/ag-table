@@ -3,7 +3,8 @@ import { TRANSLATION } from './ag-table-paginate.component.trans';
 
 @Component({
     selector: 'ag-table-paginate',
-    templateUrl: './ag-table-paginate.component.html'
+    templateUrl: './ag-table-paginate.component.html',
+    standalone: false
 })
 export class AgTablePaginateComponent implements OnInit, OnChanges {
     @HostBinding('class.ag-table-paginate') public class: boolean = true;

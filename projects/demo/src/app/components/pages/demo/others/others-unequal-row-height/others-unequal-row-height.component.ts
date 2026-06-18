@@ -4,7 +4,8 @@ import { Helper } from 'src/app/core/services/helper';
 @Component({
     selector: 'app-others-unequal-row-height',
     templateUrl: './others-unequal-row-height.component.html',
-    styleUrls: ['./others-unequal-row-height.component.scss']
+    styleUrls: ['./others-unequal-row-height.component.scss'],
+    standalone: false
 })
 export class OthersUnequealRowHeightComponent implements OnInit {
 

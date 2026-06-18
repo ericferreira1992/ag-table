@@ -5,7 +5,8 @@ import { AppComponent } from '../../../app.component';
 @Component({
     selector: 'app-demo',
     templateUrl: './demo.component.html',
-    styleUrls: ['./demo.component.scss']
+    styleUrls: ['./demo.component.scss'],
+    standalone: false
 })
 export class DemoComponent implements OnInit {
 

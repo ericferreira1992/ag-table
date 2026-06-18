@@ -9,8 +9,9 @@ import { AgTableLangService } from '../services/ag-table-lang.service';
 
 //@dynamic
 @Component({
-	selector: 'ag-table-col',
-	templateUrl: './ag-table-col.component.html'
+    selector: 'ag-table-col',
+    templateUrl: './ag-table-col.component.html',
+    standalone: false
 })
 export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 	@HostBinding('class.ag-table-col') public _class: boolean = true;

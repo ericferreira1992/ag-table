@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'app-event-ag-table',
     templateUrl: './event-ag-table.component.html',
-    styleUrls: ['./event-ag-table.component.scss']
+    styleUrls: ['./event-ag-table.component.scss'],
+    standalone: false
 })
 export class EventAgTableComponent implements OnInit {
 

@@ -4,7 +4,8 @@ import { Helper } from '../../../../../core/services/helper';
 @Component({
     selector: 'app-others-custom-filter',
     templateUrl: './others-custom-filter.component.html',
-    styleUrls: ['./others-custom-filter.component.scss']
+    styleUrls: ['./others-custom-filter.component.scss'],
+    standalone: false
 })
 export class OthersCustomFilterComponent implements OnInit {
 

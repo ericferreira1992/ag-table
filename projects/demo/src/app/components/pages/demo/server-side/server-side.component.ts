@@ -6,7 +6,8 @@ import { OrderByPipe } from '../../../../core/pipes/order-by.pipe';
 @Component({
     selector: 'app-server-side',
     templateUrl: './server-side.component.html',
-    styleUrls: ['./server-side.component.scss']
+    styleUrls: ['./server-side.component.scss'],
+    standalone: false
 })
 export class ServerSideComponent implements OnInit {
 

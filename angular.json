@@ -15,12 +15,15 @@
 			},
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
+					"builder": "@angular-devkit/build-angular:application",
 					"options": {
-						"outputPath": "dist",
-						"index": "projects/demo/src/index.html",
-						"main": "projects/demo/src/main.ts",
-						"polyfills": "projects/demo/src/polyfills.ts",
+						"outputPath": {
+              "base": "dist"
+            },
+            "index": "projects/demo/src/index.html",
+						"polyfills": [
+              "projects/demo/src/polyfills.ts"
+            ],
 						"tsConfig": "projects/demo/src/tsconfig.app.json",
 						"assets": [
 							"projects/demo/src/favicon.ico",
@@ -30,13 +33,12 @@
 							"projects/demo/src/assets/scss/styles.scss",
 							"node_modules/bootstrap/dist/css/bootstrap.min.css"
 						],
-						"scripts": [],
-						"vendorChunk": true,
-						"extractLicenses": false,
-						"buildOptimizer": false,
+            "scripts": [],
+            "extractLicenses": false,
 						"sourceMap": true,
 						"optimization": false,
-						"namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/demo/src/main.ts"
 					},
 					"configurations": {
 						"production": {
@@ -50,9 +52,7 @@
 							"outputHashing": "all",
 							"sourceMap": false,
 							"namedChunks": false,
-							"extractLicenses": true,
-							"vendorChunk": false,
-							"buildOptimizer": true,
+              "extractLicenses": true,
 							"budgets": [
 								{
 									"type": "initial",

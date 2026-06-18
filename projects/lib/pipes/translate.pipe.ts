@@ -5,7 +5,8 @@ import { AgTableLangService } from '../services/ag-table-lang.service';
 })
 @Pipe({
     name: 'translate',
-    pure: false
+    pure: false,
+    standalone: false
 })
 export class TranslatePipe implements PipeTransform {
     constructor(

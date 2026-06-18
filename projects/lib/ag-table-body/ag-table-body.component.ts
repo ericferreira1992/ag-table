@@ -8,8 +8,9 @@ import { Helper, isNullOrUndefined } from './../services/helper';
 import { AgTableLangService } from '../services/ag-table-lang.service';
 
 @Component({
-	selector: 'ag-table-body',
-	templateUrl: './ag-table-body.component.html'
+    selector: 'ag-table-body',
+    templateUrl: './ag-table-body.component.html',
+    standalone: false
 })
 export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 	@HostBinding('class.ag-table-body') public class: boolean = true;

@@ -4,8 +4,9 @@ import { AgTableRowComponent } from '../ag-table-row/ag-table-row.component';
 import { Helper, isNullOrUndefined } from '../services/helper';
 
 @Component({
-	selector: 'ag-table-cell',
-	templateUrl: './ag-table-cell.component.html'
+    selector: 'ag-table-cell',
+    templateUrl: './ag-table-cell.component.html',
+    standalone: false
 })
 export class AgTableCellComponent implements OnInit, OnChanges, OnDestroy {
 	@HostBinding('class.ag-table-cell') public class: boolean = true;

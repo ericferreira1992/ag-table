@@ -6,8 +6,9 @@ import { AgTableColComponent } from '../ag-table-col/ag-table-col.component';
 import { Helper, isNullOrUndefined } from '../services/helper';
 
 @Component({
-	selector: 'ag-table-header',
-	templateUrl: './ag-table-header.component.html'
+    selector: 'ag-table-header',
+    templateUrl: './ag-table-header.component.html',
+    standalone: false
 })
 export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 	@HostBinding('class.ag-table-header') public class: boolean = true;

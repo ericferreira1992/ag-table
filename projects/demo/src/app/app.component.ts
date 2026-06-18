@@ -11,7 +11,8 @@ import { HtmlHelper } from './core/services/html.helper';
     host: {
         '(document:click)': 'onWindowClick($event)',
         '(document:keydown)': 'onWindowKeydown($event)'
-    }
+    },
+    standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('mainSectionElRef') public mainSectionElRef: ElementRef<HTMLElement>;

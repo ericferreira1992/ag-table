@@ -4,7 +4,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
     selector: 'app-modal-example-click',
     templateUrl: './modal-example-click.component.html',
-    styleUrls: ['./modal-example-click.component.scss']
+    styleUrls: ['./modal-example-click.component.scss'],
+    standalone: false
 })
 export class ModalExampleClickComponent implements OnInit {
 

@@ -4,7 +4,8 @@ import { Helper } from 'src/app/core/services/helper';
 @Component({
     selector: 'app-client-side',
     templateUrl: './client-side.component.html',
-    styleUrls: ['./client-side.component.scss']
+    styleUrls: ['./client-side.component.scss'],
+    standalone: false
 })
 export class ClientSideComponent implements OnInit {
 
