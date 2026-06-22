@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as Chance from 'chance';
+import Chance from 'chance';
 
 const chance = new Chance();
 

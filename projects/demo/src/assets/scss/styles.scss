@@ -3,13 +3,13 @@
 @import '../../../../lib/scss/style.scss';
 @include ag-table-core($colorPrimary);
 
-@import '~animate.css/animate.min.css';
+@import '../../../../../node_modules/animate.css/animate.min.css';
 .animated {
 	-webkit-animation-duration: 250ms;
 	animation-duration: 250ms;
 }
 
-@import '~highlight.js/styles/vs.css';
+@import '../../../../../node_modules/highlight.js/styles/vs.css';
 
 @import 'material-config';
 @import 'helper';
