@@ -18,7 +18,7 @@ export class DataFactory {
     public getHeight(min: number = 50, max: number = 150) { return Math.max(Math.floor(Math.random() * max), min); }
 
     public getRandomObject() {
-        let data = {} as any;
+        let data = {} as { [key: string]: any };
 
         data.name = this.getName();
         data.phone = this.getPhoneNumber();

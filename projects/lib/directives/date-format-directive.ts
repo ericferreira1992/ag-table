@@ -10,18 +10,18 @@ import { AbstractControl } from '@angular/forms';
 })
 
 export class DateFormatDirective implements OnChanges {
-    private regex: RegExp;
+    private regex?: RegExp;
     private keyCodesAccepts: number[] = [8, 9, 37, 38, 39, 40];
 
     private datePipe: DatePipe;
 
-    private dateSeparator: string;
+    private dateSeparator: string = '';
 
     private ctrlDown: boolean = false;
     private pasting: boolean = false;
 
-    @Input('date-format') dateFormat: string;
-    @Input('control') formControl: AbstractControl;
+    @Input('date-format') dateFormat?: string;
+    @Input('control') formControl?: AbstractControl;
 
     constructor(
         private helper: Helper,
@@ -85,17 +85,19 @@ export class DateFormatDirective implements OnChanges {
                 if ((input.selectionStart === 0 && input.selectionEnd === input.value.length) || input.value.length === 1)
                     setTimeout(() => this.onBlur(e));
             }
+
+            return true;
         }
         else {
-            let object = this.generateValue(input.value, e.key);
-            if (!isNullOrUndefined(object.validValue.match(this.regex))) {
+            const object = this.generateValue(input.value, e.key);
+            if (!isNullOrUndefined(object.validValue.match(this.regex!))) {
                 input.value = object.formatedValue;
 
-                if (input.value.length === this.dateFormat.length)
+                if (input.value.length === this.dateFormat?.length)
                     this.onBlur(e);
             }
             
-            event.preventDefault();
+            e.preventDefault();
             return false;
         }
     }
@@ -115,12 +117,12 @@ export class DateFormatDirective implements OnChanges {
             this.pasting = true;
             setTimeout(() => {
                 this.pasting = false;
-                let value = this.helper.onlyNumbers(input.value, [this.dateFormat]);
+                let value = this.helper.onlyNumbers(input.value, [this.dateFormat ?? '']);
                 let object = this.generateValue(value);
-                if (!isNullOrUndefined(object.validValue.match(this.regex))) {
+                if (!isNullOrUndefined(object.validValue.match(this.regex!))) {
                     input.value = object.formatedValue;
 
-                    if (input.value.length === this.dateFormat.length)
+                    if (input.value.length === (this.dateFormat?.length ?? 0))
                         this.onBlur(e);
                 }
                 else
@@ -132,14 +134,14 @@ export class DateFormatDirective implements OnChanges {
     @HostListener('cut', ['$event'])
     onCut(e: any) {
         if (!this.pasting) {
-            let input = e.target as HTMLInputElement;
+            const input = e.target as HTMLInputElement;
     
             this.pasting = true;
             setTimeout(() => {
                 this.pasting = false;
-                let value = this.helper.onlyNumbers(input.value, [this.dateFormat]);
-                let object = this.generateValue(value);
-                if (!isNullOrUndefined(object.validValue.match(this.regex))) {
+                const value = this.helper.onlyNumbers(input.value, [this.dateFormat ?? '']);
+                const object = this.generateValue(value);
+                if (!isNullOrUndefined(object.validValue.match(this.regex!))) {
                     input.value = object.formatedValue;
                 }
                 else
@@ -158,16 +160,16 @@ export class DateFormatDirective implements OnChanges {
         }
     }
 
-    private generateValue(currentValue: string, nextChar: string = null): { validValue: string, formatedValue: string } {
+    private generateValue(currentValue: string, nextChar?: string): { validValue: string, formatedValue: string } {
         let object = {
             validValue: currentValue,
             formatedValue: '',
         };
-        if (currentValue.length !== this.dateFormat.length) {
+        if (currentValue.length !== (this.dateFormat?.length ?? 0)) {
             let newValue = '';
             if (this.dateSeparator) {
-                for(var i = 0; i < this.dateFormat.length; i++) {
-                    let format = this.dateFormat[i];
+                for(var i = 0; i < (this.dateFormat?.length ?? 0); i++) {
+                    let format = this.dateFormat![i];
                     let length = i + 1;
     
                     if (length <= currentValue.length)
@@ -185,9 +187,6 @@ export class DateFormatDirective implements OnChanges {
                     else
                         newValue += (format !== this.dateSeparator) ? '1' : format;
                 }
-            }
-            else {
-                
             }
 
             object.validValue = newValue;

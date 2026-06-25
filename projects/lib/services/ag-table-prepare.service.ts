@@ -14,7 +14,7 @@ export class AgTablePrepareService {
 	public apply(data: any[], agTableComp: any) {
 		if (data && Array.isArray(data) && data.length) {
 			if (!agTableComp.serverSide) {
-				let _data: any[];
+				let _data!: any[];
 
 				let length = data.length;
 				let lengthPaginated = data.length;

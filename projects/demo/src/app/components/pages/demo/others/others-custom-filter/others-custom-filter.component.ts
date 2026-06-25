@@ -11,7 +11,7 @@ export class OthersCustomFilterComponent implements OnInit {
 
     public dataItems: any[] = [];
 
-    public strHtml: string;
+    public strHtml!: string;
     constructor(
         private helper: Helper
     ) {
@@ -65,7 +65,7 @@ export class OthersCustomFilterComponent implements OnInit {
             else
                 type = 1;
 
-            date = this.helper.setDaysToDate(date, -1);
+            date = this.helper.setDaysToDate(date, -1) as Date;
             return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Type ${type}`, height: Math.floor(Math.random() * 100) };
         });
     }

@@ -14,10 +14,10 @@
                 <li>Add the AgTable class <span class="code">input</span> to style and maintain the fields pattern: <span class="code">class="ag-table-filter-input"</span>.</li>
                 <li>Set into your <span class="code">input</span> the <span class="code">[formControl]="header.filterCtrls.yourField"</span>.</li>
                 <li>And finally, put on your <span class="code">input</span> a <span class="code">*ngIf="header.filterCtrls.yourField"</span> to check the filter control it's ready.</li>
-            </ul> 
+            </ul>
 
             <h5>Example</h5>
-            <ag-table #table paginate="1000" [items]="dataItems" clickable height="500px" min-width="800px">
+            <ag-table #table [paginate]="1000" [items]="dataItems" clickable height="500px" min-width="800px">
                 <ag-table-header #header>
                     <ag-table-col filter field="id" placeholder="Identifier" width="100px">
                         ID
@@ -54,7 +54,7 @@
             <mat-tab-group [style.minHeight.px]="450">
                 <mat-tab label="HTML">
                     <pre>
-                            <code [highlight]="strHtml" language="xml"></code>
+                            <code [highlightAuto]="strHtml" lineNumbers></code>
                     </pre>
                 </mat-tab>
             </mat-tab-group>

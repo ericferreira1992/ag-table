@@ -8,20 +8,20 @@ import { Helper, isNullOrUndefined } from './../services/helper';
 import { AgTableLangService } from '../services/ag-table-lang.service';
 
 @Component({
-    selector: 'ag-table-body',
-    templateUrl: './ag-table-body.component.html',
-    standalone: false
+	selector: 'ag-table-body',
+	templateUrl: './ag-table-body.component.html',
+	standalone: false
 })
 export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 	@HostBinding('class.ag-table-body') public class: boolean = true;
-    @HostBinding('class.clickable') public clickable: boolean = false;
-    @HostBinding('class.height-is-auto') public get heightIsAuto() { return this.parent && this.parent.height === 'auto'; }
+	@HostBinding('class.clickable') public clickable: boolean = false;
+	@HostBinding('class.height-is-auto') public get heightIsAuto() { return this.parent && this.parent.height === 'auto'; }
 
-	@ViewChild('itemsContainer', { static: true }) public itemsContainerEl: ElementRef<HTMLElement>;
+	@ViewChild('itemsContainer', { static: true }) public itemsContainerEl!: ElementRef<HTMLElement>;
 
-    @ContentChildren(AgTableRowComponent) private queryRows: QueryList<AgTableRowComponent>;
+	@ContentChildren(AgTableRowComponent) private queryRows!: QueryList<AgTableRowComponent>;
 
-    private minHeight: number = 40;
+	private minHeight: number = 40;
 
 	@Input('row-height') rowHeight: string = this.minHeight + 'px';
 	@Input('empty-msg') emptyMsg: string = '';
@@ -34,12 +34,12 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 
 	public dictionary = TRANSLATION;
 
-	private subscription: Subscription;
+	private subscription?: Subscription;
 
 	public scrollInBottom: boolean = false;
-    public scrollEnabled: boolean = false;
+	public scrollEnabled: boolean = false;
 
-    public virtualScroll: AgTableVirtualScrollModel;
+	public virtualScroll?: AgTableVirtualScrollModel;
 
 	private lastScrollTop: number = -1;
 
@@ -55,9 +55,9 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 	}
 
 	ngOnInit() {
-        this.virtualScroll = new AgTableVirtualScrollModel({
-            containerSrollEl: this.elRef
-        });
+		this.virtualScroll = new AgTableVirtualScrollModel({
+			containerSrollEl: this.elRef
+		});
 	}
 
 	ngAfterViewInit() {
@@ -66,32 +66,32 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-        if ('rowHeight' in changes) {
-            if (this.helper.onlyNumbers(this.rowHeight) === this.rowHeight)
-                this.rowHeight += 'px';
+		if ('rowHeight' in changes) {
+			if (this.helper.onlyNumbers(this.rowHeight) === this.rowHeight)
+				this.rowHeight += 'px';
 
-            if (isNullOrUndefined(this.rowHeight) || this.rowHeight === '') {
-                this.rowHeight = this.minHeight + 'px';
-                return;
-            }
-            else {
-                let number = this.helper.onlyNumbers(this.rowHeight);
-                let unit = this.rowHeight.replace(number, '');
+			if (isNullOrUndefined(this.rowHeight) || this.rowHeight === '') {
+				this.rowHeight = this.minHeight + 'px';
+				return;
+			}
+			else {
+				let number = this.helper.onlyNumbers(this.rowHeight);
+				let unit = this.rowHeight.replace(number, '');
 
-                if (unit !== 'px') {
-                    this.rowHeight = this.minHeight + 'px';
-                    console.warn(`The row-height is invalid. The height must be informed in "px".`);
-                    return;
-                }
-            }
+				if (unit !== 'px') {
+					this.rowHeight = this.minHeight + 'px';
+					console.warn(`The row-height is invalid. The height must be informed in "px".`);
+					return;
+				}
+			}
 
-            let number = parseInt(this.helper.onlyNumbers(this.rowHeight));
-            if (number < this.minHeight) {
-                this.rowHeight = this.minHeight + 'px';
-                console.warn(`The row-height is invalid because the minimum height should be "${this.minHeight}px".`);
-                return;
-            }
-        }
+			let number = parseInt(this.helper.onlyNumbers(this.rowHeight));
+			if (number < this.minHeight) {
+				this.rowHeight = this.minHeight + 'px';
+				console.warn(`The row-height is invalid because the minimum height should be "${this.minHeight}px".`);
+				return;
+			}
+		}
 	}
 
 	public onRender(parent: any) {
@@ -125,8 +125,8 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 		}
 
 		this.eventsLineters.push(this.renderer.listen(this.elRef.nativeElement, 'scroll', this.onScroll.bind(this)));
-        this.eventsLineters.push(this.renderer.listen(this.elRef.nativeElement, 'mousewheel', this.onMouseWheel.bind(this)));
-        this.eventsLineters.push(this.renderer.listen(this.elRef.nativeElement, 'DOMMouseScroll', this.onMouseWheel.bind(this)));
+		this.eventsLineters.push(this.renderer.listen(this.elRef.nativeElement, 'mousewheel', this.onMouseWheel.bind(this)));
+		this.eventsLineters.push(this.renderer.listen(this.elRef.nativeElement, 'DOMMouseScroll', this.onMouseWheel.bind(this)));
 	}
 
 	private dataTableInBottom() {
@@ -154,24 +154,24 @@ export class AgTableBodyComponent implements OnInit, OnChanges, AfterViewInit, O
 		}
 
 		if (this.dataVirtualScrollService.canApplyVirtualScroll(this))
-			if (forceChange || this.lastScrollTop !== this.virtualScroll.currentSrollTop) {
-				this.lastScrollTop = this.virtualScroll.currentSrollTop;
+			if (forceChange || this.lastScrollTop !== this.virtualScroll?.currentSrollTop) {
+				this.lastScrollTop = this.virtualScroll?.currentSrollTop ?? 0;
 				this.dataVirtualScrollService.onScrollChange(this);
 			}
 	}
 
 	public backToTheTop() {
-		this.el.scrollTop = 0;
+		this.el!.scrollTop = 0;
 	}
 
 	public getRowIndexBasedVirtual(virtualIndex: number) {
-		return this.virtualScroll.currentStartIndex + virtualIndex;
+		return this.virtualScroll!.currentStartIndex + virtualIndex;
 	}
 
-    private onMouseWheel() {
+	private onMouseWheel() {
 		if (!this.dataVirtualScrollService.canApplyVirtualScroll(this))
 			this.onScroll();
-    }
+	}
 
 	public onBodyWidthChange(currentWidth: string) {
 		if (currentWidth && this.el) {

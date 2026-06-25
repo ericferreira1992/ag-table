@@ -1,7 +1,14 @@
 {
     "name": "ag-table",
-    "version": "1.5.0",
-    "repository": "https://github.com/ericferreira1992/ag-table",
+    "version": "1.19.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ericferreira1992/ag-table.git"
+    },
+    "homepage": "https://ericferreira1992.github.io/ag-table",
+    "bugs": {
+        "url": "https://github.com/ericferreira1992/ag-table/issues"
+    },
     "keywords": [
         "angular",
         "angular2",

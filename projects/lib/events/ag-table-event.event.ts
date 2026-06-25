@@ -1,7 +1,7 @@
 export class AgTableEvent {
     page: number = 1;
     pageSize: number = 0;
-    filters: { [key: string]: any };
+    filters!: { [key: string]: any };
     order: {
         field: string,
         asc: boolean
@@ -10,5 +10,6 @@ export class AgTableEvent {
 
     constructor(obj: Partial<AgTableEvent>) {
         Object.assign(this, obj);
+        if (!this.filters) this.filters = {};
     }
 }

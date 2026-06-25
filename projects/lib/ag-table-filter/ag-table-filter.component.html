@@ -1,4 +1,4 @@
-<input *ngIf="type === 'currency'"
+<input *ngIf="frmControl && type === 'currency'"
     class="ag-table-filter-input"
     type="text"
     autocomplete="off"
@@ -6,21 +6,21 @@
     [placeholder]="placeholder ? placeholder : (('CURRENCY_PH' | translate:dictionary) + ' 0,00')"
 />
 
-<select *ngIf="type === 'select'" 
+<select *ngIf="frmControl && type === 'select'" 
     class="ag-table-filter-select"
     [formControl]="frmControl">
     <option [value]="selectAllOptionValue">{{optionAllLabel}}</option>
     <option *ngFor="let option of options" [value]="option.value">{{option.text}}</option>
 </select>
 
-<input *ngIf="type === 'text'"
+<input *ngIf="frmControl && type === 'text'"
     class="ag-table-filter-input"
     [formControl]="frmControl"
     type="text"
     [placeholder]="placeholder ? placeholder : ''"
 />
 
-<input *ngIf="type === 'date'"
+<input *ngIf="frmControl && type === 'date'"
     class="ag-table-filter-input"
     [control]="frmControl"
     [date-format]="dateFormat"
@@ -28,7 +28,7 @@
     [placeholder]="placeholder ? placeholder : dateFormat.toUpperCase()"
 />
 
-<input *ngIf="type === 'number'"
+<input *ngIf="frmControl && type === 'number'"
     class="ag-table-filter-input"
     [formControl]="frmControl"
     type="text"

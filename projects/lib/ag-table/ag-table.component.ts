@@ -12,41 +12,41 @@ import { AgTablePaginateComponent } from '../ag-table-paginate/ag-table-paginate
 
 //@dynamic
 @Component({
-    selector: 'ag-table',
-    templateUrl: './ag-table.component.html',
-    standalone: false
+	selector: 'ag-table',
+	templateUrl: './ag-table.component.html',
+	standalone: false
 })
 export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit, AfterContentChecked {
 	@HostBinding('class.ag-table') public class: boolean = true;
 	@HostBinding('class.ag-table-empty') public get showEmptyView() { return this.isDataEmpty && !this.noEmptyView; }
 
-	@ContentChildren(AgTableHeaderComponent) private queryHeader: QueryList<AgTableHeaderComponent>;
-	@ContentChildren(AgTableBodyComponent) private queryBody: QueryList<AgTableBodyComponent>;
+	@ContentChildren(AgTableHeaderComponent) private queryHeader!: QueryList<AgTableHeaderComponent>;
+	@ContentChildren(AgTableBodyComponent) private queryBody!: QueryList<AgTableBodyComponent>;
 
-	@ViewChild(AgTablePaginateComponent, { static: false }) private paginateComp: AgTablePaginateComponent;
+	@ViewChild(AgTablePaginateComponent, { static: false }) private paginateComp!: AgTablePaginateComponent;
 
-	@ViewChild('headerShadowEl', { static: true }) private headerShadowEl: ElementRef<HTMLElement>;
+	@ViewChild('headerShadowEl', { static: true }) private headerShadowEl!: ElementRef<HTMLElement>;
 
 	/** THAT WILL DEFINE THE DATA TABLE HEIGHT, AND IT WILL HAS SCROLL BAR IN CASE OF OVERFLOW.*/
 	@Input() public height: string = 'auto';
 
 	/** IF THE ROWS IT WILL HAVE CLICK (JUST ENABLED HOVER EFFECT AND CURSOR AS POINTER) */
-	@Input() public clickable: boolean;
+	@Input() public clickable: boolean | string = false;
 
 	/** THIS DEFINE IF WILL GO PAGINATE OR NOT */
-	@Input() public paginate: number = null;
+	@Input() public paginate?: number;
 
 	/** THIS DEFINE IF WILL GO BRING DATA BASED ON SCROLLING WHEN TO ARRIVE ON BOTTOM. (BUT USE THIS ONLY WITH SERVER-SIDE) */
-	@Input() public infinity: number = null;
+	@Input() public infinity?: number;
 
 	/** SHOW LOADING SPINNER ABOVE THE DATA TABLE WHEN LOADING IS TRUE. */
-	@Input() public loading: boolean = null;
+	@Input() public loading?: boolean;
 
 	/** THE TOTAL DATA LENGTH. THIS IS USED FOR MAKE THE PAGINATION. */
 	@Input('data-length') public dataLength: number = 0;
 
 	/** DETERMINES WHETHER DATA WILL BE SWALLOWED VIA SERVER-SIDE */
-	@Input('server-side') public serverSide: boolean = false;
+	@Input('server-side') public serverSide: boolean | string = false;
 
 	/** CALL REQUEST DATA ON INITIALIZATION DATA TABLE */
 	@Input('get-data-init') public getDataOnInit: boolean = false;
@@ -77,13 +77,13 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	/** EMIT EVENT WHEN THE ag-table HAS ALL BEEN RENDERED */
 	@Output() public onTableRender = new EventEmitter<void>();
 
-	@Output() public  filterActivated = new EventEmitter<boolean>();
+	@Output() public filterActivated = new EventEmitter<boolean>();
 
 	private get paddingTop() { return this.elRef && this.elRef.nativeElement ? this.elRef.nativeElement.style.paddingTop : '0px'; }
 	private set paddingTop(value: string) { if (this.elRef && this.elRef.nativeElement) this.elRef.nativeElement.style.paddingTop = value; }
 
 	public set _height(value: string) {
-		this.el.style.height = value;
+		this.el!.style.height = value;
 
 		if (this.header) {
 			if (value === '0' || value === '0px')
@@ -97,7 +97,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	public get _height() { return (this.el && this.el.style.height) ? this.el.style.height : 'auto'; }
 
 	public set _minHeight(value: string) {
-		this.el.style.minHeight = value;
+		this.el!.style.minHeight = value;
 		this.definePaddingTop();
 	}
 	public get _minHeight() { return (this.el && this.el.style.minHeight) ? this.el.style.minHeight : ''; }
@@ -136,8 +136,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 	public get numPages() {
 		if (this.dataLength && this.isPaging) {
-			let pages = Math.floor(this.dataLength / this.paginate);
-			return pages + (((this.dataLength / this.paginate) > pages) ? 1 : 0);
+			let pages = Math.floor(this.dataLength / (this.paginate ?? 0));
+			return pages + (((this.dataLength / (this.paginate ?? 0)) > pages) ? 1 : 0);
 		}
 		else
 			return 0;
@@ -152,7 +152,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	public isDataEmpty: boolean = false;
 
 	private dataPaginatedLength: number = 0;
-	public paginateCaptionConfig: { start: number, end: number, total: number };
+	public paginateCaptionConfig?: { start: number, end: number, total: number };
 	public actionChange: AgTableChangeAction = AgTableChangeAction.INITIALIZE;
 
 	private DOMisVisible: boolean = false;
@@ -160,8 +160,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 	private intervalListenerWidth: any;
 
-	public lastBodyWidth: string = null;
-	public lastBodyHeight: string = null;
+	public lastBodyWidth?: string;
+	public lastBodyHeight?: string;
 
 	constructor(
 		public elRef: ElementRef<HTMLElement>,
@@ -176,13 +176,13 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 	ngAfterViewInit() {
 		setTimeout(() => {
-			if (this.body.el) {
-				this.lastBodyWidth = this.body.el.clientWidth + 'px';
-				this.lastBodyHeight = this.body.el.clientHeight + 'px';
+			if (this.body?.el) {
+				this.lastBodyWidth = this.body?.el.clientWidth + 'px';
+				this.lastBodyHeight = this.body?.el.clientHeight + 'px';
 			}
 
-			this.body.onRender(this);
-			this.header.onRender(this);
+			this.body?.onRender(this);
+			this.header?.onRender(this);
 			if (this.paginateComp) this.paginateComp.onRender(this);
 
 			this.queryHeader.changes.subscribe(() => this.definePaddingTop());
@@ -213,8 +213,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 				this.DOMisVisible = visible;
 
 				if (this.DOMisVisible && this.DOMcountVisibleChange > 0)
-					this.body.onScroll();
-					
+					this.body?.onScroll();
+
 				this.DOMcountVisibleChange++;
 			}
 		}
@@ -235,7 +235,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 			if ('clickable' in changes) {
 				this.clickable = (typeof this.clickable === 'string' && (this.clickable === '' || this.clickable === 'true')) ? true : this.clickable;
 				if (this.body)
-					this.body.clickable = this.clickable;
+					this.body.clickable = this.clickable as boolean;
 			}
 
 			if ('height' in changes) {
@@ -271,7 +271,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 					console.warn(`The min-width of table is invalid.`);
 					this.minWidth = '';
 				}
-				
+
 				if (!this.minWidthIsValid())
 					this.stopListenerWidth();
 				else
@@ -293,7 +293,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 					this.currentPage = 1;
 				}
 
-				if (this.currentPage > this.paginate && this.currentPage < 1)
+				if (this.currentPage > (this.paginate ?? 0) && this.currentPage < 1)
 					this.currentPage = 1;
 
 				this.onPageChange(this.currentPage, !this.serverSide);
@@ -305,13 +305,13 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 						this.paginate = parseInt(this.paginate);
 					else {
 						console.warn(`The [paginate] value of table is invalid. The paginate has not been applied.`);
-						this.paginate = null;
+						this.paginate = undefined;
 					}
 				}
 
-				if (this.isPaging && this.infinity){
+				if (this.isPaging && this.infinity) {
 					console.warn(`The [paginate] has not been applied because [infinity] already has been defined.`);
-					this.paginate = null;
+					this.paginate = undefined;
 				}
 
 				if (this.paginate) {
@@ -332,13 +332,13 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 						this.infinity = parseInt(this.infinity);
 					else {
 						console.warn(`The [infinity] value of table is invalid. The infinity scroll has not been applied.`);
-						this.infinity = null;
+						this.infinity = undefined;
 					}
 				}
 
-				if (this.infinity && this.paginate){
+				if (this.infinity && this.paginate) {
 					console.warn(`The [infinity] has not been applied because [paginate] already has been defined.`);
-					this.infinity = null;
+					this.infinity = undefined;
 				}
 
 				this.onPageChange(this.currentPage, !this.serverSide);
@@ -359,7 +359,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 			if ('loading' in changes) {
 				setTimeout(() => {
 					if (this.body)
-						this.body.scrollEnabled = this.loading;
+						this.body!.scrollEnabled = this.loading ?? false;
 				});
 
 				if (this._height.replace('px', '') === '0' && this.loading)
@@ -378,8 +378,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 			if ('allItems' in changes) {
 
 				if (!this.infinity && this.currentPage !== 1) {
-					let maxPages = Math.floor(this.dataLength / this.paginate);
-					if ((this.dataLength % this.paginate) !== 0)
+					let maxPages = Math.floor(this.dataLength / (this.paginate ?? 0));
+					if ((this.dataLength % (this.paginate ?? 0)) !== 0)
 						maxPages++;
 
 					if (this.currentPage > maxPages || !this.currentPage) {
@@ -410,8 +410,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 			if (currentWidth !== this.lastBodyWidth) {
 				this.lastBodyWidth = currentWidth;
-				this.header.onBodyWidthChange(currentWidth);
-				this.body.onBodyWidthChange(currentWidth);
+				this.header?.onBodyWidthChange(currentWidth);
+				this.body?.onBodyWidthChange(currentWidth);
 			}
 		}
 	}
@@ -493,7 +493,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	public checkMinWidthcanApply() {
 		if (this.minWidthIsValid()) {
 			if (this.el)
-				this.body.el.style.minWidth = this.minWidth;
+				this.body!.el!.style.minWidth = this.minWidth;
 
 			if (this.paginateComp && this.paginateComp.el)
 				this.paginateComp.el.style.minWidth = this.minWidth;
@@ -524,7 +524,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 				this.setCurrentPage(currentPage, false);
 				this.prepareItemsPagingAndFilter();
 				this.updatePaginateConfig();
-				this.body.backToTheTop();
+				this.body?.backToTheTop();
 			}
 		}
 	}
@@ -534,11 +534,11 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 		if (this.serverSide) {
 			this.setCurrentPage(1);
-			this.emitGetData(this.infinity > 0);
+			this.emitGetData((this.infinity ?? 0) > 0);
 		}
 		else {
 			this.prepareItemsPagingAndFilter();
-			this.body.backToTheTop();
+			this.body?.backToTheTop();
 		}
 	}
 
@@ -555,12 +555,12 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 
 		if (this.serverSide) {
 			this.setCurrentPage(1);
-			this.emitGetData(this.infinity > 0);
+			this.emitGetData((this.infinity ?? 0) > 0);
 		}
 		else {
 			this.prepareItemsPagingAndFilter();
 			this.updatePaginateConfig();
-			this.body.backToTheTop();
+			this.body?.backToTheTop();
 		}
 	}
 
@@ -579,16 +579,16 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	public emitGetData(resetData: boolean = false) {
 		if (resetData) {
 			this.currentPage = 1;
-			this.dataVirtualScrollService.reset(this.body);
+			this.dataVirtualScrollService.reset(this.body!);
 		}
 
-		let colSort = this.header.colSorting;
+		let colSort = this.header?.colSorting;
 
 		this.onGetData.emit(new AgTableEvent({
 			page: this.currentPage,
 			pageSize: this.paginate ? this.paginate : this.infinity,
-			filters: this.header.getFormDataModel(),
-			order: colSort ? { field: colSort.col.field, asc: colSort.asc } : null,
+			filters: this.header?.getFormDataModel(),
+			order: colSort ? { field: colSort.col.field, asc: colSort.asc } : undefined,
 			resetData: resetData
 		}));
 	}
@@ -617,8 +617,8 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 		let page = this.paginate ? this.paginate : this.infinity;
 
 		this.paginateCaptionConfig = {
-			start: (page * (this.currentPage - 1)) + 1,
-			end: (page * (this.currentPage - 1)) + visibleLength,
+			start: ((page ?? 1) * (this.currentPage - 1)) + 1,
+			end: ((page ?? 1) * (this.currentPage - 1)) + visibleLength,
 			total: this.dataLength ? this.dataLength : 0
 		};
 	}
@@ -628,7 +628,7 @@ export class AgTableComponent implements OnInit, OnChanges, OnDestroy, AfterView
 	}
 
 	public resetFilters(getData: boolean = false) {
-		for (let ctrlName in this.header.filterCtrls) {
+		for (let ctrlName in this.header?.filterCtrls) {
 			this.header.filterCtrls[ctrlName].reset();
 		}
 		if (getData)

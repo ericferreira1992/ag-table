@@ -6,7 +6,7 @@ export class AgTableVirtualScrollModel {
     public totalHeightContent: number = 0;
     public paddingScroll: number = 0;
     public previousItemsHeight: number[] = [];
-    public containerSrollEl: ElementRef<HTMLElement>;
+    public containerSrollEl!: ElementRef<HTMLElement>;
 
     public get currentSrollTop(): number { return (this.containerSrollEl && this.containerSrollEl.nativeElement) ? this.containerSrollEl.nativeElement.scrollTop : 0; }
 	public get scrollHeight(): number { return (this.containerSrollEl && this.containerSrollEl.nativeElement) ? this.containerSrollEl.nativeElement.scrollHeight : 0; }

@@ -4,12 +4,12 @@
         <div class="col-12">
             <h4>Client side</h4>
             <p class="about">
-                This is used when all the data is on the client side or when it already all been returned from the server. 
+                This is used when all the data is on the client side or when it already all been returned from the server.
                 This way you can to paginate, sort and filter all data direct in client side.
             </p>
 
             <h5>Example</h5>
-            <ag-table #table paginate="1000" [items]="dataItems" height="500px" min-width="800px">
+            <ag-table #table [paginate]="1000" [items]="dataItems" height="500px" min-width="800px">
                 <ag-table-header>
                     <ag-table-col filter field="id" placeholder="Identifier" width="100px">
                         ID
@@ -44,7 +44,7 @@
             <mat-tab-group [style.minHeight.px]="450">
                 <mat-tab label="HTML">
                     <pre>
-                            <code [highlight]="strHtml" language="xml"></code>
+                            <code [highlightAuto]="strHtml" lineNumbers></code>
                     </pre>
                 </mat-tab>
             </mat-tab-group>

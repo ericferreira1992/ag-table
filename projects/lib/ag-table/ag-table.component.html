@@ -9,8 +9,8 @@
     [length]="(isPaging && numPages) ? numPages : 1"
     [current]="(isPaging && numPages) ? currentPage : 1"
     [objCaption]="(isPaging && numPages) ? paginateCaptionConfig : { start: 1, end: dataLength, total: 0 }"
-    [loading]="loading"
-    [disabled]="loading"
+    [loading]="loading ?? false"
+    [disabled]="loading ?? false"
     (change)="onPageChange($event)">
 </ag-table-paginate>
 

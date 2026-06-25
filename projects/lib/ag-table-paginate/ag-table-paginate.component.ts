@@ -2,83 +2,83 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { TRANSLATION } from './ag-table-paginate.component.trans';
 
 @Component({
-    selector: 'ag-table-paginate',
-    templateUrl: './ag-table-paginate.component.html',
-    standalone: false
+  selector: 'ag-table-paginate',
+  templateUrl: './ag-table-paginate.component.html',
+  standalone: false
 })
 export class AgTablePaginateComponent implements OnInit, OnChanges {
-    @HostBinding('class.ag-table-paginate') public class: boolean = true;
+  @HostBinding('class.ag-table-paginate') public class: boolean = true;
 
-    @Input() public length: number = 0;
-    @Input() public current: number = 1;
-    @Input() public disabled: boolean = false;
-    @Input() public loading: boolean = false;
-    @Input() public objCaption: { start: number, end: number, total: number };
-    @Output() public change = new EventEmitter<number>();
+  @Input() public length: number = 0;
+  @Input() public current: number = 1;
+  @Input() public disabled: boolean = false;
+  @Input() public loading: boolean = false;
+  @Input() public objCaption?: { start: number, end: number, total: number };
+  @Output() public change = new EventEmitter<number>();
 
-    public dictionary = TRANSLATION;
-    
-	public parent: any;
+  public dictionary = TRANSLATION;
 
-    caption: string;
-    public pages: any[] = [];
+  public parent: any;
 
-	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
+  caption: string = '';
+  public pages: any[] = [];
 
-    constructor(
-        private elRef: ElementRef<HTMLElement>
-    ) {
+  public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
+
+  constructor(
+    private elRef: ElementRef<HTMLElement>
+  ) {
+  }
+
+  ngOnInit() {
+  }
+
+  public onRender(parent: any) {
+    this.parent = parent;
+    this.parent.checkMinWidthcanApply();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if ('length' in changes || 'current' in changes)
+      this.generate();
+  }
+
+  pageClick(page: number | string) {
+    if (!this.disabled && (typeof page) !== 'string' && (page as number) >= 1 && (page as number) <= this.length && page !== this.current) {
+      this.current = page as number;
+      this.change.emit(this.current);
+      this.generate();
     }
+  }
 
-    ngOnInit() {
-    }
+  generate() {
+    let current = this.current,
+      last = this.length,
+      delta = 2,
+      left = current - delta,
+      right = current + delta + 1,
+      range = [],
+      rangeWithDots = [],
+      l;
 
-	public onRender(parent: any) {
-        this.parent = parent;
-		this.parent.checkMinWidthcanApply();
-    }
+    if (this.current > 0 && this.length > 0) {
+      for (let i = 1; i <= last; i++) {
+        if (i === 1 || i === last || i >= left && i < right)
+          range.push(i);
+      }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if ('length' in changes || 'current' in changes)
-            this.generate();
-    }
-
-    pageClick(page: number | string) {
-        if (!this.disabled && (typeof page) !== 'string' && (page as number) >= 1 && (page as number) <= this.length && page !== this.current) {
-            this.current = page as number;
-            this.change.emit(this.current);
-            this.generate();
+      for (let i of range) {
+        if (l) {
+          if (i - l === 2)
+            rangeWithDots.push(l + 1);
+          else if (i - l !== 1)
+            rangeWithDots.push('...');
         }
+        rangeWithDots.push(i);
+        l = i;
+      }
     }
 
-    generate() {
-        let current = this.current,
-            last = this.length,
-            delta = 2,
-            left = current - delta,
-            right = current + delta + 1,
-            range = [],
-            rangeWithDots = [],
-            l;
-
-        if (this.current > 0 && this.length > 0) {
-            for (let i = 1; i <= last; i++) {
-                if (i === 1 || i === last || i >= left && i < right)
-                    range.push(i);
-            }
-
-            for (let i of range) {
-                if (l) {
-                    if (i - l === 2)
-                        rangeWithDots.push(l + 1);
-                    else if (i - l !== 1)
-                        rangeWithDots.push('...');
-                }
-                rangeWithDots.push(i);
-                l = i;
-            }
-        }
-
-        this.pages = rangeWithDots;
-    }
+    this.pages = rangeWithDots;
+  }
 }

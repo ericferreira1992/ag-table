@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Helper } from 'src/app/core/services/helper';
+import { Helper } from 'projects/demo/src/app/core/services/helper';
 
 @Component({
     selector: 'app-others-unequal-row-height',
@@ -17,7 +17,7 @@ export class OthersUnequealRowHeightComponent implements OnInit {
         'Type 3',
     ];
 
-    public strHtml: string;
+    public strHtml!: string;
     constructor(
         private helper: Helper
     ) {
@@ -66,7 +66,7 @@ export class OthersUnequealRowHeightComponent implements OnInit {
             else
                 type = 1;
 
-            date = this.helper.setDaysToDate(date, -1);
+            date = this.helper.setDaysToDate(date, -1) as Date;
             return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Type ${type}`, height: Math.floor(Math.random() * 100) };
         });
     }

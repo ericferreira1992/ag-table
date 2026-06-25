@@ -15,7 +15,7 @@ export class ConfigurationComponent implements OnInit {
 }`;
 
     public customCode = '' +
-`import { AgTableModule, AgTableCustomSettings } from 'ag-table';
+`import { AgTableModule, AgTableCustomSettings } from 'projects/lib/public_api';
 
 @NgModule({
     declarations: [...],

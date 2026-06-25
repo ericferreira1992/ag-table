@@ -14,10 +14,10 @@ export class TranslatePipe implements PipeTransform {
     ) {
     }
 
-    transform(prop: string, dict: { [key: string]: any } = null, replaceObj?: { [key: string]: any }): any {
+    transform(prop: string, dict?: { [key: string]: any }, replaceObj?: { [key: string]: any }): any {
         let text = '';
 
-        this.langService.getText(prop, dict, false).subscribe(result => {
+        this.langService.getText(prop, (dict ?? {}), false).subscribe((result: any) => {
             if (result !== undefined && typeof(result) === 'string') {
                 if (replaceObj && (typeof replaceObj).includes('object')) {
                     for (let property in replaceObj)

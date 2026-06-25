@@ -1,41 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { AgTableEvent } from 'ag-table';
-import { Helper } from '../../../../core/services/helper';
-import { OrderByPipe } from '../../../../core/pipes/order-by.pipe';
+import { Component, OnInit } from "@angular/core";
+import { AgTableEvent } from "projects/lib/public_api";
+import { Helper } from "../../../../core/services/helper";
+import { OrderByPipe } from "../../../../core/pipes/order-by.pipe";
 
 @Component({
-    selector: 'app-server-side',
-    templateUrl: './server-side.component.html',
-    styleUrls: ['./server-side.component.scss'],
-    standalone: false
+  selector: "app-server-side",
+  templateUrl: "./server-side.component.html",
+  styleUrls: ["./server-side.component.scss"],
+  standalone: false,
 })
 export class ServerSideComponent implements OnInit {
+  private allDataItems: any[] = [];
+  public dataItems: any[] = [];
 
-    private allDataItems: any[] = [];
-    public dataItems: any[] = [];
+  public types = ["Type 1", "Type 2", "Type 3"];
+  public dataAreOver: boolean = false;
+  public dataLength: number = 0;
+  public loading: boolean = false;
 
-    public types = [
-        'Type 1',
-        'Type 2',
-        'Type 3',
-    ];
-    public dataAreOver: boolean = false;
-    public dataLength: number = 0;
-    public loading: boolean = false;
+  public strHtml!: string;
+  public strTs!: string;
 
-    public strHtml: string;
-    public strTs: string;
+  constructor(private helper: Helper) {
+    this.prepareExampleData();
+    this.getData();
+  }
 
-    constructor(
-        private helper: Helper
-    ) {
-        this.prepareExampleData();
-        this.getData();
-    }
-
-    ngOnInit() {
-        this.strHtml = '' +
-`<ag-table #table
+  ngOnInit() {
+    this.strHtml =
+      "" +
+      `<ag-table #table
     paginate="25"
     height="450px"
     min-width="800px"
@@ -72,8 +66,9 @@ export class ServerSideComponent implements OnInit {
 </ag-table>
 `;
 
-    this.strTs = '' +
-`@Component({
+    this.strTs =
+      "" +
+      `@Component({
     ...
 })
 export class DemoComponent {
@@ -166,70 +161,81 @@ export class DemoComponent {
 
 }
 `;
-    }
+  }
 
-    prepareExampleData() {
-        let type = 1;
-        let date = new Date();
+  prepareExampleData() {
+    let type = 1;
+    let date = new Date();
 
-        this.dataItems = [];
-        this.dataAreOver = false;
-        this.dataLength = 0;
-        this.allDataItems = Array.from({ length: 100 }).map((x, i) => {
-            let number = i + 1;
-            if (type < 3)
-                type++;
-            else
-                type = 1;
+    this.dataItems = [];
+    this.dataAreOver = false;
+    this.dataLength = 0;
+    this.allDataItems = Array.from({ length: 100 }).map((x, i) => {
+      let number = i + 1;
+      if (type < 3) type++;
+      else type = 1;
 
-            date = this.helper.setDaysToDate(date, -1);
-            return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Type ${type}`, height: Math.floor(Math.random() * 100) };
+      date = this.helper.setDaysToDate(date, -1) as Date;
+      return {
+        id: `${number}`,
+        name: `Teste ${number}`,
+        dateRef: this.helper.toAmericanDate(date),
+        type: `Type ${type}`,
+        height: Math.floor(Math.random() * 100),
+      };
+    });
+  }
+
+  getData(event?: AgTableEvent) {
+    if (!this.loading) {
+      this.loading = true;
+
+      if (!event)
+        event = new AgTableEvent({
+          pageSize: 25,
         });
+
+      setTimeout(() => {
+        let _dataItems = this.allDataItems.filter((item) => {
+          let ok = true;
+          for (let field in event?.filters) {
+            let filterValue = event?.filters[field];
+            if (filterValue) {
+              filterValue = (filterValue.toString() as string).toUpperCase();
+
+              if (field === "dateRef")
+                ok =
+                  this.helper.dateFormat(filterValue, "yyyy-MM-dd") ===
+                  item[field];
+              else
+                ok =
+                  item[field] &&
+                  (item[field].toString() as string)
+                    .toUpperCase()
+                    .includes(filterValue);
+            }
+
+            if (!ok) break;
+          }
+
+          return ok;
+        });
+        this.dataLength = _dataItems.length;
+
+        if (event?.order)
+          _dataItems = new OrderByPipe().transform(
+            _dataItems,
+            event.order.field,
+            event.order.asc,
+          );
+
+        let begin = ((event?.page ?? 1) - 1) * (event?.pageSize ?? 1);
+        let end = begin + (event?.pageSize ?? 1);
+
+        this.dataItems = _dataItems.slice(begin, end);
+
+        this.loading = false;
+      }, 1500);
     }
-
-    getData(event: AgTableEvent = null) {
-        if (!this.loading) {
-            this.loading = true;
-
-            if (!event)
-                event = new AgTableEvent({
-                    pageSize: 25,
-                });
-
-            setTimeout(() => {
-
-                let _dataItems = this.allDataItems.filter(item => {
-                    let ok = true;
-                    for (let field in event.filters) {
-                        let filterValue = event.filters[field];
-                        if (filterValue) {
-                            filterValue = (filterValue.toString() as string).toUpperCase();
-
-                            if (field === 'dateRef')
-                                ok = this.helper.dateFormat(filterValue, 'yyyy-MM-dd') === item[field];
-                            else
-                                ok = item[field] && (item[field].toString() as string).toUpperCase().includes(filterValue);
-                        }
-
-                        if (!ok)
-                            break;
-                    }
-
-                    return ok;
-                });
-                this.dataLength = _dataItems.length;
-
-                if (event.order)
-                    _dataItems = new OrderByPipe().transform(_dataItems, event.order.field, event.order.asc);
-
-                let begin = (event.page - 1) * event.pageSize;
-                let end = begin + event.pageSize;
-
-                this.dataItems = _dataItems.slice(begin, end);
-
-                this.loading = false;
-            }, 1500);
-        }
-    }
-
+  }
 }

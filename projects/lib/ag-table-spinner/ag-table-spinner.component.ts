@@ -2,19 +2,19 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { TRANSLATION } from './ag-table-spinner.component.trans';
 
 @Component({
-    selector: 'ag-table-spinner',
-    templateUrl: './ag-table-spinner.component.html',
-    standalone: false
+  selector: 'ag-table-spinner',
+  templateUrl: './ag-table-spinner.component.html',
+  standalone: false
 })
 export class AgTableSpinnerComponent implements OnInit {
-    @HostBinding('class.ag-table-spinner') public class: boolean = true;
+  @HostBinding('class.ag-table-spinner') public class: boolean = true;
 
-    public dictionary = TRANSLATION;
+  public dictionary = TRANSLATION;
 
-    constructor(
-    ) {
-    }
+  constructor(
+  ) {
+  }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+  }
 }

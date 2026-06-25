@@ -3,13 +3,13 @@ import { AgTableCustomSettings } from './ag-table-custom.settings';
 import { AgTableSettingsAbstract } from './ag-table-settings.abstract';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AgTableSettings extends AgTableSettingsAbstract {
 
-    constructor(customSettings: AgTableCustomSettings) {
-        super();
-        if (customSettings)
-            Object.assign(this, customSettings);
-    }
+  constructor(customSettings: AgTableCustomSettings) {
+    super();
+    if (customSettings)
+      Object.assign(this, customSettings);
+  }
 }

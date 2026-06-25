@@ -6,76 +6,77 @@ import { AgTableFilterMode } from '../enums/ag-table-filter-mode.enum';
 import { AgTableFilterType } from '../enums/ag-table-filter-type.enum';
 import { Helper, isNullOrUndefined, isObject } from './../services/helper';
 import { AgTableLangService } from '../services/ag-table-lang.service';
+import { AgTableRowComponent } from '../public_api';
 
 //@dynamic
 @Component({
-    selector: 'ag-table-col',
-    templateUrl: './ag-table-col.component.html',
-    standalone: false
+	selector: 'ag-table-col',
+	templateUrl: './ag-table-col.component.html',
+	standalone: false
 })
 export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 	@HostBinding('class.ag-table-col') public _class: boolean = true;
 
-	@Input() public width: string = null;
+	@Input() public width?: string;
 
-	@Input('custom-filter') public customFilter: { field: string, mode?: AgTableFilterMode, value?: any } |
-												 { field: string, mode?: AgTableFilterMode, value?: any }[] |
-												 string |
-												 string[];
-	@Input() public filter: AgTableFilterType = AgTableFilterType.NONE;
+	@Input('custom-filter') public customFilter?: { field: string, mode?: AgTableFilterMode, value?: any } |
+		{ field: string, mode?: AgTableFilterMode, value?: any }[] |
+		string |
+		string[];
+	@Input() public filter: AgTableFilterType | string = AgTableFilterType.NONE;
 	@Input() public field: string = '';
-    @Input() public mode: AgTableFilterMode = null;
-    @Input() public placeholder = '';
-    @Input('date-format') public dateFormat: string = '';
+	@Input() public mode?: AgTableFilterMode;
+	@Input() public placeholder = '';
+	@Input('date-format') public dateFormat: string = '';
 	@Input('option-all-label') public optionAllLabel: string = '';
 	@Input() public options: { text: string, value: any }[] | any[] = [];
 
 	/* DISABLED
-    @Input('ready-only') public readOnly: boolean = false;
+		@Input('ready-only') public readOnly: boolean = false;
 	@Input('min-date') public minDate: Date;
-    @Input('max-date') public maxDate: Date;
-    @Input('date-separator') public dateSeparator: string = '/'; */
+		@Input('max-date') public maxDate: Date;
+		@Input('date-separator') public dateSeparator: string = '/'; */
 
 	@Input('no-sort') public noSort: boolean = false;
 	@Input('no-truncate') public noTruncate: boolean = false;
-	@Input('sort') public sort: string = null;
+	@Input('sort') public sort?: string;
 	@Input('disable-filter') public disableFilter: boolean = false;
 	@Input('filter-value') public filterValue: any = null;
 
 	public set _width(value: string) {
-		if (this.el){
+		if (this.el) {
 			this.el.style.width = value;
 
 			if (value && value.endsWith('%'))
-				this.el.style.maxWidth = ((this.helper.onlyNumberAndToFloat(value) * this.parent.el.clientWidth) / 100) + 'px';
+				this.el.style.maxWidth = ((this.helper.onlyNumberAndToFloat(value) * this.parent!.el!.clientWidth) / 100) + 'px';
 			else
 				this.el.style.maxWidth = value;
 		}
 	}
 	public get _width() { return (this.elRef && this.el) ? this.el.style.width : 'auto'; }
-	
+
 	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
 
 	public dictionary = TRANSLATION;
 
 	public colIndex: number = 0;
-	public parent: AgTableHeaderComponent;
+	public parent?: AgTableHeaderComponent;
 	public canFiltering: boolean = false;
 	public fields: string[] = [];
 
 	public get canFilter() {
 		return (this.filter && this.filter !== AgTableFilterType.NONE && this.filter.toString() !== '') ||
-				(this.customFilter && (this.customFilter as any[]).length > 0);
+			(this.customFilter && (this.customFilter as any[]).length > 0);
 	}
 
 	public filterActive: boolean = false;
 
-	public get isSorting() { return this.parent && this.parent.colSorting && this.parent.colSorting.col === this; }
-	public get isSortAsc() { return this.isSorting && this.parent.colSorting.asc; }
+	public get isSorting() { return this.parent && (this.parent?.colSorting ?? false) && this.parent.colSorting?.col === this || false; }
+	public get isSortAsc() { return this.isSorting && (this.parent?.colSorting?.asc ?? false); }
 
 	constructor(
 		private helper: Helper,
-			private langService: AgTableLangService,
+		private langService: AgTableLangService,
 		private fb: FormBuilder,
 		private elRef: ElementRef<HTMLElement>
 	) {
@@ -84,30 +85,30 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 	ngOnInit() {
 	}
 
-    ngAfterViewInit() {
-        if (!this.optionAllLabel)
-            this.optionAllLabel = this.langService.getText('ALL_OPTION', this.dictionary);
+	ngAfterViewInit() {
+		if (!this.optionAllLabel)
+			this.optionAllLabel = this.langService.getText('ALL_OPTION', this.dictionary);
 
-        if (!this.dateFormat)
+		if (!this.dateFormat)
 			this.dateFormat = this.langService.getText('DATE_FORMAT', this.dictionary);
-			
+
 		if (!this.noSort && !this.field && (!this.customFilter || !(this.customFilter as any[]).length)) {
 			this.filter = AgTableFilterType.NONE;
 			console.warn(`The ordering will not applied because the [field] of column has not been defined.`);
 		}
-    }
+	}
 
-	ngOnChanges(changes: SimpleChanges) {
+	ngOnChanges(changes?: SimpleChanges) {
 		if (!changes || 'width' in changes) {
 			if (!this.widthIsValid())
 				this.width = 'auto';
 
-			if (this.widthIsValid() && this.helper.onlyNumbers(this.width) === this.width)
+			if (this.widthIsValid() && this.helper.onlyNumbers(this.width ?? '') === this.width)
 				this.width += 'px';
 			if (this.parent && this.parent.cols) {
 				let unit = this.getWidthUnit();
-				if (unit !== '' && this.parent.cols.some((x) => x.getWidthUnit() !== '' && x.getWidthUnit() !== unit)) {
-					let anotherUnit = this.parent.cols.find((x) => x.getWidthUnit() !== '' && x.getWidthUnit() !== unit).getWidthUnit();
+				if (unit !== '' && this.parent?.cols.some((x) => x.getWidthUnit() !== '' && x.getWidthUnit() !== unit)) {
+					let anotherUnit = this.parent?.cols.find((x) => x.getWidthUnit() !== '' && x.getWidthUnit() !== unit)?.getWidthUnit();
 					console.warn(`A another column has width defined with like "${anotherUnit}". So this [width] was redefined as "auto".`);
 					this.width = 'auto';
 					this.setWidth();
@@ -116,7 +117,7 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 			}
 
 			if (this.getWidthUnit() === '%') {
-				if (parseFloat(this.width.replace(this.getWidthUnit(), '')) >= 100){
+				if (parseFloat(this.width?.replace(this.getWidthUnit() ?? '', '') ?? '') >= 100) {
 					console.warn(`The columns cannot have width equal or greater than 100%.`);
 					this.width = 'auto';
 					this.setWidth();
@@ -133,23 +134,23 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 				this.noTruncate = (typeof this.noTruncate === 'string' && (this.noTruncate === '' || this.noTruncate === 'true')) ? true : this.noTruncate;
 
 			if ('sort' in changes) {
-				this.sort = !this.sort ? null : this.sort;
+				this.sort = !this.sort ? undefined : this.sort;
 
 				if (this.sort !== 'asc' && this.sort !== 'desc')
-					this.sort = null;
+					this.sort = undefined;
 
 				if (this.parent) {
 					this.parent.colSorting = {
 						col: this,
 						asc: this.sort === 'asc'
 					};
-					this.sort = null;
+					this.sort = undefined;
 					this.parent.parent.onSortChange();
 				}
 			}
 
 			if ('filter' in changes) {
-				if (!this.filter && this.filter.toString() !== '')
+				if (!this.filter && ((this.filter as string)?.toString() ?? '') !== '')
 					this.filter = AgTableFilterType.NONE;
 				else if (this.filter.toString() === '')
 					this.filter = AgTableFilterType.TEXT;
@@ -180,9 +181,9 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 					else if (this.customFilter)
 						(this.customFilter as { field: string, mode?: AgTableFilterMode, value?: any }[]).forEach((custom) => {
 							if (this.disableFilter)
-								this.parent.filterCtrls[custom.field].disable();
+								this.parent?.filterCtrls[custom.field].disable();
 							else
-								this.parent.filterCtrls[custom.field].enable();
+								this.parent?.filterCtrls[custom.field].enable();
 						});
 				}
 
@@ -200,7 +201,7 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 			if ('customFilter' in changes) {
 				if (this.canFilter && this.field) {
 					console.warn(`The [custom-filter] will not applied because the [filter] has already been defined.`);
-					this.customFilter = null;
+					this.customFilter = undefined;
 					return;
 				}
 				else {
@@ -210,11 +211,11 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 						else if (Array.isArray(this.customFilter) && ((this.customFilter as any[]).length > 0 && typeof this.customFilter[0] === 'string'))
 							this.customFilter = (this.customFilter as string[]).map(field => ({ field }));
 						else if (!isObject(this.customFilter))
-							this.customFilter = [{ field: this.customFilter}] as any[];
+							this.customFilter = [{ field: this.customFilter }] as any[];
 
-						if (!Array.isArray(this.customFilter) || !(this.customFilter as any[]).every(x => (isObject(x) && x.field) ? true : false)){
+						if (!Array.isArray(this.customFilter) || !(this.customFilter as any[]).every(x => (isObject(x) && x.field) ? true : false)) {
 							console.warn(`The [custom-filter] will not applied because field has not been informed or is invalid. The value should look like this: { field: string, mode?: string }`);
-							this.customFilter = null;
+							this.customFilter = undefined;
 						}
 						else {
 							if (!this.noSort)
@@ -233,7 +234,7 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 					}
 					else {
 						console.warn(`The [custom-filter] will not applied because value is invalid. The value should look like this: { field: string, mode?: string }`);
-						this.customFilter = null;
+						this.customFilter = undefined;
 					}
 				}
 			}
@@ -251,7 +252,7 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 					this.filterActive = (this.parent.filterCtrls[this.field] && this.parent.filterCtrls[this.field].value !== null && this.parent.filterCtrls[this.field].value !== '');
 				else if (this.customFilter)
 					this.filterActive = (this.customFilter as { field: string, mode?: AgTableFilterMode, value?: any }[]).some((custom) => {
-						return this.parent.filterCtrls[custom.field] && this.parent.filterCtrls[custom.field].value !== null && this.parent.filterCtrls[custom.field].value !== '';
+						return this.parent?.filterCtrls[custom.field] && this.parent.filterCtrls[custom.field].value !== null && this.parent.filterCtrls[custom.field].value !== '';
 					});
 			}
 			else
@@ -270,14 +271,14 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 		if (this.parent && this.parent.parent && !this.parent.parent.loading) {
 			let asc;
 			if (this.isSorting) {
-				if (this.parent.colSorting.asc) {
+				if (this.parent?.colSorting?.asc) {
 					asc = false;
 					this.parent.colSorting = {
 						col: this,
 						asc: asc
 					};
 				} else {
-					this.parent.colSorting = null;
+					this.parent!.colSorting = undefined;
 				}
 			} else {
 				asc = true;
@@ -296,16 +297,16 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 
 	private getWidthUnit() {
-		return this.widthIsValid() ? this.width.replace(this.helper.onlyNumbers(this.width), '') : '';
+		return this.widthIsValid() ? this.width?.replace(this.helper.onlyNumbers(this.width), '') : '';
 	}
 
-	public onRender(parent: AgTableHeaderComponent, index) {
+	public onRender(parent: AgTableHeaderComponent, index: number) {
 		this.parent = parent;
 		this.colIndex = index;
-		this.canFiltering = this.canFilter && !isNullOrUndefined(this.parent.filterCtrls);
+		this.canFiltering = !!this.canFilter && !isNullOrUndefined(this.parent.filterCtrls);
 		this.fields = this.generateFieldsFilter();
 		this.setWidth();
-		this.ngOnChanges(null);
+		this.ngOnChanges();
 	}
 
 	private generateFieldsFilter() {
@@ -322,24 +323,24 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 		if (this.parent && this.parent.parent.body.itemsContainerEl && this.parent.parent.body.itemsContainerEl.nativeElement) {
 			if (!this.widthIsValid()) {
 				let unit = '';
-				if (this.parent.cols.some((x, i) => x.getWidthUnit() !== ''))
-				unit = this.parent.cols.find((x, i) => x.getWidthUnit() !== '').getWidthUnit();
+				if (this.parent.cols.some((x) => x.getWidthUnit() !== ''))
+					unit = this.parent?.cols.find((x) => (x.getWidthUnit() ?? '') !== '')?.getWidthUnit() ?? '';
 
 				if (unit === 'px') {
 					let colsWithWidth = this.parent.cols.filter((x, i) => i !== this.colIndex && x.widthIsValid());
-					let widthDiff = colsWithWidth.reduce((prev, curr) => prev + parseFloat(this.helper.onlyNumbers(curr.width)), 0);
-					let containerWidth = this.parent.el.clientWidth;
+					let widthDiff = colsWithWidth.reduce((prev, curr) => prev + parseFloat(this.helper.onlyNumbers(curr.width ?? '')), 0);
+					let containerWidth = this.parent?.el?.clientWidth ?? 0;
 					this._width = (containerWidth - widthDiff) / Math.abs(this.parent.cols.length - colsWithWidth.length) + 'px';
 				}
 				else {
 					if (!unit) unit = '%';
 					let colsWithWidth = this.parent.cols.filter((x, i) => i !== this.colIndex && x.widthIsValid());
-					let widthDiff = colsWithWidth.reduce((prev, curr) => prev + parseFloat(this.helper.onlyNumbers(curr.width)), 0);
+					let widthDiff = colsWithWidth.reduce((prev, curr) => prev + parseFloat(this.helper.onlyNumbers(curr.width ?? '')), 0);
 					this._width = (100 - widthDiff) / Math.abs(this.parent.cols.length - colsWithWidth.length) + unit;
 				}
 			}
 			else
-			this._width = this.width;
+				this._width = this.width ?? '';
 		}
 		else
 			this._width = 'auto';
@@ -349,7 +350,7 @@ export class AgTableColComponent implements OnInit, OnChanges, AfterViewInit {
 
 	private setCellsWidth() {
 		if (this.parent && this.parent.parent.body && this.parent.parent.body.rows.length) {
-			this.parent.parent.body.rows.forEach(row => {
+			((this.parent?.parent?.body?.rows ?? []) as AgTableRowComponent[]).forEach(row => {
 				let cell = row.cells.find(cell => cell.cellIndex === this.colIndex);
 				if (cell)
 					cell.setWidth();

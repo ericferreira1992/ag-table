@@ -4,16 +4,16 @@ import { AgTableRowComponent } from '../ag-table-row/ag-table-row.component';
 import { Helper, isNullOrUndefined } from '../services/helper';
 
 @Component({
-    selector: 'ag-table-cell',
-    templateUrl: './ag-table-cell.component.html',
-    standalone: false
+	selector: 'ag-table-cell',
+	templateUrl: './ag-table-cell.component.html',
+	standalone: false
 })
 export class AgTableCellComponent implements OnInit, OnChanges, OnDestroy {
 	@HostBinding('class.ag-table-cell') public class: boolean = true;
 
 	@Input('no-truncate') public noTruncate: boolean = false;
 
-	public get truncate() { return this.el.classList.contains('text-truncate'); }
+	public get truncate() { return this.el!.classList.contains('text-truncate'); }
 	public set truncate(value: boolean) {
 		if (this.el) {
 			if (value)
@@ -23,8 +23,8 @@ export class AgTableCellComponent implements OnInit, OnChanges, OnDestroy {
 		}
 	}
 
-	public cellIndex: number = null;
-	public parent: AgTableRowComponent;
+	public cellIndex?: number;
+	public parent?: AgTableRowComponent;
 
 	private destroyed: boolean = false;
 
@@ -35,8 +35,8 @@ export class AgTableCellComponent implements OnInit, OnChanges, OnDestroy {
 			this.parent.parent.parent &&
 			this.parent.parent.parent.header &&
 			this.parent.parent.parent.header.cols) {
-			if (this.cellIndex < this.parent.parent.parent.header.cols.length)
-				return this.parent.parent.parent.header.cols[this.cellIndex];
+			if ((this.cellIndex ?? 0) < this.parent.parent.parent.header.cols.length)
+				return this.parent.parent.parent.header.cols[(this.cellIndex ?? 0)];
 			else {
 				console.error('There are more cells than columns. Please fix this.');
 				return null;
@@ -69,7 +69,7 @@ export class AgTableCellComponent implements OnInit, OnChanges, OnDestroy {
 		}
 	}
 
-	public onRender(parent: AgTableRowComponent, index) {
+	public onRender(parent: AgTableRowComponent, index: number) {
 		this.cellIndex = index;
 		this.parent = parent;
 
@@ -84,8 +84,8 @@ export class AgTableCellComponent implements OnInit, OnChanges, OnDestroy {
 			let newMaxWidth = newWidth;
 
 			if (newWidth && newWidth.endsWith('%'))
-				newMaxWidth = ((this.helper.onlyNumberAndToFloat(newWidth) * this.parent.parent.el.clientWidth) / 100) + 'px';
 
+				newMaxWidth = ((this.helper.onlyNumberAndToFloat(newWidth) * this.parent!.parent!.el!.clientWidth) / 100) + 'px';
 			if (newWidth !== this.el.style.width || newMaxWidth !== this.el.style.maxWidth) {
 				this.el.style.width = newWidth;
 				this.el.style.maxWidth = newMaxWidth;

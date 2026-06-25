@@ -1,229 +1,292 @@
-import { Injectable } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { isNullOrUndefined } from '../../../../../lib/services/helper';
+import { Injectable } from "@angular/core";
+import { DatePipe } from "@angular/common";
 
 @Injectable()
 export class Helper {
-	private datePipe: DatePipe;
+  private datePipe: DatePipe;
 
-	constructor(
-	) {
-		this.datePipe = new DatePipe('en-US');
-	}
-	padLeft(text: string, qtty: number = 2, char: string | number = 0) {
-		if (!isNullOrUndefined(text))
-			while (text.length < qtty)
-				text = char + text;
+  constructor() {
+    this.datePipe = new DatePipe("en-US");
+  }
+  padLeft(text: string, qtty: number = 2, char: string | number = 0) {
+    if (!isNullOrUndefined(text)) while (text.length < qtty) text = char + text;
 
-		return text;
-	}
+    return text;
+  }
 
-	padRight(text: string, qtty: number = 2, char: string | number = 0) {
-		if (!isNullOrUndefined(text))
-			while (text.length < qtty)
-				text += char;
+  padRight(text: string, qtty: number = 2, char: string | number = 0) {
+    if (!isNullOrUndefined(text)) while (text.length < qtty) text += char;
 
-		return text;
-	}
+    return text;
+  }
 
-	randomNumber(min = 1, max = 9999) {
-		let number = Math.floor(Math.random() * max);
+  randomNumber(min = 1, max = 9999) {
+    let number = Math.floor(Math.random() * max);
 
-		return Math.max(number, min);
-	}
+    return Math.max(number, min);
+  }
 
-	onlyNumbers(text: string) {
-		if (!isNullOrUndefined(text))
-			return text.replace(/[^\d]/g, '');
-		return '';
-	}
+  onlyNumbers(text: string, exceptions?: string[]) {
+    if (!isNullOrUndefined(text)) {
+      let expression =
+        exceptions && exceptions.length
+          ? "[^\\d|" + exceptions.join("|") + "]"
+          : "[^\\d]";
+      return text.replace(new RegExp(expression, "g"), "");
+    }
+    return "";
+  }
 
-	onlyAlphaNumeric(text: string) {
-		if (!isNullOrUndefined(text))
-			return text.replace(/[^a-zA-Z0-9]+/g, '');
-		return '';
-	}
+  onlyAlphaNumeric(text: string) {
+    if (!isNullOrUndefined(text)) return text.replace(/[^a-zA-Z0-9]+/g, "");
+    return "";
+  }
 
-	removeAccents(text: string) {
-		return text ? text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
-	}
+  onlyNumberAndToFloat(text: string) {
+    if (text) {
+      let strNumber = text.replace(/[^\d.\d]/g, "");
+      let number = parseFloat(strNumber);
+      if (!isNaN(number)) return number;
+    }
+    return 0;
+  }
 
-	dateIsValid(date: string | Date): boolean {
-		return !isNullOrUndefined(this.strToDate(date));
-	}
+  removeAccents(text: string) {
+    return text ? text.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : "";
+  }
 
-	toAmericanDate(date: string | Date, separator: string = '-'): string {
-		if (date instanceof Date) date = this.dateToStr(date);
-		if (this.dateIsValid(date)) {
-			let dateStr = date as string;
-			if (dateStr && (dateStr.includes('-') || dateStr.includes('/'))) {
-				if (dateStr.includes('/')) dateStr = dateStr.replace(/\//g, '-');
+  dateIsValid(date: string | Date, dateFormat?: string): boolean {
+    return !isNullOrUndefined(this.strToDate(date, dateFormat));
+  }
 
-				const dateSplited = dateStr.split('-');
-				if (dateSplited.length >= 3) {
-					const year = parseInt((dateSplited[0].length === 4) ? dateSplited[0] : dateSplited[2]);
-					const month = parseInt(dateSplited[1]);
-					const day = parseInt((dateSplited[0].length === 4) ? dateSplited[2] : dateSplited[0]);
+  toAmericanDate(date: string | Date, separator: string = "-"): string {
+    if (date instanceof Date) date = this.dateToStr(date) as string;
+    if (this.dateIsValid(date)) {
+      let dateStr = date as string;
+      if (dateStr && (dateStr.includes("-") || dateStr.includes("/"))) {
+        if (dateStr.includes("/")) dateStr = dateStr.replace(/\//g, "-");
 
-					const arrayDate = [year, (month > 9 ? month : ('0' + month)), (day > 9 ? day : ('0' + day))];
-					return arrayDate.join(separator);
-				}
-			}
-		}
+        const dateSplited = dateStr.split("-");
+        if (dateSplited.length >= 3) {
+          const year = parseInt(
+            dateSplited[0].length === 4 ? dateSplited[0] : dateSplited[2],
+          );
+          const month = parseInt(dateSplited[1]);
+          const day = parseInt(
+            dateSplited[0].length === 4 ? dateSplited[2] : dateSplited[0],
+          );
 
-		return date as string;
-	}
+          const arrayDate = [
+            year,
+            month > 9 ? month : "0" + month,
+            day > 9 ? day : "0" + day,
+          ];
+          return arrayDate.join(separator);
+        }
+      }
+    }
 
-	strToDate(date: string | Date): Date {
-		if (typeof date === 'string' && date.length >= 8) {
-			let dateStr = (date as string);
-			if (dateStr && (dateStr.includes('-') || dateStr.includes('/'))) {
-				if (dateStr.includes('/')) dateStr = dateStr.replace(/\//g, '-');
-				dateStr = dateStr.substr(0, 10);
+    return date as string;
+  }
 
-				const dateSplited = dateStr.split('-');
-				if (dateSplited.length >= 3) {
-					const year = parseInt((dateSplited[0].length === 4) ? dateSplited[0] : dateSplited[2]);
-					const month = parseInt(dateSplited[1]);
-					const day = parseInt((dateSplited[0].length === 4) ? dateSplited[2] : dateSplited[0]);
+  strToDate(date: string | Date, dateFormat?: string): Date | null {
+    if (typeof date === "string" && (date.length >= 8 || dateFormat)) {
+      let dateStr = date as string;
+      if (dateStr && (dateStr.includes("-") || dateStr.includes("/"))) {
+        if (dateStr.includes("/")) dateStr = dateStr.replace(/\//g, "-");
+        dateStr = dateStr.substr(0, 10);
 
-					const arrayDate = [year, (month > 9 ? month : ('0' + month)), (day > 9 ? day : ('0' + day))];
-					dateStr = arrayDate.join('-');
+        if (dateFormat) dateFormat = dateFormat.replace(/\//g, "-");
 
-					if (dateStr)
-						return new Date(year, month - 1, day, 0, 0, 0);
-				}
-			}
-		}
-		else if (date instanceof Date)
-			return date as Date;
+        const dateSplited = dateStr.split("-");
+        const length = dateSplited.length;
+        if (length >= 1) {
+          let year = 1111;
+          let month = 11;
+          let day = 11;
 
-		return null;
-	}
+          if (length >= 3) {
+            year = parseInt(
+              dateSplited[0].length === 4 ? dateSplited[0] : dateSplited[2],
+            );
+            month = parseInt(dateSplited[1]);
+            day = parseInt(
+              dateSplited[0].length === 4 ? dateSplited[2] : dateSplited[0],
+            );
+          } else if (dateFormat) {
+            let i = 0;
+            for (let format of dateFormat.split("-")) {
+              try {
+                if (format.toLowerCase().startsWith("y"))
+                  year = parseInt(dateSplited[i]);
+                else if (format.toLowerCase().startsWith("m"))
+                  month = parseInt(dateSplited[i]);
+                else if (format.toLowerCase().startsWith("d"))
+                  day = parseInt(dateSplited[i]);
+              } catch {}
 
-	setDaysToDate(date: Date | string, days: number): Date {
-		if (typeof date === 'string') date = this.strToDate(date);
-		else if (date) date = this.copyDate(date);
+              i++;
+            }
+          }
 
-		if (date && typeof days === 'number')
-			return new Date(date.setDate(date.getDate() + days));
+          const arrayDate = [
+            year,
+            month > 9 ? month : "0" + month,
+            day > 9 ? day : "0" + day,
+          ];
+          dateStr = arrayDate.join("-");
 
-		return date;
-	}
+          if (dateStr) return new Date(year, month - 1, day, 0, 0, 0);
+        }
+      }
+    } else if (date instanceof Date) return date as Date;
 
-	dateToStr(date: Date | string, format: string = 'dd/MM/yyyy'): string {
-		if (!format) format = 'dd/MM/yyyy';
-		format = format.replace(/mm/g, 'MM');
+    return null;
+  }
 
-		if (date) {
-			if (typeof date === 'string')
-				date = this.strToDate(date);
+  setDaysToDate(date: Date | string, days: number): Date | string {
+    if (typeof date === "string") date = this.strToDate(date) as Date;
+    else {
+      if (date) date = this.copyDate(date);
+      if (date && typeof days === "number")
+        return new Date(date.setDate(date.getDate() + days));
+    }
 
-			return this.datePipe.transform(date, format);
-		}
+    return date;
+  }
 
-		return null;
-	}
+  dateToStr(date: Date | string, format: string = "dd/MM/yyyy"): null | string {
+    if (!format) format = "dd/MM/yyyy";
+    format = format.replace(/mm/g, "MM");
 
-	getDateToday(withHours: boolean = false) {
-		let today = new Date();
-		if (withHours)
-			return today;
-		else
-			return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
-	}
+    if (date) {
+      if (typeof date === "string") date = this.strToDate(date) as Date;
 
-	getYearOfDate(date: Date | string) {
-		date = this.strToDate(date);
+      return this.datePipe.transform(date, format);
+    }
 
-		if (date) return date.getFullYear();
-		return 0;
-	}
+    return null;
+  }
 
-	getMonthOfDate(date: Date | string) {
-		date = this.strToDate(date);
+  getDateToday(withHours: boolean = false) {
+    let today = new Date();
+    if (withHours) return today;
+    else
+      return new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+        0,
+        0,
+        0,
+      );
+  }
 
-		if (date) return date.getMonth() + 1;
-		return 0;
-	}
+  getYearOfDate(date: Date | string) {
+    date = this.strToDate(date) as Date;
 
-	getDayOfDate(date: Date | string) {
-		date = this.strToDate(date);
+    if (date) return date.getFullYear();
+    return 0;
+  }
 
-		if (date) return date.getDate();
-		return 0;
-	}
+  getMonthOfDate(date: Date | string) {
+    date = this.strToDate(date) as Date;
 
-	copyDate(date: Date): Date {
-		if (date)
-			return new Date(date.toString());
-		return date;
-	}
+    if (date) return date.getMonth() + 1;
+    return 0;
+  }
 
-	dateFormat(date: Date | string, format: string = 'dd/MM/yyyy'): string {
+  getDayOfDate(date: Date | string) {
+    date = this.strToDate(date) as Date;
 
-		date = this.strToDate(date);
+    if (date) return date.getDate();
+    return 0;
+  }
 
-		if (date) return this.datePipe.transform(date, format);
+  copyDate(date: Date): Date {
+    if (date) return new Date(date.toString());
+    return date;
+  }
 
-		return null;
-	}
+  dateFormat(
+    date: Date | string,
+    format: string = "dd/MM/yyyy",
+  ): null | string {
+    date = this.strToDate(date) as Date;
 
-	strToDoubleCurrency(strCurrency: string): number {
-		strCurrency = strCurrency.replace(/[,.]/g, (m) => m === ',' ? '.' : ',');
+    if (date) return this.datePipe.transform(date, format);
 
-		return Number(strCurrency);
-	}
+    return null;
+  }
 
-	copy(obj: any) {
-		if (obj) return JSON.parse(JSON.stringify(obj));
-		else return obj;
-	}
+  strToDoubleCurrency(strCurrency: string): number {
+    strCurrency = strCurrency.replace(/[,.]/g, (m) => (m === "," ? "." : ","));
 
-	copyToClipboard(inputElement) {
-		inputElement.focus();
-		inputElement.select();
-		let successful = document.execCommand('copy');
-	}
+    return Number(strCurrency);
+  }
 
-	getDiffOfDate(dateBegin: Date, dateEnd: Date, returnType: string = 'days'): number {
-		if (dateBegin && dateEnd) {
+  copy(obj: any) {
+    if (obj) return JSON.parse(JSON.stringify(obj));
+    else return obj;
+  }
 
-			let delta = Math.abs(dateEnd.getTime() - dateBegin.getTime()) / 1000;
+  copyToClipboard(inputElement: HTMLInputElement) {
+    inputElement.focus();
+    inputElement.select();
+    let successful = document.execCommand("copy");
+  }
 
-			let days = Math.floor(delta / 86400);
-			delta -= days * 86400;
+  getDiffOfDate(
+    dateBegin: Date,
+    dateEnd: Date,
+    returnType: string = "days",
+  ): number {
+    if (dateBegin && dateEnd) {
+      let delta = Math.abs(dateEnd.getTime() - dateBegin.getTime()) / 1000;
 
-			let hours = Math.floor(delta / 3600) % 24;
-			delta -= hours * 3600;
+      let days = Math.floor(delta / 86400);
+      delta -= days * 86400;
 
-			let minutes = Math.floor(delta / 60) % 60;
-			delta -= minutes * 60;
+      let hours = Math.floor(delta / 3600) % 24;
+      delta -= hours * 3600;
 
-			let seconds = Math.floor(delta % 60);
+      let minutes = Math.floor(delta / 60) % 60;
+      delta -= minutes * 60;
 
-			if (returnType === 'days')
-				return days;
-			else if (returnType === 'hours')
-				return hours;
-			else if (returnType === 'minutes')
-				return minutes;
-			else if (returnType === 'seconds')
-				return seconds;
-		}
+      let seconds = Math.floor(delta % 60);
 
-		return 0;
-	}
+      if (returnType === "days") return days;
+      else if (returnType === "hours") return hours;
+      else if (returnType === "minutes") return minutes;
+      else if (returnType === "seconds") return seconds;
+    }
 
-	public stringReplace(source, str, strToRep){
-		return source.replace(str, strToRep).toString();
-	}
+    return 0;
+  }
 
-	public  randomInterval(min: number, max: number) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-	}
-	
-	public isMobileDevice() {
-		return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-	};
+  public stringReplace(source: string, str: string, strToRep: string) {
+    return source.replace(str, strToRep).toString();
+  }
+
+  public randomInterval(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  public isMobileDevice() {
+    return (
+      typeof window.orientation !== "undefined" ||
+      navigator.userAgent.indexOf("IEMobile") !== -1
+    );
+  }
+}
+
+export function isObject(val: any) {
+  if (val === null) {
+    return false;
+  }
+  return typeof val === "function" || typeof val === "object";
+}
+
+export function isNullOrUndefined(val: any) {
+  return val === null || typeof val === "undefined";
 }

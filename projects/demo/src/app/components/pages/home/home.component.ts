@@ -1,40 +1,40 @@
 import { Component, OnInit, ViewChild, ElementRef, forwardRef, Inject } from '@angular/core';
 import { Helper } from '../../../core/services/helper';
 import { HtmlHelper } from '../../../core/services/html.helper';
-import { AppComponent } from 'src/app/app.component';
-import { DataFactory } from 'src/app/core/services/data.factory';
+import { AppComponent } from 'projects/demo/src/app/app.component';
+import { DataFactory } from 'projects/demo/src/app/core/services/data.factory';
 import { ModalExampleClickComponent } from './modal-example-click/modal-example-click.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    standalone: false
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  standalone: false
 })
 export class HomeComponent implements OnInit {
-    @ViewChild('mainContainer') private mainContainerElRef: ElementRef<HTMLElement>;
+  @ViewChild('mainContainer') private mainContainerElRef?: ElementRef<HTMLElement>;
 
-    private get mainContainerEl() { return this.mainContainerElRef && this.mainContainerElRef.nativeElement; }
+  private get mainContainerEl() { return this.mainContainerElRef && this.mainContainerElRef.nativeElement; }
 
-	public dataItems: any[] = [];
+  public dataItems: any[] = [];
 
-    public professionsList = [];
+  public professionsList: { [key: string]: any }[] = [];
 
-	public importModule: string;
-	public customLangModule: string;
-	public importScss1: string;
-	public importScss2: string;
-	public simpleExampleHtml: string;
+  public importModule: string;
+  public customLangModule: string;
+  public importScss1: string;
+  public importScss2: string;
+  public simpleExampleHtml: string;
 
-	constructor(
-        @Inject(forwardRef(() => AppComponent)) private parent: AppComponent,
-        private helper: Helper,
-        private dialog: MatDialog,
-        private dataFactory: DataFactory
-	) {
-		this.importModule = '' +
-`import { AgTableModule } from 'ag-table';
+  constructor(
+    @Inject(forwardRef(() => AppComponent)) private parent: AppComponent,
+    private helper: Helper,
+    private dialog: MatDialog,
+    private dataFactory: DataFactory
+  ) {
+    this.importModule = '' +
+      `import { AgTableModule } from 'projects/lib/public_api';
 
 @NgModule({
     declarations: [...],
@@ -47,8 +47,8 @@ export class HomeComponent implements OnInit {
 })
 export class AppModule { }`;
 
-this.customLangModule = '' +
-`import { AgTableModule, AgTableCustomSettings } from 'ag-table';
+    this.customLangModule = '' +
+      `import { AgTableModule, AgTableCustomSettings } from 'projects/lib/public_api';
 
 @NgModule({
     declarations: [...],
@@ -63,16 +63,16 @@ this.customLangModule = '' +
 })
 export class AppModule { }`;
 
-		this.importScss1 = '' +
-`@import '~ag-table/scss/style.scss';
+    this.importScss1 = '' +
+      `@import '~ag-table/scss/style.scss';
 @include ag-table-core();`;
 
-		this.importScss2 = '' +
-`@import '~ag-table/scss/style.scss';
+    this.importScss2 = '' +
+      `@import '~ag-table/scss/style.scss';
 @include ag-table-core($yourColor);`;
 
-		this.simpleExampleHtml = '' +
-`<ag-table #table paginate="100" [items]="dataItems" clickable height="500px" min-width="650px">
+    this.simpleExampleHtml = '' +
+      `<ag-table #table paginate="100" [items]="dataItems" clickable height="500px" min-width="650px">
     <ag-table-header>
         <ag-table-col filter field="name" placeholder="Set a name">
             Name
@@ -103,39 +103,39 @@ export class AppModule { }`;
         </ag-table-row>
     </ag-table-body>
 </ag-table>`;
-	}
+  }
 
-	ngOnInit() {
-        this.prepareExampleData();
-	}
+  ngOnInit() {
+    this.prepareExampleData();
+  }
 
-	private prepareExampleData() {
-        this.dataItems = Array.from({ length: 1000 }).map(() => {
-            let random = this.dataFactory.getRandomObject();
-            if (!this.professionsList.some(x => x === random.profession))
-                this.professionsList.push(random.profession);
-            return random;
-        });
+  private prepareExampleData() {
+    this.dataItems = Array.from({ length: 1000 }).map(() => {
+      const random = this.dataFactory.getRandomObject();
+      if (!this.professionsList.some(x => x === random.profession))
+        this.professionsList.push(random.profession);
+      return random;
+    });
+  }
+
+  public goToGetStarted(getStartedEl: HTMLElement) {
+    if (getStartedEl && this.mainContainerEl) {
+      const top = getStartedEl.offsetTop + 20;
+
+      if (this.parent.mobileScreen)
+        HtmlHelper.smoothScroll(this.parent.mainSectionEl, top);
+      else
+        HtmlHelper.smoothScroll(this.mainContainerEl, top);
+
+      if (!this.helper.isMobileDevice())
+        setTimeout(() => this.parent.hideTitleHeader = true, 200);
     }
+  }
 
-    public goToGetStarted(getStartedEl: HTMLElement) {
-        if (getStartedEl && this.mainContainerEl) {
-            const top = getStartedEl.offsetTop + 20;
-
-            if (this.parent.mobileScreen)
-                HtmlHelper.smoothScroll(this.parent.mainSectionEl, top);
-            else
-                HtmlHelper.smoothScroll(this.mainContainerEl, top);
-
-            if (!this.helper.isMobileDevice())
-                setTimeout(() => this.parent.hideTitleHeader = true, 200);
-        }
-    }
-
-    public onClick(item) {
-        this.dialog.open(ModalExampleClickComponent, {
-            data: { item }
-        });
-    }
+  public onClick(item: any) {
+    this.dialog.open(ModalExampleClickComponent, {
+      data: { item }
+    });
+  }
 
 }

@@ -1,7 +1,7 @@
-@import '../../../../../../demo/src/assets/scss/variables';
+@import '../../../../assets/scss/variables';
 
 :host {
-    
+
     &:not(.mobile) {
         float: left;
         width: 250px;
@@ -14,10 +14,10 @@
             list-style: none;
             margin: 0 auto;
             padding: 0;
-    
+
             > li {
                 font-size: 14px;
-    
+
                 > a,
                 > a:active,
                 > a:visited {
@@ -28,7 +28,7 @@
                     text-decoration: none;
                     transition-duration: .2s;
                 }
-    
+
                 > a {
                     &.active-link {
                         cursor: default;
@@ -42,14 +42,14 @@
                         color: $colorSecondary;
                     }
                 }
-    
+
                 > ul {
                     transition-duration: 500ms;
                     overflow: hidden;
-        
+
                     > li {
                         font-size: 13px;
-        
+
                         > a,
                         > a:active,
                         > a:visited {
@@ -60,7 +60,7 @@
                             text-decoration: none;
                             transition-duration: .2s;
                         }
-        
+
                         > a {
                             &.active-link {
                                 cursor: default;
@@ -88,7 +88,7 @@
             z-index: 0;
             left: 15px;
         }
-        
+
         > ul {
             position: absolute;
             z-index: 99;
@@ -100,10 +100,10 @@
             list-style: none;
             margin: 0;
             padding: 0;
-    
+
             > li {
                 font-size: 14px;
-    
+
                 > a,
                 > a:active,
                 > a:visited {
@@ -114,7 +114,7 @@
                     text-decoration: none;
                     transition-duration: .2s;
                 }
-    
+
                 > a {
                     &.active-link {
                         cursor: default;
@@ -128,17 +128,17 @@
                         color: $colorSecondary;
                     }
                 }
-    
+
                 > ul {
                     transition-duration: 500ms;
                     overflow: hidden;
                     list-style: none;
                     margin: 0;
                     padding: 0;
-        
+
                     > li {
                         font-size: 13px;
-        
+
                         > a,
                         > a:active,
                         > a:visited {
@@ -149,7 +149,7 @@
                             text-decoration: none;
                             transition-duration: .2s;
                         }
-        
+
                         > a {
                             &.active-link {
                                 cursor: default;

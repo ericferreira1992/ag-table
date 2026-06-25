@@ -1,10 +1,8 @@
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatDialogModule } from "@angular/material/dialog";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { AgTableModule } from "ag-table";
+import { AgTableModule } from "../../../lib/public_api";
 import { DemoComponent } from "./components/pages/demo/demo.component";
 import { AboutComponent } from "./components/pages/about/about.component";
 import { ApiComponent } from "./components/pages/api/api.component";
@@ -33,14 +31,11 @@ import { OthersUnequealRowHeightComponent } from "./components/pages/demo/others
 import { Page404Component } from "./components/pages/page-404/page-404.component";
 import { ConfigurationComponent } from "./components/pages/api/configuration/configuration.component";
 import { BrowserModule } from "@angular/platform-browser";
-import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
 @NgModule({
   imports: [
-    CommonModule,
     BrowserModule,
-    BrowserAnimationsModule,
     HighlightModule,
     AppRoutingModule,
     CoreModule,
@@ -50,10 +45,10 @@ import { NgModule } from "@angular/core";
   ],
   declarations: [
     AppComponent,
+    HomeComponent,
     DemoComponent,
     AboutComponent,
     ApiComponent,
-    HomeComponent,
     Page404Component,
     ClientSideComponent,
     ServerSideComponent,
@@ -89,4 +84,4 @@ import { NgModule } from "@angular/core";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

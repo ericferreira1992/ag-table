@@ -6,7 +6,7 @@
 
 <div *ngIf="canFiltering && parent?.filterCtrls">
     <ag-table-filter *ngFor="let field of fields"
-        [frmControl]="parent?.filterCtrls[field]"
+        [frmControl]="parent?.filterCtrls?.[field]"
         [type]="filter"
         [placeholder]="placeholder"
         [dateFormat]="dateFormat"

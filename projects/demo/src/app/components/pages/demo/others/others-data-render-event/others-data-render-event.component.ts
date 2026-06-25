@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Helper } from '../../../../../core/services/helper';
-import { AgTableDataRenderEvent } from 'ag-table';
+import { AgTableDataRenderEvent } from 'projects/lib/public_api';
 
 @Component({
     selector: 'app-others-data-render-event',
@@ -20,8 +20,8 @@ export class OthersDataRenderEventComponent implements OnInit {
 
     private initialDate = new Date();
 
-    public strHtml: string;
-    public strTs: string;
+    public strHtml!: string;
+    public strTs!: string;
 
     constructor(
         private helper: Helper
@@ -147,7 +147,7 @@ export class DemoComponent {
                 item.loading = true;
                 let time = this.helper.randomInterval(1000, 2500);
                 setTimeout(() => {
-                    this.initialDate = this.helper.setDaysToDate(this.initialDate, -1);
+                    this.initialDate = this.helper.setDaysToDate(this.initialDate, -1) as Date;
                     item.dateRef = this.helper.toAmericanDate(this.initialDate);
                     item.loading = false;
                 }, time);

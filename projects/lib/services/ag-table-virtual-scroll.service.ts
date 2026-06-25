@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Helper } from './helper';
 import { AgTableBodyComponent } from '../ag-table-body/ag-table-body.component';
 import { AgTableDataRenderEvent } from '../events/ag-table-data-render.event';
+import { AgTableComponent } from '../ag-table/ag-table.component';
 
 @Injectable()
 export class AgTableVirtualScrollService {
@@ -10,10 +11,10 @@ export class AgTableVirtualScrollService {
 	}
 
 	public defineItens(body: AgTableBodyComponent) {
-		let vs = body.virtualScroll;
-		let table = body.parent;
+		const vs = body.virtualScroll!;
+		const table = body.parent;
 
-		let dimensions = this.defineDimensions(body);
+		const dimensions = this.defineDimensions(body);
 
 		vs.paddingScroll = dimensions.paddingTop;
 		vs.totalHeightContent = dimensions.heightAllItems;
@@ -31,11 +32,11 @@ export class AgTableVirtualScrollService {
 	}
 
 	public onScrollChange(body: AgTableBodyComponent) {
-		let vs = body.virtualScroll;
-        for (let i = 0; i < body.itemsContainerEl.nativeElement.children.length; i++) {
-            let children = body.itemsContainerEl.nativeElement.children[i];
-            let realIndex = vs.currentStartIndex + i;
-            if (!vs.previousItemsHeight[realIndex])
+		const vs = body.virtualScroll!;
+		for (let i = 0; i < body.itemsContainerEl.nativeElement.children.length; i++) {
+			let children = body.itemsContainerEl.nativeElement.children[i];
+			let realIndex = vs.currentStartIndex + i;
+			if (!vs.previousItemsHeight[realIndex])
 				vs.previousItemsHeight[realIndex] = children.getBoundingClientRect().height;
 		}
 
@@ -43,65 +44,65 @@ export class AgTableVirtualScrollService {
 	}
 
 	public reset(body: AgTableBodyComponent) {
-		let vs = body.virtualScroll;
+		const vs = body.virtualScroll!;
 		vs.previousItemsHeight = [];
 		vs.totalHeightContent = 0;
 		vs.paddingScroll = 0;
 	}
 
 	defineDimensions(body: AgTableBodyComponent) {
-		let vs = body.virtualScroll;
-		let rowHeight = parseInt(this.helper.onlyNumbers(body.rowHeight));
+		const vs = body.virtualScroll!;
+		const rowHeight = parseInt(this.helper.onlyNumbers(body.rowHeight));
 
-		let obj = {
+		const obj = {
 			paddingTop: 0,
 			itemsThatAreGone: 0,
 			heightAllItems: 0
 		};
 
-		obj.heightAllItems = body.parent.filteredItems.reduce((prev, curr, i) => {
-			let height = vs.previousItemsHeight[i];
+		obj.heightAllItems = (body.parent as AgTableComponent).filteredItems.reduce((prev, curr, i) => {
+			const height = vs.previousItemsHeight[i];
 			return prev + (height ? height : rowHeight);
 		}, 0);
 
-        if (vs.currentSrollTop >= rowHeight) {
-            let paddingTop = 0;
-            let itemsThatAreGone = 0;
-            let initialScroll = vs.currentSrollTop;
+		if (vs.currentSrollTop >= rowHeight) {
+			let paddingTop = 0;
+			let itemsThatAreGone = 0;
+			let initialScroll = vs.currentSrollTop;
 
-            for (let h of vs.previousItemsHeight) {
-                let height = h ? h : rowHeight;
-                if (initialScroll >= height) {
-                    paddingTop += height;
-                    initialScroll -= height;
-                    itemsThatAreGone++;
-                }
-                else
-                    break;
-            }
+			for (let h of vs.previousItemsHeight) {
+				let height = h ? h : rowHeight;
+				if (initialScroll >= height) {
+					paddingTop += height;
+					initialScroll -= height;
+					itemsThatAreGone++;
+				}
+				else
+					break;
+			}
 
-            obj.paddingTop = paddingTop;
-            obj.itemsThatAreGone = itemsThatAreGone;
-        }
+			obj.paddingTop = paddingTop;
+			obj.itemsThatAreGone = itemsThatAreGone;
+		}
 
 		return obj;
 	}
 
 	public preparePreviousItemAfterDataChange(body: AgTableBodyComponent) {
-		let table = body.parent;
-		let vs = body.virtualScroll;
+		const table = body.parent;
+		const vs = body.virtualScroll!;
 
-        if (!table.infinity)
-            vs.previousItemsHeight = new Array(table.filteredItems.length).fill(null);
-        else {
-            let anothers = table.filteredItems.length - vs.previousItemsHeight.length;
-            if (anothers > 0)
-                vs.previousItemsHeight = [ ...vs.previousItemsHeight, ...(new Array<number>(anothers).fill(null))];
-        }
+		if (!table.infinity)
+			vs.previousItemsHeight = new Array(table.filteredItems.length).fill(null);
+		else {
+			let anothers = table.filteredItems.length - vs.previousItemsHeight.length;
+			if (anothers > 0)
+				vs.previousItemsHeight = [...vs.previousItemsHeight, ...(Array.from({ length: anothers }).fill(null))] as number[];
+		}
 	}
 
 	public canApplyVirtualScroll(body: AgTableBodyComponent) {
-		let vs = body.virtualScroll;
+		const vs = body.virtualScroll!;
 
 		if (body.parent && body.parent._height !== 'auto')
 			return true;
@@ -117,9 +118,9 @@ export class AgTableVirtualScrollService {
 	}
 
 	public howManyCanAppear(body: AgTableBodyComponent) {
-		let vs = body.virtualScroll;
-		let rowHeight = parseInt(this.helper.onlyNumbers(body.rowHeight));
-		let height = vs.height ? vs.height : parseInt(this.helper.onlyNumbers(body.parent._height));
+		const vs = body.virtualScroll!;
+		const rowHeight = parseInt(this.helper.onlyNumbers(body.rowHeight));
+		const height = vs.height ? vs.height : parseInt(this.helper.onlyNumbers(body.parent._height));
 		return Math.floor((isNaN(height) ? 0 : height) / rowHeight) + 1;
 	}
 }

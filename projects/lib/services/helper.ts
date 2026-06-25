@@ -31,7 +31,7 @@ export class Helper {
 		return Math.max(number, min);
 	}
 
-	onlyNumbers(text: string, exceptions: string[] = null) {
+	onlyNumbers(text: string, exceptions?: string[]) {
 		if (!isNullOrUndefined(text)) {
 			let expression = (exceptions && exceptions.length) ? ('[^\\d|' + exceptions.join('|') + ']') : '[^\\d]';
 			return text.replace(new RegExp(expression, 'g'), '');
@@ -64,7 +64,7 @@ export class Helper {
 	}
 
 	toAmericanDate(date: string | Date, separator: string = '-'): string {
-		if (date instanceof Date) date = this.dateToStr(date);
+		if (date instanceof Date) date = this.dateToStr(date) as string;
 		if (this.dateIsValid(date)) {
 			let dateStr = date as string;
 			if (dateStr && (dateStr.includes('-') || dateStr.includes('/'))) {
@@ -85,7 +85,7 @@ export class Helper {
 		return date as string;
 	}
 
-	strToDate(date: string | Date, dateFormat?: string): Date {
+	strToDate(date: string | Date, dateFormat?: string): Date | null {
 		if (typeof date === 'string' && (date.length >= 8 || dateFormat)) {
 			let dateStr = (date as string);
 			if (dateStr && (dateStr.includes('-') || dateStr.includes('/'))) {
@@ -139,23 +139,23 @@ export class Helper {
 		return null;
 	}
 
-	setDaysToDate(date: Date | string, days: number): Date {
-		if (typeof date === 'string') date = this.strToDate(date);
-		else if (date) date = this.copyDate(date);
-
-		if (date && typeof days === 'number')
-			return new Date(date.setDate(date.getDate() + days));
+	setDaysToDate(date: Date | string, days: number): Date | string {
+		if (typeof date === 'string') date = this.strToDate(date) as Date;
+		else {
+			if (date) date = this.copyDate(date);
+			if (date && typeof days === 'number') return new Date(date.setDate(date.getDate() + days));
+		}
 
 		return date;
 	}
 
-	dateToStr(date: Date | string, format: string = 'dd/MM/yyyy'): string {
+	dateToStr(date: Date | string, format: string = 'dd/MM/yyyy'): null | string {
 		if (!format) format = 'dd/MM/yyyy';
 		format = format.replace(/mm/g, 'MM');
 
 		if (date) {
 			if (typeof date === 'string')
-				date = this.strToDate(date);
+				date = this.strToDate(date) as Date;
 
 			return this.datePipe.transform(date, format);
 		}
@@ -172,21 +172,21 @@ export class Helper {
 	}
 
 	getYearOfDate(date: Date | string) {
-		date = this.strToDate(date);
+		date = this.strToDate(date) as Date;
 
 		if (date) return date.getFullYear();
 		return 0;
 	}
 
 	getMonthOfDate(date: Date | string) {
-		date = this.strToDate(date);
+		date = this.strToDate(date) as Date;
 
 		if (date) return date.getMonth() + 1;
 		return 0;
 	}
 
 	getDayOfDate(date: Date | string) {
-		date = this.strToDate(date);
+		date = this.strToDate(date) as Date;
 
 		if (date) return date.getDate();
 		return 0;
@@ -198,8 +198,8 @@ export class Helper {
 		return date;
 	}
 
-	dateFormat(date: Date | string, format: string = 'dd/MM/yyyy'): string {
-		date = this.strToDate(date);
+	dateFormat(date: Date | string, format: string = 'dd/MM/yyyy'): null | string {
+		date = this.strToDate(date) as Date;
 
 		if (date) return this.datePipe.transform(date, format);
 
@@ -217,7 +217,7 @@ export class Helper {
 		else return obj;
 	}
 
-	copyToClipboard(inputElement) {
+	copyToClipboard(inputElement: HTMLInputElement) {
 		inputElement.focus();
 		inputElement.select();
 		let successful = document.execCommand('copy');
@@ -252,7 +252,7 @@ export class Helper {
 		return 0;
 	}
 
-	public stringReplace(source, str, strToRep){
+	public stringReplace(source: string, str: string, strToRep: string){
 		return source.replace(str, strToRep).toString();
 	}
 }

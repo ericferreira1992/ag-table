@@ -1,9 +1,9 @@
 
 <section [style.height]="parent?.items.length ? '100%' : 'auto'">
-    <div class="total-padding" [style.height.px]="virtualScroll.totalHeightContent"></div>
+    <div class="total-padding" [style.height.px]="virtualScroll?.totalHeightContent ?? 0"></div>
     <div #itemsContainer class="scrollable-content"
         [class.p-relative]="parent?.height === 'auto'"
-        [style.transform]="'translateY(' + virtualScroll.paddingScroll + 'px)'"
+        [style.transform]="'translateY(' + (virtualScroll?.paddingScroll ?? 0) + 'px)'"
         [style.top.px]="(parent?.infinity && parent?.loading && parent?.currentPage > 1) ? -80 : 0"
     >
         <ng-content></ng-content>

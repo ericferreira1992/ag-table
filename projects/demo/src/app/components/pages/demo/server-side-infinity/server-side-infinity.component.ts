@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AgTableEvent } from 'ag-table';
+import { AgTableEvent } from 'projects/lib/public_api';
 import { Helper } from '../../../../core/services/helper';
 import { OrderByPipe } from '../../../../core/pipes/order-by.pipe';
 
@@ -23,8 +23,8 @@ export class ServerSideInfinityComponent implements OnInit {
     public dataLength: number = 0;
     public loading: boolean = false;
 
-    public strHtml: string;
-    public strTs: string;
+    public strHtml!: string;
+    public strTs!: string;
 
     constructor(
         private helper: Helper
@@ -190,14 +190,14 @@ export class DemoComponent {
             else
                 type = 1;
 
-            date = this.helper.setDaysToDate(date, -1);
+            date = this.helper.setDaysToDate(date, -1) as Date;
             return { id: `${number}`, name: `Teste ${number}`, dateRef: this.helper.toAmericanDate(date), type: `Type ${type}`, height: Math.floor(Math.random() * 100) };
         });
     }
 
-    getData(event: AgTableEvent = null) {
+    getData(event?: AgTableEvent) {
         if (!this.loading) {
-            if (!this.dataAreOver || event.resetData) {
+            if (!this.dataAreOver || event?.resetData) {
                 this.loading = true;
 
                 if (!event)
@@ -210,8 +210,8 @@ export class DemoComponent {
                 setTimeout(() => {
                     let _dataItems = this.allDataItems.filter(item => {
                         let ok = true;
-                        for (let field in event.filters) {
-                            let filterValue = event.filters[field];
+                        for (let field in event?.filters) {
+                            let filterValue = event?.filters[field];
                             if (filterValue) {
                                 filterValue = (filterValue.toString() as string).toUpperCase();
 
@@ -229,11 +229,11 @@ export class DemoComponent {
                     });
                     this.dataLength = _dataItems.length;
 
-                    if (event.order)
+                    if (event?.order)
                         _dataItems = new OrderByPipe().transform(_dataItems, event.order.field, event.order.asc);
 
-                    let begin = (event.page - 1) * event.pageSize;
-                    let end = begin + event.pageSize;
+                    let begin = ((event?.page ?? 1) - 1) * (event?.pageSize ?? 1);
+                    let end = begin + (event?.pageSize ?? 1);
 
                     _dataItems = _dataItems.slice(begin, end);
 

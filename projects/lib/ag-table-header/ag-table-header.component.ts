@@ -6,224 +6,224 @@ import { AgTableColComponent } from '../ag-table-col/ag-table-col.component';
 import { Helper, isNullOrUndefined } from '../services/helper';
 
 @Component({
-    selector: 'ag-table-header',
-    templateUrl: './ag-table-header.component.html',
-    standalone: false
+  selector: 'ag-table-header',
+  templateUrl: './ag-table-header.component.html',
+  standalone: false
 })
 export class AgTableHeaderComponent implements OnInit, OnDestroy, AfterViewInit {
-	@HostBinding('class.ag-table-header') public class: boolean = true;
+  @HostBinding('class.ag-table-header') public class: boolean = true;
 
-	@ContentChildren(AgTableColComponent) private queryCols: QueryList<AgTableColComponent>;
+  @ContentChildren(AgTableColComponent) private queryCols!: QueryList<AgTableColComponent>;
 
-	public get cols() { return this.queryCols ? this.queryCols.toArray() : []; }
+  public get cols() { return this.queryCols ? this.queryCols.toArray() : []; }
 
-	public get height() { return (this.el) ? `${this.el.children[0].clientHeight}px` : '0px'; }
+  public get height() { return (this.el) ? `${this.el.children[0].clientHeight}px` : '0px'; }
 
-	public get visible() { return (this.elRef && this.el) ? this.el.style.visibility !== 'hidden' : false; }
-	public set visible(value: boolean) {
-		if ((this.elRef && this.el))
-			this.el.style.visibility = (value ? '' : 'hidden');
-	}
+  public get visible() { return (this.elRef && this.el) ? this.el.style.visibility !== 'hidden' : false; }
+  public set visible(value: boolean) {
+    if ((this.elRef && this.el))
+      this.el.style.visibility = (value ? '' : 'hidden');
+  }
 
-	public parent: any;
+  public parent: any;
 
-	public dictionary = TRANSLATION;
+  public dictionary = TRANSLATION;
 
-	public frmFilter: FormGroup;
+  public frmFilter: FormGroup;
 
-	public colSorting: { col: AgTableColComponent, asc: boolean } = null;
+  public colSorting?: { col: AgTableColComponent, asc: boolean };
 
-	public get filterCtrls(): { [key: string]: FormControl } {
-		return ((this.frmFilter && this.frmFilter.controls) ? this.frmFilter.controls : null) as { [key: string]: FormControl };
-	}
-	
-	public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
+  public get filterCtrls(): { [key: string]: FormControl } {
+    return ((this.frmFilter && this.frmFilter.controls) ? this.frmFilter.controls : null) as { [key: string]: FormControl };
+  }
 
-	constructor(
-		public elRef: ElementRef<HTMLElement>,
-		private helper: Helper,
-		private fb: FormBuilder
-	) {
-		this.frmFilter = this.fb.group({ none: [null] });
-	}
+  public get el() { return (this.elRef && this.elRef.nativeElement) ? this.elRef.nativeElement : null; }
 
-	ngOnInit() {
-	}
+  constructor(
+    public elRef: ElementRef<HTMLElement>,
+    private helper: Helper,
+    private fb: FormBuilder
+  ) {
+    this.frmFilter = this.fb.group({ none: [null] });
+  }
 
-	ngAfterViewInit() {
-	}
+  ngOnInit() {
+  }
 
-	private makeForm() {
-		let objControls = {};
+  ngAfterViewInit() {
+  }
 
-		this.cols.forEach((col) => {
-			if (col.canFilter) {
-				if (col.field) {
-					objControls[col.field] = col.makeFormControl();
+  private makeForm() {
+    let objControls = {} as { [keyt: string]: FormControl<any> };
 
-					if (col.disableFilter) {
-						objControls[col.field].disable();
-					}
-				}
-				else {
-					(col.customFilter as { field: string, mode?: AgTableFilterMode, value?: any }[]).forEach((custom) => {
-						objControls[custom.field] = col.makeFormControl(custom.value ? custom.value : null);
+    this.cols.forEach((col) => {
+      if (col.canFilter) {
+        if (col.field) {
+          objControls[col.field] = col.makeFormControl();
 
-						if (col.disableFilter) {
-							objControls[col.field].disable();
-						}
-					});
-				}
-			}
-		});
+          if (col.disableFilter) {
+            objControls[col.field].disable();
+          }
+        }
+        else {
+          (col.customFilter as { field: string, mode?: AgTableFilterMode, value?: any }[]).forEach((custom) => {
+            objControls[custom.field] = col.makeFormControl(custom.value ? custom.value : null);
 
-		if (Object.keys(objControls).length === 0)
-			objControls['none'] = this.fb.control(null);
+            if (col.disableFilter) {
+              objControls[col.field].disable();
+            }
+          });
+        }
+      }
+    });
 
-		this.frmFilter = this.fb.group(objControls);
+    if (Object.keys(objControls).length === 0)
+      objControls['none'] = this.fb.control(null);
 
-		if (this.parent && this.parent.loading)
-			this.frmFilter.disable();
-	}
+    this.frmFilter = this.fb.group(objControls);
 
-	public enableForm() {
-		this.cols.forEach((col) => {
-			if (col.canFilter) {
-				if (col.field)
-					this.checkFilterStatus(col.field, col);
-				else if (col.customFilter)
-					(col.customFilter as { field: string, mode?: AgTableFilterMode, value?: any }[]).forEach((custom) => {
-						this.checkFilterStatus(custom.field, col);
-					});
-			}
-		});
-	}
+    if (this.parent && this.parent.loading)
+      this.frmFilter.disable();
+  }
 
-	private checkFilterStatus(field: string, col: AgTableColComponent) {
-		let control = this.filterCtrls[field];
+  public enableForm() {
+    this.cols.forEach((col) => {
+      if (col.canFilter) {
+        if (col.field)
+          this.checkFilterStatus(col.field, col);
+        else if (col.customFilter)
+          (col.customFilter as { field: string, mode?: AgTableFilterMode, value?: any }[]).forEach((custom) => {
+            this.checkFilterStatus(custom.field, col);
+          });
+      }
+    });
+  }
 
-		if (control) {
-			if (col.disableFilter)
-				control.disable();
-			else
-				control.enable();
-		}
-	}
+  private checkFilterStatus(field: string, col: AgTableColComponent) {
+    let control = this.filterCtrls[field];
 
-	private checkDefaultValue(field: string, value: string, col: AgTableColComponent) {
-		let control = this.filterCtrls[field];
+    if (control) {
+      if (col.disableFilter)
+        control.disable();
+      else
+        control.enable();
+    }
+  }
 
-		if (control && value)
-			control.setValue(col.filterValue);
-	}
+  private checkDefaultValue(field: string, value: string, col: AgTableColComponent) {
+    let control = this.filterCtrls[field];
 
-	public onRender(parent: any) {
-		this.parent = parent;
-		this.configureChildrens();
-		this.queryCols.changes.subscribe(this.configureChildrens.bind(this));
-		this.onBodyWidthChange(this.parent.lastBodyWidth);
-	}
+    if (control && value)
+      control.setValue(col.filterValue);
+  }
 
-	public configureChildrens() {
-		this.makeForm();
-		this.cols.forEach((col, index) => {
-			col.onRender(this, index);
+  public onRender(parent: any) {
+    this.parent = parent;
+    this.configureChildrens();
+    this.queryCols.changes.subscribe(this.configureChildrens.bind(this));
+    this.onBodyWidthChange(this.parent.lastBodyWidth);
+  }
 
-			if (col.field)
-				this.checkDefaultValue(col.field, col.filterValue, col);
-			else if (col.customFilter)
-				(col.customFilter as { field: string, mode?: AgTableFilterMode, value?: any }[]).forEach((custom) => {
-					this.checkDefaultValue(custom.field, custom.value, col);
-				});
-		});
+  public configureChildrens() {
+    this.makeForm();
+    this.cols.forEach((col, index) => {
+      col.onRender(this, index);
 
-		if (this.colSorting) {
-			if (this.parent.initialized)
-				this.parent.onSortChange();
-		}
-		else if (this.cols.some(x => x.sort === 'asc' || x.sort === 'desc')) {
-			let colSort = this.cols.find(x => x.sort === 'asc' || x.sort === 'desc');
-			this.colSorting = {
-				col: colSort,
-				asc: colSort.sort === 'asc'
-			};
-			colSort.sort = null;
-			if (this.parent.initialized)
-				this.parent.onSortChange();
-		}
+      if (col.field)
+        this.checkDefaultValue(col.field, col.filterValue, col);
+      else if (col.customFilter)
+        (col.customFilter as { field: string, mode?: AgTableFilterMode, value?: any }[]).forEach((custom) => {
+          this.checkDefaultValue(custom.field, custom.value, col);
+        });
+    });
 
-		if (this.parent)
-			this.parent.definePaddingTop();
-	}
+    if (this.colSorting) {
+      if (this.parent.initialized)
+        this.parent.onSortChange();
+    }
+    else if (this.cols.some(x => x.sort === 'asc' || x.sort === 'desc')) {
+      const colSort = this.cols.find(x => x.sort === 'asc' || x.sort === 'desc');
+      this.colSorting = {
+        col: colSort!,
+        asc: colSort!.sort === 'asc'
+      };
+      colSort!.sort = undefined;
+      if (this.parent.initialized)
+        this.parent.onSortChange();
+    }
 
-	public getColByField(field: string) {
-		return this.cols.find(col => {
-			if (col.field)
-				return col.field === field;
-			else if (col.customFilter)
-				return (col.customFilter as any[]).some(x => x.field === field);
-			return false;
-		});
-	}
+    if (this.parent)
+      this.parent.definePaddingTop();
+  }
 
-	public getColFilterModeByField(field: string) {
-		let col = this.getColByField(field);
-		if (col) {
-			if (col.field)
-				return col.mode;
-			else if (col.customFilter) {
-				let customFilter = (col.customFilter as any[]).find(x => x.field === field);
-				if (customFilter)
-					return customFilter.mode;
-			}
-		}
+  public getColByField(field: string) {
+    return this.cols.find(col => {
+      if (col.field)
+        return col.field === field;
+      else if (col.customFilter)
+        return (col.customFilter as any[]).some(x => x.field === field);
+      return false;
+    });
+  }
 
-		return AgTableFilterMode.CONTAINS;
-	}
+  public getColFilterModeByField(field: string) {
+    let col = this.getColByField(field);
+    if (col) {
+      if (col.field)
+        return col.mode;
+      else if (col.customFilter) {
+        let customFilter = (col.customFilter as any[]).find(x => x.field === field);
+        if (customFilter)
+          return customFilter.mode;
+      }
+    }
 
-	public getFormDataModel() {
-		let formValue = this.frmFilter.value as { [key: string]: any };
-		let dataModel = {};
+    return AgTableFilterMode.CONTAINS;
+  }
 
-		for (let field in formValue) {
-			let value = formValue[field];
-			if (!isNullOrUndefined(value) && value !== '')
-				dataModel[field] = value;
-		}
+  public getFormDataModel() {
+    const formValue = this.frmFilter.value as { [key: string]: any };
+    const dataModel = {} as { [key: string]: any };
 
-		return dataModel;
-	}
+    for (const field in formValue) {
+      let value = formValue[field];
+      if (!isNullOrUndefined(value) && value !== '')
+        dataModel[field] = value;
+    }
 
-	public onBodyWidthChange(currentWidth: string) {
-		if (currentWidth && this.el) {
-			let currentWidthNumber = this.helper.onlyNumberAndToFloat(currentWidth);
-			let minWidthIsDefined = !!(this.parent && this.parent.minWidth);
-			let headerWidth = this.el.clientWidth;
+    return dataModel;
+  }
 
-			if (minWidthIsDefined) {
-				this.el.style.width = currentWidth;
-				headerWidth = this.parent.el.clientWidth;
-			}
-			else
-				this.el.style.width = '';
+  public onBodyWidthChange(currentWidth: string) {
+    if (currentWidth && this.el) {
+      let currentWidthNumber = this.helper.onlyNumberAndToFloat(currentWidth);
+      let minWidthIsDefined = !!(this.parent && this.parent.minWidth);
+      let headerWidth = this.el.clientWidth;
 
-			if (this.cols.length > 0) {
-				this.cols.forEach(col => col.setWidth());
+      if (minWidthIsDefined) {
+        this.el.style.width = currentWidth;
+        headerWidth = this.parent.el.clientWidth;
+      }
+      else
+        this.el.style.width = '';
 
-				let lastCol = this.cols[this.cols.length - 1];
+      if (this.cols.length > 0) {
+        this.cols.forEach(col => col.setWidth());
 
-				if (headerWidth > currentWidthNumber) {
-					this.el.style.paddingRight = minWidthIsDefined ? '' : ((headerWidth - currentWidthNumber) + 'px');
-					lastCol.el.style.paddingRight = '0px';
-				}
-				else{
-					this.el.style.paddingRight = '';
-					lastCol.el.style.paddingRight = '';
-				}
-			}
-		}
-	}
+        const lastCol = this.cols[this.cols.length - 1];
 
-	ngOnDestroy() {
-	}
+        if (headerWidth > currentWidthNumber) {
+          this.el.style.paddingRight = minWidthIsDefined ? '' : ((headerWidth - currentWidthNumber) + 'px');
+          lastCol.el!.style.paddingRight = '0px';
+        }
+        else {
+          this.el.style.paddingRight = '';
+          lastCol.el!.style.paddingRight = '';
+        }
+      }
+    }
+  }
+
+  ngOnDestroy() {
+  }
 }
