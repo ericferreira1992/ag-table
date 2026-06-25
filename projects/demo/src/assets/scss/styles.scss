@@ -1,9 +1,9 @@
-@import 'variables';
+@use 'animate.css/animate.min.css';
+@use 'variables' as *;
 
 @import '../../../../lib/scss/style.scss';
 @include ag-table-core($colorPrimary);
 
-@import '~animate.css/animate.min.css';
 .animated {
 	-webkit-animation-duration: 250ms;
 	animation-duration: 250ms;

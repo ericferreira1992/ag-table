@@ -1,4 +1,4 @@
-@import '../../../../assets/scss/variables';
+@use '../../../../assets/scss/variables' as *;
 
 :host {
     .get-started-link {
@@ -43,7 +43,7 @@
     > .main-container {
         padding-top: 120px;
 
-        p { 
+        p {
             font-size: 15px;
             text-align: justify;
         }
